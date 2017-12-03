@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Http\Models\Admin;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public $primaryKey = 'uid';
     /**
      * The attributes that are mass assignable.
      *

@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::group(['namespace' => 'Auth'], function () {
+        Route::get('login', 'LoginController@showLoginForm')->name('login');
+        Route::post('login', 'LoginController@login');
+        Route::post('logout', 'LoginController@logout')->name('logout');
+    });
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::group(['middleware' => 'auth:admin'], function () {
+        Route::get('/', 'IndexController@index');
+
+        Route::resource('type','TypeController');
+    });
+
+});

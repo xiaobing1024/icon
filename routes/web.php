@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Home'], function (){
+    Route::get('/', 'IndexController@index');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -26,7 +26,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/', 'IndexController@index');
 
-        Route::resource('type','TypeController');
+        Route::resource('type', 'TypeController', ['except' => ['show', 'destroy']]);
+        Route::resource('icon', 'IconController', ['except' => ['show', 'destroy']]);
     });
 
 });

@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Models\Type;
 use App\Http\Requests\Admin\TypeRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TypeController extends Controller
 {
     private $formData = [
-        'name'  => '',
-        'pid'   => 0,
+        'name' => '',
+        'pid' => 0,
         'order' => 0,
     ];
 
@@ -36,13 +35,7 @@ class TypeController extends Controller
             return redirect('admin/type')->with('msg', '成功');
         }
 
-
         return back()->withInput($input)->withErrors('添加失败');
-    }
-
-    public function show(Type $type)
-    {
-        //
     }
 
     public function edit(Type $type)
@@ -65,11 +58,6 @@ class TypeController extends Controller
             return redirect('admin/type')->with('msg', '成功');
         }
         return back()->withInput($input)->withErrors('修改失败');
-    }
-
-    public function destroy(Type $type)
-    {
-        //
     }
 
     public function types($bl = false, $id = 0)

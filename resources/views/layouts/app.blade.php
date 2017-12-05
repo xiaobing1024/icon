@@ -73,7 +73,6 @@
 
         <div class="container">
             <div class="row">
-                <icselect></icselect>
                 @yield('content')
             </div>
         </div>

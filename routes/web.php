@@ -13,6 +13,7 @@
 
 Route::group(['namespace' => 'Home'], function (){
     Route::get('/', 'IndexController@index');
+    Route::post('/make_icon', 'IndexController@makeIcon');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

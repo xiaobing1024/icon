@@ -987,7 +987,7 @@ window.Vue = __webpack_require__(35);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('icselect', __webpack_require__(38));
+Vue.component('ok-checkbox', __webpack_require__(38));
 
 var app = new Vue({
   el: '#app'
@@ -42709,7 +42709,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\icselect.vue"
+Component.options.__file = "resources\\assets\\js\\components\\OkCheckbox.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -42719,9 +42719,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-44771ded", Component.options)
+    hotAPI.createRecord("data-v-1964b614", Component.options)
   } else {
-    hotAPI.reload("data-v-44771ded", Component.options)
+    hotAPI.reload("data-v-1964b614", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -42857,21 +42857,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    prop: {},
+    props: {
+        input_name: {
+            type: String,
+            default: 'check'
+        },
+        lists: {
+            type: Array,
+            default: function _default() {
+                return [{ 'id': 2, 'name': 'iOS' }];
+            }
+        }
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = this.lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var value = _step.value;
+
+                this.ids.push(value.id);
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
+        this.last = this.lists[0].id;
+        this.checks.push(this.last);
     },
     data: function data() {
         return {
-            datas: {
-                'a': 'aaa',
-                'b': 'bbb',
-                'ccc': 'ccc'
-            },
-            checked: []
+            all: false,
+            checks: [],
+            last: '',
+            ids: []
         };
+    },
+
+    methods: {
+        allClick: function allClick() {
+            this.checks = this.all ? this.ids : [this.last];
+        },
+        itemClick: function itemClick() {
+            var index = this.checks.length - 1;
+
+            if (index > -1) {
+                this.last = this.checks[index];
+            }
+
+            if (this.checks.length < 1) {
+                this.checks = [this.last];
+            }
+
+            this.all = !(this.checks.length < this.lists.length);
+        }
     }
 });
 
@@ -42885,56 +42945,101 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "example-3" } },
     [
-      _vm._l(_vm.datas, function(item, k) {
-        return [
+      _c("div", { staticClass: "checkbox" }, [
+        _c("label", [
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.checked,
-                expression: "checked"
+                value: _vm.all,
+                expression: "all"
               }
             ],
-            attrs: { type: "checkbox", id: "jack" },
+            attrs: { type: "checkbox", value: "all" },
             domProps: {
-              value: k,
-              checked: Array.isArray(_vm.checked)
-                ? _vm._i(_vm.checked, k) > -1
-                : _vm.checked
+              checked: Array.isArray(_vm.all)
+                ? _vm._i(_vm.all, "all") > -1
+                : _vm.all
             },
             on: {
-              change: function($event) {
-                var $$a = _vm.checked,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = k,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.checked = $$a.concat([$$v]))
+              change: [
+                function($event) {
+                  var $$a = _vm.all,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "all",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.all = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.all = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                    }
                   } else {
-                    $$i > -1 &&
-                      (_vm.checked = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
+                    _vm.all = $$c
                   }
-                } else {
-                  _vm.checked = $$c
-                }
-              }
+                },
+                _vm.allClick
+              ]
             }
           }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "jack" } }, [_vm._v(_vm._s(item))])
-        ]
-      }),
+          _vm._v("\n            全选\n        ")
+        ])
+      ]),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", [_vm._v("Checked names: " + _vm._s(_vm.checked))])
+      _vm._l(_vm.lists, function(v) {
+        return _c("div", { staticClass: "checkbox" }, [
+          _c("label", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.checks,
+                  expression: "checks"
+                }
+              ],
+              attrs: { type: "checkbox", name: _vm.input_name },
+              domProps: {
+                value: v.id,
+                checked: Array.isArray(_vm.checks)
+                  ? _vm._i(_vm.checks, v.id) > -1
+                  : _vm.checks
+              },
+              on: {
+                change: [
+                  function($event) {
+                    var $$a = _vm.checks,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = v.id,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.checks = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.checks = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.checks = $$c
+                    }
+                  },
+                  function($event) {
+                    _vm.itemClick()
+                  }
+                ]
+              }
+            }),
+            _vm._v("\n            " + _vm._s(v.name) + "\n        ")
+          ])
+        ])
+      })
     ],
     2
   )
@@ -42945,7 +43050,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-44771ded", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1964b614", module.exports)
   }
 }
 

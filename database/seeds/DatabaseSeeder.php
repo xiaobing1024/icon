@@ -14,6 +14,14 @@ class DatabaseSeeder extends Seeder
         if (!App::isLocal()) {
             exit('你不会是想被开除吧 ?');
         }
-        // $this->call(UsersTableSeeder::class);
+
+        \App\Http\Models\Admin\User::create([
+            'name' => 'asd',
+            'email' => 'asd@asd.com',
+            'password' => bcrypt('asdasd'),
+        ]);
+
+        $this->call(TypeSeeder::class);
+        $this->call(IconSeeder::class);
     }
 }

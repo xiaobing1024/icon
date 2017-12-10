@@ -35,7 +35,15 @@ class TypeSeeder extends Seeder
             [
                 'name' => 'iWatch',
                 'pid' => 1,
-            ]
+            ],
+            [
+                'name' => 'webApp',
+                'pid' => 1,
+            ],
+            [
+                'name' => 'windowsPhone',
+                'pid' => 1,
+            ],
         ]);
     }
 }

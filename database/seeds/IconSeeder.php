@@ -64,10 +64,46 @@ class IconSeeder extends Seeder
 
     private $android = [
         [
-            'name' => 'asd/icon20@2x',
+            'name' => 'ic_launcher',
             'type' => 3,
-            'width' => 40,
-            'height' => 40,
+            'width' => 512,
+            'height' => 512,
+        ],
+        [
+            'name' => 'mipmap-hdpi/ic_launcher',
+            'type' => 3,
+            'width' => 72,
+            'height' => 72,
+        ],
+        [
+            'name' => 'mipmap-ldpi/ic_launcher',
+            'type' => 3,
+            'width' => 36,
+            'height' => 36,
+        ],
+        [
+            'name' => 'mipmap-mdpi/ic_launcher',
+            'type' => 3,
+            'width' => 48,
+            'height' => 48,
+        ],
+        [
+            'name' => 'mipmap-xhdpi/ic_launcher',
+            'type' => 3,
+            'width' => 96,
+            'height' => 96,
+        ],
+        [
+            'name' => 'mipmap-xxhdpi/ic_launcher',
+            'type' => 3,
+            'width' => 144,
+            'height' => 144,
+        ],
+        [
+            'name' => 'mipmap-xxxhdpi/ic_launcher',
+            'type' => 3,
+            'width' => 192,
+            'height' => 192,
         ],
     ];
 
@@ -221,9 +257,126 @@ class IconSeeder extends Seeder
         ],
     ];
 
+    private $webapp = [
+        [
+            'name' => 'android-touch-icon',
+            'type' => 8,
+            'width' => 58,
+            'height' => 58,
+        ],
+        [
+            'name' => 'apple-touch-icon-76x76',
+            'type' => 8,
+            'width' => 76,
+            'height' => 76,
+        ],
+        [
+            'name' => 'apple-touch-icon-120x120',
+            'type' => 8,
+            'width' => 120,
+            'height' => 120,
+        ],
+        [
+            'name' => 'apple-touch-icon-152x152',
+            'type' => 8,
+            'width' => 152,
+            'height' => 152,
+        ],
+        [
+            'name' => 'apple-touch-icon-180x180',
+            'type' => 8,
+            'width' => 180,
+            'height' => 180,
+        ],
+    ];
+
+    private $windowsphone = [
+        [
+            'name' => 'Logo',
+            'type' => 9,
+            'width' => 150,
+            'height' => 150,
+        ],
+        [
+            'name' => 'Logo210x210',
+            'type' => 9,
+            'width' => 210,
+            'height' => 210,
+        ],
+        [
+            'name' => 'Logo360x360',
+            'type' => 9,
+            'width' => 360,
+            'height' => 360,
+        ],
+        [
+            'name' => 'SmallLogo',
+            'type' => 9,
+            'width' => 44,
+            'height' => 44,
+        ],
+        [
+            'name' => 'SmallLogo62x62',
+            'type' => 9,
+            'width' => 62,
+            'height' => 62,
+        ],
+        [
+            'name' => 'SmallLogo106x106',
+            'type' => 9,
+            'width' => 160,
+            'height' => 160,
+        ],
+        [
+            'name' => 'Square71x71Logo',
+            'type' => 9,
+            'width' => 71,
+            'height' => 71,
+        ],
+        [
+            'name' => 'Square99x99Logo',
+            'type' => 9,
+            'width' => 99,
+            'height' => 99,
+        ],
+        [
+            'name' => 'Square170x170Logo',
+            'type' => 9,
+            'width' => 170,
+            'height' => 170,
+        ],
+        [
+            'name' => 'StoreLogo',
+            'type' => 9,
+            'width' => 50,
+            'height' => 50,
+        ],
+        [
+            'name' => 'StoreLogo70x70',
+            'type' => 9,
+            'width' => 70,
+            'height' => 70,
+        ],
+        [
+            'name' => 'StoreLogo120x120',
+            'type' => 9,
+            'width' => 120,
+            'height' => 120,
+        ],
+    ];
+
     public function run()
     {
-        $arr = array_merge($this->ios, $this->android, $this->wx, $this->qq, $this->ipad, $this->iwatch);
+        $arr = array_merge(
+            $this->ios,
+            $this->android,
+            $this->wx,
+            $this->qq,
+            $this->ipad,
+            $this->iwatch,
+            $this->webapp,
+            $this->windowsphone
+        );
         Icon::insert($arr);
     }
 }

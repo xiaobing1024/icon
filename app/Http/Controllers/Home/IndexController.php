@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Models\Type;
+use App\Http\Requests\Home\IconMakeRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Image, Zipper, Storage;
 
 class IndexController extends Controller
 {
@@ -14,9 +16,20 @@ class IndexController extends Controller
         return view('home.index', compact('types'));
     }
 
-    public function makeIcon(Request $request)
+    public function makeIcon(IconMakeRequest $request)
     {
-        dd($request->all());
-        return 'ak';
+        if (!$request->hasFile('img') || !$request->file('img')->isValid()) {
+            return back()->withErrors('文件上传失败');
+        }
+
+        $img = $request->file('img');
+
+        Image::make($img->path())
+            ->resize(200, 200)
+            ->save(public_path('asd.png'));
+
+        return redirect('/')->with([
+            'msg' => 'ok'
+        ]);
     }
 }

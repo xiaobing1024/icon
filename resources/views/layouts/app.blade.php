@@ -73,6 +73,28 @@
 
         <div class="container">
             <div class="row">
+                @if (session('msg'))
+                    <div class="alert alert-info">
+                        <a href="#" class="close" data-dismiss="alert">
+                            &times;
+                        </a>
+                        {{ session('msg') }}
+                    </div>
+                @endif
+
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">
+                            &times;
+                        </a>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
         </div>

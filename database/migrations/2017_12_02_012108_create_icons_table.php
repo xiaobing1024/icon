@@ -21,6 +21,7 @@ class CreateIconsTable extends Migration
             $table->unsignedSmallInteger('width')->default(0)->comment('宽');
             $table->unsignedSmallInteger('height')->default(0)->comment('高');
             $table->unsignedSmallInteger('radius')->default(0)->comment('圆角');
+            $table->unsignedTinyInteger('order')->default(0)->comment('排序id');
         });
     }
 

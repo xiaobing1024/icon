@@ -13,6 +13,7 @@
 
 Route::group(['namespace' => 'Home'], function (){
     Route::get('/', 'IndexController@index');
+    Route::get('/d', 'IndexController@download');
     Route::post('/make_icon', 'IndexController@makeIcon');
 });
 

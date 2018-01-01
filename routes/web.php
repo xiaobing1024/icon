@@ -14,6 +14,7 @@
 Route::group(['namespace' => 'Home'], function (){
     Route::get('/', 'IndexController@index');
     Route::get('/d', 'IndexController@download');
+    Route::get('/d/{path}', 'IndexController@downloadFile');
     Route::post('/make_icon', 'IndexController@makeIcon');
 });
 

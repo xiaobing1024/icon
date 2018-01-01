@@ -43,29 +43,29 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @guest
+                        {{--@guest--}}
                             {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        {{--@else--}}
+                            {{--<li class="dropdown">--}}
+                                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">--}}
+                                    {{--{{ Auth::user()->name }} <span class="caret"></span>--}}
+                                {{--</a>--}}
 
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                                {{--<ul class="dropdown-menu">--}}
+                                    {{--<li>--}}
+                                        {{--<a href="{{ route('logout') }}"--}}
+                                            {{--onclick="event.preventDefault();--}}
+                                                     {{--document.getElementById('logout-form').submit();">--}}
+                                            {{--Logout--}}
+                                        {{--</a>--}}
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
+                                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+                                            {{--{{ csrf_field() }}--}}
+                                        {{--</form>--}}
+                                    {{--</li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
+                        {{--@endguest--}}
                     </ul>
                 </div>
             </div>
@@ -73,15 +73,7 @@
 
         <div class="container">
             <div class="row">
-                @if (session('msg'))
-                    <div class="alert alert-info">
-                        <a href="#" class="close" data-dismiss="alert">
-                            &times;
-                        </a>
-                        {{ session('msg') }}
-                    </div>
-                @endif
-
+                @include('layouts.alert')
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <a href="#" class="close" data-dismiss="alert">

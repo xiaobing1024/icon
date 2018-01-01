@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
             exit('你不会是想被开除吧 ?');
         }
 
-        \App\Http\Models\Admin\User::create([
-            'name' => 'asd',
-            'email' => 'asd@asd.com',
-            'password' => bcrypt('asdasd'),
-        ]);
-
-        $this->call(TypeSeeder::class);
+//        \App\Http\Models\Admin\User::create([
+//            'name' => 'asd',
+//            'email' => 'asd@asd.com',
+//            'password' => bcrypt('asdasd'),
+//        ]);
+//
+//        $this->call(TypeSeeder::class);
         $this->call(IconSeeder::class);
     }
 }

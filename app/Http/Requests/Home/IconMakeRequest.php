@@ -23,6 +23,7 @@ class IconMakeRequest extends Request
     public function messages()
     {
         return [
+            'img.required' => '请先上传图片',
             'img.image' => '上传文件必须是图片',
             'img.max' => '图片大小不能超过3M'
         ];

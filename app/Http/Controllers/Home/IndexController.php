@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Models\Icon;
+use App\Http\Models\Temp;
 use App\Http\Models\Type;
 use App\Http\Requests\Home\IconMakeRequest;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class IndexController extends Controller
             $i = Image::make($img->path())
                 ->resize($icon->width, $icon->height);
 
-//            if ($icon->radius > 0) {
+//            if ($icon->radius > 0) { todo 圆角处理
 //                $i->rad($icon->radius);
 //            }
 
@@ -64,6 +65,12 @@ class IndexController extends Controller
         Zipper::make($zip_path)
             ->add(glob(Storage::path($random_path) . '/*'))
             ->close();
+
+        Storage::deleteDirectory($random_path);
+
+        Temp::create([
+            'path' => $zip_path
+        ]);
 
         return redirect('/d')->with([
             'info' => '图片处理完成',

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 //        ]);
 //
 //        $this->call(TypeSeeder::class);
-        $this->call(IconSeeder::class);
+//        $this->call(IconSeeder::class);
+        $this->call(TempSeeder::class);
     }
 }

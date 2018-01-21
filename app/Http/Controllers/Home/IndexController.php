@@ -66,7 +66,7 @@ class IndexController extends Controller
             ->add(glob(Storage::path($random_path) . '/*'))
             ->close();
 
-        Storage::deleteDirectory($random_path);
+//        Storage::deleteDirectory($random_path);
 
         Temp::create([
             'path' => $zip_path

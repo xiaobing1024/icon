@@ -44,6 +44,10 @@ class TypeSeeder extends Seeder
                 'name' => 'windowsPhone',
                 'pid' => 1,
             ],
+            [
+                'name' => 'favicon',
+                'pid' => 1,
+            ],
         ]);
     }
 }

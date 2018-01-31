@@ -365,6 +365,39 @@ class IconSeeder extends Seeder
         ],
     ];
 
+    private $favicon = [
+        [
+            'name' => 'favicon16x16.ico',
+            'type' => 10,
+            'width' => 16,
+            'height' => 16,
+        ],
+        [
+            'name' => 'favicon32x32.ico',
+            'type' => 10,
+            'width' => 32,
+            'height' => 32,
+        ],
+        [
+            'name' => 'favicon48x48.ico',
+            'type' => 10,
+            'width' => 48,
+            'height' => 48,
+        ],
+        [
+            'name' => 'favicon64x64.ico',
+            'type' => 10,
+            'width' => 64,
+            'height' => 64,
+        ],
+        [
+            'name' => 'favicon128x128.ico',
+            'type' => 10,
+            'width' => 128,
+            'height' => 128,
+        ],
+    ];
+
     public function run()
     {
         $arr = array_merge(
@@ -375,7 +408,8 @@ class IconSeeder extends Seeder
             $this->ipad,
             $this->iwatch,
             $this->webapp,
-            $this->windowsphone
+            $this->windowsphone,
+            $this->favicon
         );
         Icon::insert($arr);
     }

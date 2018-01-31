@@ -32,6 +32,8 @@ class TypeController extends Controller
     {
         $input = $request->only(array_keys($this->formData));
         if (Type::create($request->only(array_keys($this->formData)))) {
+            $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name')->get()->toJson();
+            cache()->forever('icon_type_list_json', $types);
             return redirect('admin/type')->with('msg', '成功');
         }
 
@@ -55,6 +57,8 @@ class TypeController extends Controller
         $type->fill($input);
 
         if ($type->save()) {
+            $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name')->get()->toJson();
+            cache()->forever('icon_type_list_json', $types);
             return redirect('admin/type')->with('msg', '成功');
         }
         return back()->withInput($input)->withErrors('修改失败');

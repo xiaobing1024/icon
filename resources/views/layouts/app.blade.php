@@ -8,6 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -74,16 +76,10 @@
         <div class="container">
             <div class="row">
                 @include('layouts.alert')
-                @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert">
-                            &times;
-                        </a>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                @if ($errors->any())
+                    <div class="alert alert-danger col-sm-10 col-sm-offset-1 text-center">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>{{ $errors->first() }}</strong>
                     </div>
                 @endif
 

@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/', 'IndexController@index');
+        Route::get('/refresh_cache', 'IndexController@refreshCache');
 
         Route::resource('type', 'TypeController', ['except' => ['show', 'destroy']]);
         Route::resource('icon', 'IconController', ['except' => ['show', 'destroy']]);

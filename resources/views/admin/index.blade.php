@@ -8,5 +8,8 @@
         <li><a href="#" onclick="event.preventDefault();document.getElementById('cache-form').submit();">更新缓存</a>
             <form id="cache-form" action="{{ url('admin/refresh_cache') }}" style="display: none;"></form>
         </li>
+        <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">退出</a>
+            <form id="logout-form" action="{{ url('admin/logout') }}" method="post" style="display: none;">{{ csrf_field() }}</form>
+        </li>
     </ul>
 @endsection

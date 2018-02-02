@@ -2,7 +2,10 @@
 
 @section('css')
     <style>
-        a {
+        .btn-success {
+            margin-top: 30px;
+        }
+        .btn-primary {
             margin-top: 30px;
         }
     </style>
@@ -13,6 +16,8 @@
         @if (session()->has('path') && \Storage::disk('zip')->exists(session('path')))
             <a href="{{ url('/d/'.session('path')) }}" class="btn btn-block btn-lg btn-success">下载</a>
         @endif
-        <a href="{{ url('/') }}" class="btn btn-block btn-lg btn-primary">返回主页</a>
+        <div>
+            <a href="{{ url('/') }}" class="btn btn-block btn-lg btn-primary">返回主页</a>
+        </div>
     </div>
 @endsection

@@ -22,7 +22,7 @@ class Icon extends Model
     public function getPathInfoAttribute()
     {
         $path = pathinfo($this->getAttribute('name'));
-        $extension = array_key_exists('extension', $path) ? '.' . $path['extension'] : '.png';
+        $extension = array_key_exists('extension', $path) ? '' : '.png';
 
         return pathinfo($this->getRelationValue('type')->name . '/' . $this->getAttribute('name') . $extension);
     }

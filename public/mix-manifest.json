@@ -1,4 +1,12 @@
 {
-    "/js/app.js": "/js/app.js?id=0e55b43093c0c77f4085",
-    "/css/app.css": "/css/app.css?id=8b77a32655e2af70abdc"
+    "/js/app.js": "/js/app.js?id=2cb3cc622832c2bba218",
+    "/css/app.css": "/css/app.css?id=8b77a32655e2af70abdc",
+    "/js/all.js": "/js/all.js?id=787e18e3ed801a1ca1e9",
+    "/css/all.css": "/css/all.css?id=9d6fe3fbeff5671d4663",
+    "/image/input-checked.png": "/image/input-checked.png?id=fd47dfcf2306f3325a3a",
+    "/image/input-unchecked.png": "/image/input-unchecked.png?id=ab384a9e922d19cbad1c",
+    "/fonts/dropify.eot": "/fonts/dropify.eot?id=59365accee9608310ab4",
+    "/fonts/dropify.svg": "/fonts/dropify.svg?id=b321d818cc153b16e739",
+    "/fonts/dropify.ttf": "/fonts/dropify.ttf?id=1bedefb14a99fb9e04fe",
+    "/fonts/dropify.woff": "/fonts/dropify.woff?id=388b03d0d171d81b63ce"
 }

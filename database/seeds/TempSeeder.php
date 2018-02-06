@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \App\Http\Models\Temp;
 
 class TempSeeder extends Seeder
 {
@@ -11,7 +12,7 @@ class TempSeeder extends Seeder
      */
     public function run()
     {
-        $data = factory(\App\Http\Models\Temp::class)->times(5)->make();
-        \App\Http\Models\Temp::insert($data->toArray());
+        $data = factory(Temp::class)->times(5)->make();
+        Temp::insert($data->toArray());
     }
 }

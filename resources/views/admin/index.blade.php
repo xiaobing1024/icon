@@ -11,5 +11,8 @@
         <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">退出</a>
             <form id="logout-form" action="{{ url('admin/logout') }}" method="post" style="display: none;">{{ csrf_field() }}</form>
         </li>
+        <li>
+            <a href="{{url('/admin/phpinfo')}}">phpinfo</a>
+        </li>
     </ul>
 @endsection

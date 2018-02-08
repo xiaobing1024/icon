@@ -20,4 +20,8 @@ class IndexController extends Controller
 
         return redirect('admin')->with('success', '更新成功');
     }
+    public function phpinfo()
+    {
+        return view('admin.phpinfo');
+    }
 }

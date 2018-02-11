@@ -64,6 +64,9 @@
         </div>
     </div>
 
+<footer class="footer navbar-fixed-bottom ">
+    <div class="container"><a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">浙ICP备18004101号-1</a></div>
+</footer>
     <!-- Scripts -->
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('js')

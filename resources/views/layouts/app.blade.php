@@ -8,6 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="keyword" content="{{ cache_map('keyword', '')  }}">
+    <meta name="description" content="{{ cache_map('description', '') }}">
+    <meta name="author" content="{{ cache_map('author', '') }}">
+
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -32,7 +36,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ cache_map('title', config('app.name', 'Laravel')) }}
                     </a>
                 </div>
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Models\Admin;
 
-use Illuminate\Database\Eloquent\Model as Base;
+use App\Http\Models\Model;
 
-class Map extends Base
+class Map extends Model
 {
     public $timestamps = false;
 }

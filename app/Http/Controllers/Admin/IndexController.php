@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Models\Admin\Map;
 use App\Http\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class IndexController extends Controller
 {
@@ -17,6 +19,8 @@ class IndexController extends Controller
     {
         $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name')->get()->toArray();
         cache()->forever('icon_type_list_json', $types);
+
+        cache()->forever('map', Map::pluck('value', 'key')->toArray());
 
         return redirect('admin')->with('success', '更新成功');
     }

@@ -10,19 +10,24 @@ class MapSeeder extends Seeder
         Map::truncate();
         Map::insert([
             [
-                'key'   => 'title',
+                'key' => 'title',
                 'value' => 'bingoicon-app图标在线制作',
-                'type'  => 'meta'
+                'type' => 'meta'
             ],
             [
-                'key'   => 'keyword',
+                'key' => 'keyword',
                 'value' => '图标制作,图标在线制作,app图标制作,icon制作,iOS图标在线制作,安卓图标在线制作',
-                'type'  => 'meta'
+                'type' => 'meta'
             ],
             [
-                'key'   => 'description',
+                'key' => 'description',
                 'value' => '简单快速的图标在线制作,一键生成iOS,Android,微信开放平台,腾讯开放平台,favicon等多种图标',
-                'type'  => 'meta'
+                'type' => 'meta'
+            ],
+            [
+                'key' => 'author',
+                'value' => 'github.com@xiaobing1024',
+                'type' => 'meta'
             ],
         ]);
     }

@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::resource('type', 'TypeController', ['except' => ['show', 'destroy']]);
         Route::resource('icon', 'IconController', ['except' => ['show', 'destroy']]);
+        Route::resource('map', 'MapController', ['except' => ['show', 'destroy']]);
         Route::delete('temp/delete_path', 'TempController@deletePath');
         Route::resource('temp', 'TempController', ['only' => ['index', 'destroy']]);
         Route::get('/phpinfo','IndexController@phpinfo');

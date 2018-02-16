@@ -38,7 +38,7 @@
     </style>
     @yield('css')
 
-    {!! cache_map('baidu_code', '') !!}
+    <script>{!! cache_map('baidu_code', '') !!}</script>
 </head>
 <body>
     <div id="app">

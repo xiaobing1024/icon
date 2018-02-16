@@ -18,7 +18,27 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+    <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+    </style>
     @yield('css')
+
+    {!! cache_map('baidu_code', '') !!}
 </head>
 <body>
     <div id="app">
@@ -66,11 +86,13 @@
                 @yield('content')
             </div>
         </div>
-    </div>
 
-<footer class="footer navbar-fixed-bottom ">
-    <div class="container"><a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a></div>
-</footer>
+        <footer class="container-fluid footer foot-wrap">
+            <p align="center" style="margin-top: 20px;color:#878B91;">
+                <a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>
+            </p>
+        </footer>
+    </div>
     <!-- Scripts -->
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('js')

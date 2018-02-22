@@ -62,12 +62,10 @@ class IndexController extends Controller
 
         $zip_path = 'zip/' . $random_path . '.zip';
 
-        $z = Zipper::make($zip_path);
-
-        $z->add(glob(Storage::path($random_path) . '/*'));
-        dump(12);
-            $z->close();
-        dump(123);
+        Zipper::make($zip_path)
+            ->add(glob(Storage::path($random_path) . '/*'))
+            ->close();
+        
         Storage::deleteDirectory($random_path);
 
         Temp::create([

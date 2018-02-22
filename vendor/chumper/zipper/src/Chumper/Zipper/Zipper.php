@@ -541,14 +541,14 @@ class Zipper
     {
         // First go over the files in this directory and add them to the repository.
         foreach ($this->file->files($pathToDir) as $file) {
-            $this->addFile($pathToDir.'/'.basename($file));
+            $this->addFile($pathToDir.'/'.last(explode('/', $subfolder)));
         }
 
         // Now let's visit the subdirectories and add them, too.
         foreach ($this->file->directories($pathToDir) as $dir) {
             $old_folder = $this->currentFolder;
-            $this->currentFolder = empty($this->currentFolder) ? basename($dir) : $this->currentFolder.'/'.basename($dir);
-            $this->addDir($pathToDir.'/'.basename($dir));
+            $this->currentFolder = empty($this->currentFolder) ? last(explode('/', $subfolder)) : $this->currentFolder.'/'.last(explode('/', $subfolder));
+            $this->addDir($pathToDir.'/'.last(explode('/', $subfolder)));
             $this->currentFolder = $old_folder;
         }
     }

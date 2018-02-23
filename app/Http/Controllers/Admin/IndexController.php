@@ -12,6 +12,8 @@ class IndexController extends Controller
 {
     public function index()
     {
+        setlocale(LC_ALL, 'zh_CN.GBK');
+        dd(basename('/浪费的空间'));
         return view('admin.index');
     }
 

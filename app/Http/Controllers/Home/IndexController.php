@@ -62,9 +62,11 @@ class IndexController extends Controller
 
         $zip_path = 'zip/' . $random_path . '.zip';
 
+        setlocale(LC_ALL, 'zh_CN.GBK');
         Zipper::make($zip_path)
             ->add(glob(Storage::path($random_path) . '/*'))
             ->close();
+        setlocale(LC_ALL, '');
         
         Storage::deleteDirectory($random_path);
 

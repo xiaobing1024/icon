@@ -11,7 +11,9 @@
     <meta name="keyword" content="{{ cache_map('keyword', '')  }}">
     <meta name="description" content="{{ cache_map('description', '') }}">
     <meta name="author" content="{{ cache_map('author', '') }}">
-
+    @if (!empty(cache_map('baidu-site-verification', '')))
+        <meta name="baidu-site-verification" content="{{ cache_map('baidu-site-verification', '') }}" />
+    @endif
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <title>{{ config('app.name', 'Laravel') }}</title>

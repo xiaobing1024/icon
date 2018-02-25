@@ -79,10 +79,12 @@
             <div class="row">
                 @include('layouts.alert')
                 @if ($errors->any())
-                    <div class="alert alert-danger col-sm-10 col-sm-offset-1 text-center">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                    <div class="alert alert-danger">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong>{{ $errors->first() }}</strong>
                     </div>
+                </div>
                 @endif
 
                 @yield('content')

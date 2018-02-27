@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Home'], function (){
     Route::get('/d', 'IndexController@download');
     Route::get('/d/{path}', 'IndexController@downloadFile');
     Route::post('/make_icon', 'IndexController@makeIcon');
+    Route::get('/font','IndexController@font');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -36,6 +37,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::delete('temp/delete_path', 'TempController@deletePath');
         Route::resource('temp', 'TempController', ['only' => ['index', 'destroy']]);
         Route::get('/phpinfo','IndexController@phpinfo');
+        Route::resource('font', 'FontController');
     });
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Models\Admin\Font;
 use App\Http\Models\Icon;
 use App\Http\Models\Temp;
 use App\Http\Models\Type;
@@ -91,5 +92,9 @@ class IndexController extends Controller
             return response()->download(Storage::disk('zip')->path($path));
         }
         abort(404);
+    }
+    public function font(){
+        $font=Font::all();
+        return view('home.font',compact('font'));
     }
 }

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="keyword" content="{{ cache_map('keyword', '')  }}">
+    <meta name="keywords" content="{{ cache_map('keyword', '')  }}">
     <meta name="description" content="{{ cache_map('description', '') }}">
     <meta name="author" content="{{ cache_map('author', '') }}">
     @if (!empty(cache_map('baidu-site-verification', '')))

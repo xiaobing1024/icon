@@ -68,7 +68,7 @@ class IndexController extends Controller
             ->add(glob(Storage::path($random_path) . '/*'))
             ->close();
         setlocale(LC_ALL, '');
-        
+
         Storage::deleteDirectory($random_path);
 
         Temp::create([
@@ -93,8 +93,11 @@ class IndexController extends Controller
         }
         abort(404);
     }
-    public function font(){
-        $font=Font::all();
-        return view('home.font',compact('font'));
+
+    public function font()
+    {
+        $font = Font::all();
+
+        return view('home.font', compact('font'));
     }
 }

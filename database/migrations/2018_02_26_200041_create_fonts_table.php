@@ -14,7 +14,6 @@ class CreateFontsTable extends Migration
     public function up()
     {
         Schema::create('fonts', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('font')->comment('文字');
             $table->string('font_family')->comment('文字样式');

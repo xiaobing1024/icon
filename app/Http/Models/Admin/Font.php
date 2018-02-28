@@ -2,10 +2,9 @@
 
 namespace App\Http\Models\Admin;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Model;
 
 class Font extends Model
 {
-    public $timestamps = true;
-    protected $guarded = [];
+
 }

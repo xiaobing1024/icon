@@ -3,13 +3,13 @@
 @section('subTitle', 'Font添加')
 
 @section('content')
-    <ol class="breadcrumb" >
-        <li><a href="{{url('admin')}}">Home</a></li>
-        <li><a href="{{url('admin/font')}}">Font-Family</a></li>
-        <li><a href="{{url('admin/font/create')}}">Create</a></li>
+    <ol class="breadcrumb">
+        <li><a href="{{ url('admin') }}">Home</a></li>
+        <li><a href="{{ url('admin/font') }}">Font-Family</a></li>
+        <li><a href="{{ url('admin/font/create') }}">Create</a></li>
     </ol>
-    <form class="form-horizontal" role="form"method="post"action="{{url('admin/font')}}">
-        {{csrf_field()}}
+    <form class="form-horizontal" role="form" method="post" action="{{ url('admin/font') }}">
+        {{ csrf_field() }}
         <div class="form-group">
             <label for="firstname" class="col-sm-2 control-label">文字</label>
             <div class="col-sm-10">

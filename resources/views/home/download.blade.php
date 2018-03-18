@@ -1,23 +1,16 @@
 @extends('layouts.app')
 
 @section('css')
-    <style>
-        .btn-success {
-            margin-top: 30px;
-        }
-        .btn-primary {
-            margin-top: 30px;
-        }
-    </style>
 @endsection
 
 @section('content')
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col">
         @if (session()->has('path') && \Storage::disk('zip')->exists(session('path')))
-            <a href="{{ url('/d/'.session('path')) }}" class="btn btn-block btn-lg btn-success">下载</a>
+            <a href="{{ url('/d/'.session('path')) }}" class="btn btn-block btn-lg btn-outline-success mb-3"><i
+                        class="fa fa-download"></i> 下载</a>
         @endif
         <div>
-            <a href="{{ url('/') }}" class="btn btn-block btn-lg btn-primary">返回主页</a>
+            <a href="{{ url('/') }}" class="btn btn-block btn-lg btn-outline-primary"><i class="fa fa-home"></i> 返回主页</a>
         </div>
     </div>
 @endsection

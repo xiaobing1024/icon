@@ -20,7 +20,7 @@
                 </div>
 
                 @foreach ($types as $item)
-                    <input type="checkbox" value="{{ $item['id'] }}" id="{{ 'checkbox'.$item['id'] }}" style="display: none">
+                    <input type="checkbox" name="type[]" value="{{ $item['id'] }}" id="{{ 'checkbox'.$item['id'] }}" style="display: none">
                 @endforeach
 
                 <div class="col-12 col-sm-12 col-md-6 form-group">

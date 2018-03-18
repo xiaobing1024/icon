@@ -17,7 +17,7 @@ class IndexController extends Controller
 
     public function refreshCache()
     {
-        $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name')->get()->toArray();
+        $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name', 'icon')->get()->toArray();
         cache()->forever('icon_type_list_json', $types);
 
         cache()->forever('map', Map::pluck('value', 'key')->toArray());

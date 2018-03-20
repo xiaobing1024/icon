@@ -92,7 +92,7 @@
 
         <footer class="container-fluid footer foot-wrap">
             <p align="center" style="margin-top: 20px;color:#878B91;">
-                <a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>
+                <a href="http://www.bingoicon.com" target="_blank" style="color: #999;">Copyright © 2018 bingoicon.com</a> | <a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>
             </p>
         </footer>
     </div>

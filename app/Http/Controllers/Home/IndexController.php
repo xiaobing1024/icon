@@ -96,7 +96,7 @@ class IndexController extends Controller
 
     public function font()
     {
-        $font = Font::all();
+        $font = Font::select('font','font_family')->get();
 
         return view('home.font', compact('font'));
     }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
+    <link href="https://cdn.bootcss.com/select2/4.0.6-rc.1/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -13,13 +14,19 @@
     <div class="col-12 col-sm-12 col-md-6">
         <form>
             <div class="form-group row">
-                <label for="backgroundColor" class="col-xl-2 col-form-label">背景色</label>
+                <label for="backgroundColor" class="col-xl-2 col-form-label">
+                    <a href="http://www.sioe.cn/yingyong/yanse-rgb-16/" data-toggle="tooltip" data-placement="right" title="点击查看提示"
+                       target="_Blank">背景色</a>
+                </label>
                 <div class="col-xl-4">
                     <input type="text" id="backgroundColor" class="form-control" placeholder="图标背景色"
                            v-model="backgroundColor">
                 </div>
 
-                <label for="textColor" class="col-xl-2 col-form-label">文字颜色</label>
+                <label for="textColor" class="col-xl-2 col-form-label">
+                    <a href="http://www.colorhunt.co/" data-toggle="tooltip" data-placement="right" title="点击查看提示"
+                       target="_Blank">文字颜色</a>
+                </label>
                 <div class="col-xl-4">
                     <input type="text" id="textColor" class="form-control" placeholder="文字颜色" v-model="textColor">
                 </div>
@@ -33,7 +40,12 @@
 
                 <label for="font_family" class="col-xl-2 col-form-label">字体</label>
                 <div class="col-xl-4">
-                    <input type="text" id="font_family" class="form-control" placeholder="字体" v-model="font_family">
+                    <select name="font_family" id="font_family" class="form-control" v-model="font_family">
+                        @foreach ($font as $item)
+                            <option value="{{ $item->font_family }}">{{ $item->font }}</option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" id="font_family" class="form-control" placeholder="字体" v-model="font_family">--}}
                 </div>
             </div>
 
@@ -94,7 +106,14 @@
 @endsection
 
 @section('js')
+    <script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/select2.min.js"></script>
+    <script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/i18n/zh-CN.js"></script>
+
     <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
         new Vue({
             el: '#app',
             mounted: function () {

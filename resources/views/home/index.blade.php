@@ -1,13 +1,5 @@
 @extends('layouts.app')
 
-@section('css')
-    {{--<style>--}}
-        {{--.no-hover {--}}
-
-        {{--}--}}
-    {{--</style>--}}
-@endsection
-
 @section('content')
     <div class="col">
         <form action="{{ url('make_icon') }}" method="post" enctype="multipart/form-data">
@@ -25,21 +17,21 @@
 
                 <div class="col-12 col-sm-12 col-md-6 form-group">
                     @foreach ($types as $k => $item)
-                        <button class="btn btn-block btn-md no-hover btn-outline-info" id="{{ 'btn' . $item['id'] }}" type="button"
-                                onclick="btn_change('{{ $item['id'] }}')">
-                            <i class="{{ $item['icon'] }}"></i> {{ $item['name'] }}</button>
+                        <button type="button" class="btn btn-block btn-md btn-outline-info" id="{{ 'btn' . $item['id'] }}" onclick="btn_change('{{ $item['id'] }}')">
+                            <i class="{{ $item['icon'] }}"></i> {{ $item['name'] }}
+                        </button>
                     @endforeach
                 </div>
                 {{--@foreach ($types as $item)--}}
-                    {{--<input type="checkbox" value="{{ $item['id'] }}" v-model="checks" style="display: none">--}}
+                {{--<input type="checkbox" value="{{ $item['id'] }}" v-model="checks" style="display: none">--}}
                 {{--@endforeach--}}
 
                 {{--<div class="col-12 col-sm-12 col-md-6 form-group">--}}
-                    {{--@foreach ($types as $k => $item)--}}
-                        {{--<button class="btn btn-block btn-md no-hover" v-bind:class="{{ 'class' . $k }}" type="button"--}}
-                                {{--@click="change('{{ $item['id'] }}')">--}}
-                            {{--<i class="fa fa-apple"></i> {{ $item['name'] }}</button>--}}
-                    {{--@endforeach--}}
+                {{--@foreach ($types as $k => $item)--}}
+                {{--<button class="btn btn-block btn-md no-hover" v-bind:class="{{ 'class' . $k }}" type="button"--}}
+                {{--@click="change('{{ $item['id'] }}')">--}}
+                {{--<i class="fa fa-apple"></i> {{ $item['name'] }}</button>--}}
+                {{--@endforeach--}}
                 {{--</div>--}}
             </div>
             {{--<button class="btn btn-block btn-outline-success btn-lg" type="submit" :disabled="what">开始制作</button>--}}
@@ -63,16 +55,17 @@
             }
         });
 
-        drEvent.on('dropify.afterClear', function(event, element){
+        drEvent.on('dropify.afterClear', function (event, element) {
             fileChange();
         });
 
-        drEvent.on('dropify.errors', function(event, element){
+        drEvent.on('dropify.errors', function (event, element) {
             fileChange();
             alert('出错了，刷新重试');
         });
 
         checks = [];
+
         function btn_change(v) {
             i = $("#checkbox" + v);
 
@@ -82,7 +75,13 @@
 
             i.prop("checked", !bl);
 
-            $("#btn" + v).attr("class", bl ? 'btn btn-block btn-md no-hover btn-outline-info' : 'btn btn-block btn-md no-hover btn-info');
+            if (bl) {
+                console.log("#btn" + v);
+                $("#btn" + v).removeClass('btn-info').addClass('btn-outline-info');
+            } else {
+                $("#btn" + v).removeClass('btn-outline-info').addClass('btn-info');
+            }
+            // $("#btn" + v).attr("class", bl ? 'btn btn-block btn-md btn-outline-info' : 'btn btn-block btn-md btn-info');
 
             $('#go').attr("disabled", !(this.checks.length > 0 && dropify.files.length > 0));
         }
@@ -92,35 +91,35 @@
         }
 
         {{--new Vue({--}}
-            {{--el: '#app',--}}
-            {{--data: {--}}
-                {{--checks: [],--}}
-                {{--what:true,--}}
-            {{--},--}}
-            {{--computed: {--}}
-                {{--@foreach ($types as $k => $item)--}}
-                {{--'{{ 'class' . $k }}': function () {--}}
-                    {{--bl = this.checks.indexOf('{{ $item['id'] }}') > -1;--}}
-                    {{--return {--}}
-                        {{--'btn-outline-info': !bl,--}}
-                        {{--'btn-info': bl--}}
-                    {{--}--}}
-                {{--},--}}
-                {{--@endforeach--}}
-            {{--},--}}
-            {{--methods: {--}}
-                {{--change: function (idx) {--}}
-                    {{--i = this.checks.indexOf(idx);--}}
-                    {{--i > -1 ? this.checks.splice(i, 1) : this.checks.push(idx);--}}
+        {{--el: '#app',--}}
+        {{--data: {--}}
+        {{--checks: [],--}}
+        {{--what:true,--}}
+        {{--},--}}
+        {{--computed: {--}}
+        {{--@foreach ($types as $k => $item)--}}
+        {{--'{{ 'class' . $k }}': function () {--}}
+        {{--bl = this.checks.indexOf('{{ $item['id'] }}') > -1;--}}
+        {{--return {--}}
+        {{--'btn-outline-info': !bl,--}}
+        {{--'btn-info': bl--}}
+        {{--}--}}
+        {{--},--}}
+        {{--@endforeach--}}
+        {{--},--}}
+        {{--methods: {--}}
+        {{--change: function (idx) {--}}
+        {{--i = this.checks.indexOf(idx);--}}
+        {{--i > -1 ? this.checks.splice(i, 1) : this.checks.push(idx);--}}
 
-                    {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
-                    {{--this.what = bl;--}}
-                {{--},--}}
-                {{--fileChange: function () {--}}
-                    {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
-                    {{--this.what = bl;--}}
-                {{--}--}}
-            {{--}--}}
+        {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
+        {{--this.what = bl;--}}
+        {{--},--}}
+        {{--fileChange: function () {--}}
+        {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
+        {{--this.what = bl;--}}
+        {{--}--}}
+        {{--}--}}
         {{--});--}}
     </script>
 @endsection

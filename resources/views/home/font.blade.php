@@ -80,7 +80,7 @@
 
             <div class="form-group row">
                 <div class="col-12 mt-3">
-                    <a class="btn btn-block btn-outline-success btn-lg" id="go" type="button">
+                    <a class="btn btn-block btn-outline-success btn-lg" id="go">
                         <i class="fa fa-picture-o"></i> 下载图片
                     </a>
                 </div>

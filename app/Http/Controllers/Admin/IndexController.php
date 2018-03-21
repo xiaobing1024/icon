@@ -21,6 +21,8 @@ class IndexController extends Controller
         cache()->forever('icon_type_list_json', $types);
 
         cache()->forever('map', Map::pluck('value', 'key')->toArray());
+        $font = Font::select('font','font_family')->get()->toArray();
+        cache()->forever('font', $font);
 
         return redirect('admin')->with('success', '更新成功');
     }

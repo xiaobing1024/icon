@@ -96,8 +96,11 @@ class IndexController extends Controller
 
     public function font()
     {
-        $font = Font::select('font','font_family')->get();
-
+        if (!cache()->has('font')) {
+            $font = Font::select('font','font_family')->get()->toArray();
+            cache()->forever('font', $font);
+        }
+        $font = cache('font');
         return view('home.font', compact('font'));
     }
 }

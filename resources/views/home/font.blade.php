@@ -42,7 +42,7 @@
                 <div class="col-xl-4">
                     <select name="font_family" id="font_family" class="form-control" v-model="font_family">
                         @foreach ($font as $item)
-                            <option value="{{ $item->font_family }}" style="font-family: {{'"'. $item->font_family. '"'}}">{{ $item->font }}</option>
+                            <option value="{{ $item['font_family'] }}" style="font-family: {{'"'. $item['font_family']. '"'}}">{{ $item['font'] }}</option>
                         @endforeach
                     </select>
                     {{--<input type="text" id="font_family" class="form-control" placeholder="字体" v-model="font_family">--}}

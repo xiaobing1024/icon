@@ -22,19 +22,7 @@
                         </button>
                     @endforeach
                 </div>
-                {{--@foreach ($types as $item)--}}
-                {{--<input type="checkbox" value="{{ $item['id'] }}" v-model="checks" style="display: none">--}}
-                {{--@endforeach--}}
-
-                {{--<div class="col-12 col-sm-12 col-md-6 form-group">--}}
-                {{--@foreach ($types as $k => $item)--}}
-                {{--<button class="btn btn-block btn-md no-hover" v-bind:class="{{ 'class' . $k }}" type="button"--}}
-                {{--@click="change('{{ $item['id'] }}')">--}}
-                {{--<i class="fa fa-apple"></i> {{ $item['name'] }}</button>--}}
-                {{--@endforeach--}}
-                {{--</div>--}}
             </div>
-            {{--<button class="btn btn-block btn-outline-success btn-lg" type="submit" :disabled="what">开始制作</button>--}}
             <button class="btn btn-block btn-outline-success btn-lg" id="go" type="submit" disabled>开始制作</button>
         </form>
     </div>
@@ -75,13 +63,17 @@
 
             i.prop("checked", !bl);
 
+            btn = $("#btn" + v);
             if (bl) {
-                console.log("#btn" + v);
-                $("#btn" + v).removeClass('btn-info').addClass('btn-outline-info');
+                btn.css('color', '#17a2b8');
+                btn.css('background-color', 'transparent');
+                btn.css('background-image', 'none');
+                btn.css('border-color', '#17a2b8');
             } else {
-                $("#btn" + v).removeClass('btn-outline-info').addClass('btn-info');
+                btn.css('color', '#fff');
+                btn.css('background-color', '#17a2b8');
+                btn.css('border-color', '#17a2b8');
             }
-            // $("#btn" + v).attr("class", bl ? 'btn btn-block btn-md btn-outline-info' : 'btn btn-block btn-md btn-info');
 
             $('#go').attr("disabled", !(this.checks.length > 0 && dropify.files.length > 0));
         }
@@ -89,37 +81,5 @@
         function fileChange() {
             $('#go').attr("disabled", !(this.checks.length > 0 && dropify.files.length > 0));
         }
-
-        {{--new Vue({--}}
-        {{--el: '#app',--}}
-        {{--data: {--}}
-        {{--checks: [],--}}
-        {{--what:true,--}}
-        {{--},--}}
-        {{--computed: {--}}
-        {{--@foreach ($types as $k => $item)--}}
-        {{--'{{ 'class' . $k }}': function () {--}}
-        {{--bl = this.checks.indexOf('{{ $item['id'] }}') > -1;--}}
-        {{--return {--}}
-        {{--'btn-outline-info': !bl,--}}
-        {{--'btn-info': bl--}}
-        {{--}--}}
-        {{--},--}}
-        {{--@endforeach--}}
-        {{--},--}}
-        {{--methods: {--}}
-        {{--change: function (idx) {--}}
-        {{--i = this.checks.indexOf(idx);--}}
-        {{--i > -1 ? this.checks.splice(i, 1) : this.checks.push(idx);--}}
-
-        {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
-        {{--this.what = bl;--}}
-        {{--},--}}
-        {{--fileChange: function () {--}}
-        {{--bl = !(this.checks.length > 0 && dropify.files.length > 0);--}}
-        {{--this.what = bl;--}}
-        {{--}--}}
-        {{--}--}}
-        {{--});--}}
     </script>
 @endsection

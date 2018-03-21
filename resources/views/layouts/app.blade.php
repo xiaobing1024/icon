@@ -30,7 +30,7 @@
         }
         body {
             /* Margin bottom by footer height */
-            margin-bottom: 60px;
+            margin-bottom: 80px;
             font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
         }
         .footer {
@@ -39,6 +39,7 @@
             width: 100%;
             /* Set the fixed height of the footer here */
             height: 60px;
+            line-height: 60px;
             background-color: #f5f5f5;
         }
     </style>
@@ -90,11 +91,17 @@
             </div>
         </main>
 
-        <footer class="container-fluid footer foot-wrap">
-            <p align="center" style="margin-top: 20px;color:#878B91;">
-                <a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>
-            </p>
+        <footer class="footer">
+            <div class="container text-center">
+                <a class="text-muted small" href="http://www.bingoicon.com" target="_blank">&copy; www.bingoicon.com</a><span class="text-muted small"> | </span><a class="text-muted small" href="http://www.miitbeian.gov.cn" target="_blank">浙ICP备18004101号-1</a>
+            </div>
         </footer>
+        {{--<footer class="container-fluid footer foot-wrap">--}}
+            {{--<p align="center" style="margin-top: 20px;color:#878B91;">--}}
+                {{--<a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">按时发达的时候asdfadsf 的方法加很多 按劳动法爱你的方法</a>--}}
+                {{--<a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>--}}
+            {{--</p>--}}
+        {{--</footer>--}}
     </div>
     <!-- Scripts -->
     {{--<script src="{{ asset('js/all.js') }}"></script>--}}

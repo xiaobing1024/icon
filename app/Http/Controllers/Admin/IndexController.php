@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Models\Admin\Font;
 use App\Http\Models\Admin\Map;
 use App\Http\Models\Type;
 use Illuminate\Http\Request;

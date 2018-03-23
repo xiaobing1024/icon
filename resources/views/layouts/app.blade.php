@@ -19,7 +19,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    {{--<link href="{{ asset('css/all.css') }}" rel="stylesheet">--}}
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -93,18 +92,13 @@
 
         <footer class="footer">
             <div class="container text-center">
-                <a class="text-muted small" href="http://www.bingoicon.com" target="_blank">&copy; www.bingoicon.com</a><span class="text-muted small"> | </span><a class="text-muted small" href="http://www.miitbeian.gov.cn" target="_blank">浙ICP备18004101号-1</a>
+                <a class="text-muted small" href="http://www.miitbeian.gov.cn" target="_blank">浙ICP备18004101号-1</a>
+                <span class="text-muted small">&copy;</span>
+                <a class="text-muted small" href="http://www.bingoicon.com" target="_blank">www.bingoicon.com</a>
             </div>
         </footer>
-        {{--<footer class="container-fluid footer foot-wrap">--}}
-            {{--<p align="center" style="margin-top: 20px;color:#878B91;">--}}
-                {{--<a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">按时发达的时候asdfadsf 的方法加很多 按劳动法爱你的方法</a>--}}
-                {{--<a href="http://www.miitbeian.gov.cn" target="_blank" style="color: #999;">{{ cache_map('beian', '') }}</a>--}}
-            {{--</p>--}}
-        {{--</footer>--}}
     </div>
-    <!-- Scripts -->
-    {{--<script src="{{ asset('js/all.js') }}"></script>--}}
+
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

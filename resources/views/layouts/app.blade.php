@@ -92,9 +92,7 @@
 
         <footer class="footer">
             <div class="container text-center">
-                <a class="text-muted small" href="http://www.miitbeian.gov.cn" target="_blank">浙ICP备18004101号-1</a>
-                <span class="text-muted small">&copy;</span>
-                <a class="text-muted small" href="http://www.bingoicon.com" target="_blank">www.bingoicon.com</a>
+                <a class="text-muted small" href="http://www.miitbeian.gov.cn" target="_blank">浙ICP备18004101号-1</a><span class="text-muted small"> &copy; </span><a class="text-muted small" href="http://www.bingoicon.com" target="_blank">www.bingoicon.com</a>
             </div>
         </footer>
     </div>

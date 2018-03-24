@@ -38,7 +38,6 @@ class Kernel extends HttpKernel
 
             //laravel page speed
             \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveComments::class,
-            \RenatoMarinho\LaravelPageSpeed\Middleware\InlineCss::class,
             \RenatoMarinho\LaravelPageSpeed\Middleware\TrimUrls::class,
             \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class,
         ],

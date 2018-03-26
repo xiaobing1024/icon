@@ -18,6 +18,7 @@
             </button>
         </div>
     </div>
+
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
             <canvas id="draw" width="256" height="256"></canvas>
@@ -116,38 +117,39 @@
     </div>
 
     <div class="col-12 mb-3">
-        <button class="btn btn-outline-success" type="button" @click="addText"><i class="fa fa-plus"></i> 增加文字</button>
+        <button class="btn btn-sm btn-outline-success mr-3" type="button" @click="addText"><i class="fa fa-plus"></i> 增加文字</button>
+        <a class="btn btn-sm btn-outline-primary" href="https://tinypng.com/" target="_blank"><i class="fa fa-bolt"></i> 图片压缩</a>
     </div>
 
-    <div class="col-12 mb-3" v-for="v in texts" v-cloak>
+    <div class="col-12 mb-3" v-for="(v, vi) in texts" v-cloak>
         <div class="form-row mb-3">
             <label class="col-xl-1 col-form-label">
                 <a href="http://www.colorhunt.co/" data-toggle="tooltip" data-placement="right" title="点击查看提示"
                    target="_Blank">文字颜色</a>
             </label>
-            <div class="col-xl-3">
+            <div class="col-xl-2">
                 <input type="text" class="form-control" placeholder="文字颜色" v-model="v.textColor">
             </div>
 
             <label class="col-xl-1 col-form-label">文字</label>
-            <div class="col-xl-3">
+            <div class="col-xl-2">
                 <input type="text" class="form-control" placeholder="图标中的文字" v-model="v.text">
             </div>
 
             <label class="col-xl-1 col-form-label">字体</label>
-            <div class="col-xl-3">
+            <div class="col-xl-2">
                 <select name="font_family" class="form-control" v-model="v.font_family">
                     <option v-bind:value="f.font_family" :style="f" v-for="f in fonts">@{{ f.font }}</option>
                 </select>
             </div>
-        </div>
-        <div class="form-row">
+
             <label class="col-xl-1 col-form-label">字体大小</label>
             <div class="col-xl-2">
                 <input type="number" class="form-control" placeholder="字体大小 单位px"
                        v-model="v.font_size">
             </div>
-
+        </div>
+        <div class="form-row">
             <label class="col-xl-1 col-form-label">字体粗细</label>
             <div class="col-xl-2">
                 <select name="font_weight" class="form-control" v-model="v.font_weight">
@@ -176,11 +178,15 @@
             <div class="col-xl-2">
                 <input type="number" class="form-control" placeholder="128居中" v-model="v.text_y">
             </div>
+
+            <button class="offset-xl-1 col-xl-2 btn btn-outline-danger" @click="deleteText(vi)">
+                <i class="fa fa-times"></i> 删除
+            </button>
         </div>
     </div>
 
-    <div class="text-center" width="1024" height="1024" style="display: none">
-        <canvas id="drawcopy" width="1024" height="1024"></canvas>
+    <div class="text-center" width="1024" height="1024" style="display: none; background:rgba(255,255,255,0);">
+        <canvas id="drawcopy" width="1024" height="1024" style="background:rgba(255,255,255,0);"></canvas>
     </div>
 @endsection
 
@@ -271,6 +277,9 @@
                         text_y: 128 + this.texts.length * 10,
                     })
                 },
+                deleteText(idx) {
+                    this.texts.splice(idx, 1);
+                }
             },
             watch: {
                 text: function () {

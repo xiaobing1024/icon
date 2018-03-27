@@ -21,7 +21,7 @@
 
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
-            <canvas id="draw" width="256" height="256" style="background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////MzMw46qqDAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC') top left repeat"></canvas>
+            <canvas id="draw" width="256" height="256" style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 30px, rgba(0, 0, 0, 0.23) 0px 6px 10px; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////MzMw46qqDAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC') top left repeat"></canvas>
         </div>
     </div>
 

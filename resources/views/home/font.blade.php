@@ -21,7 +21,7 @@
 
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
-            <canvas id="draw" width="256" height="256"></canvas>
+            <canvas id="draw" width="256" height="256" style="background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////MzMw46qqDAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC') top left repeat"></canvas>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
                        target="_Blank">背景色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" id="backgroundColor" class="form-control" placeholder="图标背景色"
+                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景" id="backgroundColor" class="form-control" placeholder="最后两位是透明度"
                            v-model="backgroundColor">
                 </div>
 
@@ -209,7 +209,7 @@
             },
             data: {
                 text: 'f',
-                backgroundColor: '#3b5998',
+                backgroundColor: '#3b5998ff',
                 font_size: 300,
                 font_family: 'Verdana',
                 font_weight: 'normal',
@@ -223,6 +223,7 @@
                 drawc: function () {
                     ctx = draw.getContext("2d");
 
+                    ctx.clearRect(0, 0, 256, 256);
                     ctx.fillStyle = this.backgroundColor;
                     ctx.fillRect(0, 0, 256, 256);
 
@@ -236,6 +237,7 @@
 
                     ctxcopy = drawcopy.getContext("2d");
 
+                    ctxcopy.clearRect(0, 0, 1024, 1024);
                     ctxcopy.fillStyle = this.backgroundColor;
                     ctxcopy.fillRect(0, 0, 1024, 1024);
 

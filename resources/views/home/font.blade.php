@@ -43,7 +43,7 @@
                        target="_Blank">文字颜色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" id="textColor" class="form-control" placeholder="文字颜色" v-model="textColor">
+                    <input type="text" data-toggle="tooltip" title="留空为透明" id="textColor" class="form-control" placeholder="文字颜色" v-model="textColor">
                 </div>
             </div>
 
@@ -97,12 +97,12 @@
             <div class="form-group row">
                 <label for="text_x" class="col-xl-2 col-form-label">中心-X</label>
                 <div class="col-xl-4">
-                    <input type="number" id="text_x" class="form-control" placeholder="128居中" v-model="text_x">
+                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_x" class="form-control" placeholder="128居中" v-model="text_x">
                 </div>
 
                 <label for="text_y" class="col-xl-2 col-form-label">中心-Y</label>
                 <div class="col-xl-4">
-                    <input type="number" id="text_y" class="form-control" placeholder="128居中" v-model="text_y">
+                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_y" class="form-control" placeholder="128居中" v-model="text_y">
                 </div>
             </div>
 
@@ -128,7 +128,7 @@
                    target="_Blank">文字颜色</a>
             </label>
             <div class="col-xl-2">
-                <input type="text" class="form-control" placeholder="文字颜色" v-model="v.textColor">
+                <input type="text" data-toggle="tooltip" title="留空为透明" class="form-control" placeholder="文字颜色" v-model="v.textColor">
             </div>
 
             <label class="col-xl-1 col-form-label">文字</label>
@@ -171,12 +171,12 @@
 
             <label class="col-xl-1 col-form-label">中心-X</label>
             <div class="col-xl-2">
-                <input type="number" class="form-control" placeholder="128居中" v-model="v.text_x">
+                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中" v-model="v.text_x">
             </div>
 
             <label class="col-xl-1 col-form-label">中心-Y</label>
             <div class="col-xl-2">
-                <input type="number" class="form-control" placeholder="128居中" v-model="v.text_y">
+                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中" v-model="v.text_y">
             </div>
 
             <button class="offset-xl-1 col-xl-2 btn btn-outline-danger" @click="deleteText(vi)">
@@ -226,14 +226,19 @@
                     ctx.clearRect(0, 0, 256, 256);
                     ctx.fillStyle = this.backgroundColor;
                     ctx.fillRect(0, 0, 256, 256);
-
+if (this.textColor.length < 1) {
+ctx.globalCompositeOperation="destination-out";
+} else {
                     ctx.fillStyle = this.textColor;
+}
                     ctx.font = this.font_weight + " " + this.font_size + "px " + this.font_family;
 
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "center";
                     ctx.fillText(this.text, this.text_x, this.text_y);
-
+if (this.textColor.length < 1) {
+ctx.globalCompositeOperation="source-over";
+}
 
                     ctxcopy = drawcopy.getContext("2d");
 
@@ -241,28 +246,49 @@
                     ctxcopy.fillStyle = this.backgroundColor;
                     ctxcopy.fillRect(0, 0, 1024, 1024);
 
+if (this.textColor.length < 1) {
+ctxcopy.globalCompositeOperation="destination-out";
+} else {
                     ctxcopy.fillStyle = this.textColor;
+}
                     ctxcopy.font = this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
 
                     ctxcopy.textBaseline = "middle";
                     ctxcopy.textAlign = "center";
                     ctxcopy.fillText(this.text, this.text_x * 4, this.text_y * 4);
 
+if (this.textColor.length < 1) {
+ctxcopy.globalCompositeOperation="source-over";
+}
                     for (i = 0, j = this.texts.length; i < j; i++) {
                         obj = this.texts[i];
+                        if (obj.textColor.length < 1) {
+ctx.globalCompositeOperation="destination-out";
+} else {
                         ctx.fillStyle = obj.textColor;
+}
                         ctx.font = obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
 
                         ctx.textBaseline = "middle";
                         ctx.textAlign = "center";
                         ctx.fillText(obj.text, obj.text_x, obj.text_y);
 
+if (obj.textColor.length < 1) {
+ctx.globalCompositeOperation="source-over";
+}
+                        if (obj.textColor.length < 1) {
+ctxcopy.globalCompositeOperation="destination-out";
+} else {
                         ctxcopy.fillStyle = obj.textColor;
+}
                         ctxcopy.font = obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
 
                         ctxcopy.textBaseline = "middle";
                         ctxcopy.textAlign = "center";
                         ctxcopy.fillText(obj.text, obj.text_x * 4, obj.text_y * 4);
+                        if (obj.textColor.length < 1) {
+ctxcopy.globalCompositeOperation="source-over";
+}
                     }
 
                     go.href = drawcopy.toDataURL("image/png");

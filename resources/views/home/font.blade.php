@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('css')
-    <link href="https://cdn.bootcss.com/select2/4.0.6-rc.1/css/select2.min.css" rel="stylesheet">
     <style>
         [v-cloak] {
             display: none !important;
@@ -21,7 +20,8 @@
 
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
-            <canvas id="draw" width="256" height="256" style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 30px, rgba(0, 0, 0, 0.23) 0px 6px 10px; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////MzMw46qqDAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC') top left repeat"></canvas>
+            <canvas id="draw" width="256" height="256" data-toggle="tooltip" title="预览图片大小为 256*256 下载图片大小为 1024*1024"
+                    style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 30px, rgba(0, 0, 0, 0.23) 0px 6px 10px; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////MzMw46qqDAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC') top left repeat"></canvas>
         </div>
     </div>
 
@@ -34,7 +34,8 @@
                        target="_Blank">背景色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景" id="backgroundColor" class="form-control" placeholder="最后两位是透明度"
+                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景" id="backgroundColor"
+                           class="form-control" placeholder="最后两位是透明度"
                            v-model="backgroundColor">
                 </div>
 
@@ -43,7 +44,8 @@
                        target="_Blank">文字颜色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="留空为透明" id="textColor" class="form-control" placeholder="文字颜色" v-model="textColor">
+                    <input type="text" data-toggle="tooltip" title="留空则透明" id="textColor" class="form-control"
+                           placeholder="文字颜色" v-model="textColor">
                 </div>
             </div>
 
@@ -97,12 +99,14 @@
             <div class="form-group row">
                 <label for="text_x" class="col-xl-2 col-form-label">中心-X</label>
                 <div class="col-xl-4">
-                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_x" class="form-control" placeholder="128居中" v-model="text_x">
+                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_x" class="form-control"
+                           placeholder="128居中" v-model="text_x">
                 </div>
 
                 <label for="text_y" class="col-xl-2 col-form-label">中心-Y</label>
                 <div class="col-xl-4">
-                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_y" class="form-control" placeholder="128居中" v-model="text_y">
+                    <input type="number" data-toggle="tooltip" title="128为居中" id="text_y" class="form-control"
+                           placeholder="128居中" v-model="text_y">
                 </div>
             </div>
 
@@ -117,8 +121,11 @@
     </div>
 
     <div class="col-12 mb-3">
-        <button class="btn btn-sm btn-outline-success mr-3" type="button" @click="addText"><i class="fa fa-plus"></i> 增加文字</button>
-        <a class="btn btn-sm btn-outline-primary" href="https://tinypng.com/" target="_blank"><i class="fa fa-bolt"></i> 图片压缩</a>
+        <button class="btn btn-sm btn-outline-success mr-3" type="button" @click="addText"><i class="fa fa-plus"></i>
+            增加文字
+        </button>
+        <a class="btn btn-sm btn-outline-primary" href="https://tinypng.com/" target="_blank"><i class="fa fa-bolt"></i>
+            图片压缩</a>
     </div>
 
     <div class="col-12 mb-3" v-for="(v, vi) in texts" v-cloak>
@@ -128,7 +135,8 @@
                    target="_Blank">文字颜色</a>
             </label>
             <div class="col-xl-2">
-                <input type="text" data-toggle="tooltip" title="留空为透明" class="form-control" placeholder="文字颜色" v-model="v.textColor">
+                <input type="text" data-toggle="tooltip" title="留空则透明" class="form-control" placeholder="文字颜色"
+                       v-model="v.textColor">
             </div>
 
             <label class="col-xl-1 col-form-label">文字</label>
@@ -171,12 +179,14 @@
 
             <label class="col-xl-1 col-form-label">中心-X</label>
             <div class="col-xl-2">
-                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中" v-model="v.text_x">
+                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
+                       v-model="v.text_x">
             </div>
 
             <label class="col-xl-1 col-form-label">中心-Y</label>
             <div class="col-xl-2">
-                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中" v-model="v.text_y">
+                <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
+                       v-model="v.text_y">
             </div>
 
             <button class="offset-xl-1 col-xl-2 btn btn-outline-danger" @click="deleteText(vi)">
@@ -191,9 +201,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/select2.min.js"></script>
-    <script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/i18n/zh-CN.js"></script>
-
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -213,7 +220,7 @@
                 font_size: 300,
                 font_family: 'Verdana',
                 font_weight: 'normal',
-                textColor: '#ffffff',
+                textColor: '#ffffffff',
                 text_x: 148,
                 text_y: 160,
                 texts: [],
@@ -226,19 +233,23 @@
                     ctx.clearRect(0, 0, 256, 256);
                     ctx.fillStyle = this.backgroundColor;
                     ctx.fillRect(0, 0, 256, 256);
-if (this.textColor.length < 1) {
-ctx.globalCompositeOperation="destination-out";
-} else {
-                    ctx.fillStyle = this.textColor;
-}
+
                     ctx.font = this.font_weight + " " + this.font_size + "px " + this.font_family;
 
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "center";
+
+                    if (this.textColor.length < 1) {
+                        ctx.globalCompositeOperation = "destination-out";
+                    } else {
+                        ctx.fillStyle = this.textColor;
+                    }
+
                     ctx.fillText(this.text, this.text_x, this.text_y);
-if (this.textColor.length < 1) {
-ctx.globalCompositeOperation="source-over";
-}
+
+                    if (this.textColor.length < 1) {
+                        ctx.globalCompositeOperation = "source-over";
+                    }
 
                     ctxcopy = drawcopy.getContext("2d");
 
@@ -246,49 +257,56 @@ ctx.globalCompositeOperation="source-over";
                     ctxcopy.fillStyle = this.backgroundColor;
                     ctxcopy.fillRect(0, 0, 1024, 1024);
 
-if (this.textColor.length < 1) {
-ctxcopy.globalCompositeOperation="destination-out";
-} else {
-                    ctxcopy.fillStyle = this.textColor;
-}
+                    if (this.textColor.length < 1) {
+                        ctxcopy.globalCompositeOperation = "destination-out";
+                    } else {
+                        ctxcopy.fillStyle = this.textColor;
+                    }
+
                     ctxcopy.font = this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
 
                     ctxcopy.textBaseline = "middle";
                     ctxcopy.textAlign = "center";
                     ctxcopy.fillText(this.text, this.text_x * 4, this.text_y * 4);
 
-if (this.textColor.length < 1) {
-ctxcopy.globalCompositeOperation="source-over";
-}
+                    if (this.textColor.length < 1) {
+                        ctxcopy.globalCompositeOperation = "source-over";
+                    }
+
                     for (i = 0, j = this.texts.length; i < j; i++) {
                         obj = this.texts[i];
+
                         if (obj.textColor.length < 1) {
-ctx.globalCompositeOperation="destination-out";
-} else {
-                        ctx.fillStyle = obj.textColor;
-}
+                            ctx.globalCompositeOperation = "destination-out";
+                        } else {
+                            ctx.fillStyle = obj.textColor;
+                        }
+
                         ctx.font = obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
 
                         ctx.textBaseline = "middle";
                         ctx.textAlign = "center";
                         ctx.fillText(obj.text, obj.text_x, obj.text_y);
 
-if (obj.textColor.length < 1) {
-ctx.globalCompositeOperation="source-over";
-}
                         if (obj.textColor.length < 1) {
-ctxcopy.globalCompositeOperation="destination-out";
-} else {
-                        ctxcopy.fillStyle = obj.textColor;
-}
+                            ctx.globalCompositeOperation = "source-over";
+                        }
+
+                        if (obj.textColor.length < 1) {
+                            ctxcopy.globalCompositeOperation = "destination-out";
+                        } else {
+                            ctxcopy.fillStyle = obj.textColor;
+                        }
+
                         ctxcopy.font = obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
 
                         ctxcopy.textBaseline = "middle";
                         ctxcopy.textAlign = "center";
                         ctxcopy.fillText(obj.text, obj.text_x * 4, obj.text_y * 4);
+
                         if (obj.textColor.length < 1) {
-ctxcopy.globalCompositeOperation="source-over";
-}
+                            ctxcopy.globalCompositeOperation = "source-over";
+                        }
                     }
 
                     go.href = drawcopy.toDataURL("image/png");
@@ -296,13 +314,13 @@ ctxcopy.globalCompositeOperation="source-over";
                 },
                 addText() {
                     this.texts.push({
-                        text: 'f',
-                        font_size: 300,
-                        font_family: 'Verdana',
-                        font_weight: 'normal',
-                        textColor: '#ffffff',
-                        text_x: 128 + this.texts.length * 10,
-                        text_y: 128 + this.texts.length * 10,
+                        text: this.text ? this.text : 'f',
+                        font_size: this.font_size ? this.font_size : 300,
+                        font_family: this.font_family ? this.font_family : 'Verdana',
+                        font_weight: this.font_weight ? this.font_weight : 'normal',
+                        textColor: this.textColor ? this.textColor : '#ffffffff',
+                        text_x: this.text_x + (this.texts.length + 1) * 10,
+                        text_y: this.text_y + (this.texts.length + 1) * 10,
                     })
                 },
                 deleteText(idx) {

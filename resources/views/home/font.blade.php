@@ -95,7 +95,6 @@
                 </div>
             </div>
 
-
             <div class="form-group row">
                 <label for="text_x" class="col-xl-2 col-form-label">中心-X</label>
                 <div class="col-xl-4">
@@ -111,8 +110,30 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-12 mt-3">
-                    <a class="btn btn-block btn-outline-success btn-lg" id="go">
+                <label for="shadow-color" class="col-xl-2 col-form-label">阴影颜色</label>
+                <div class="col-xl-4">
+                    <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3" id="shadow-color" class="form-control"
+                           placeholder="可以参照默认的背景色和阴影颜色" v-model="shadowColor">
+                </div>
+
+                <label for="shadow-angle" class="col-xl-2 col-form-label">阴影角度</label>
+                <div class="col-xl-4">
+                    <input type="number" data-toggle="tooltip" title="范围 0 ~ 360 注意有些角度会导致线条不直" id="shadow-angle" class="form-control"
+                           placeholder="范围 0 ~ 360" v-model="shadowAngle">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="shadow-length" class="col-xl-2 col-form-label">阴影长度</label>
+                <div class="col-xl-4">
+                    <input type="number" data-toggle="tooltip" title="0 则无阴影" id="shadow-length" class="form-control"
+                           placeholder="0 则无阴影" v-model="shadowLength">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-12">
+                    <a class="btn btn-block btn-outline-success btn-lg" id="go" @click="downloadclick" href="#">
                         <i class="fa fa-picture-o"></i> 下载图片
                     </a>
                 </div>
@@ -157,7 +178,7 @@
                        v-model="v.font_size">
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row mb-3">
             <label class="col-xl-1 col-form-label">字体粗细</label>
             <div class="col-xl-2">
                 <select name="font_weight" class="form-control" v-model="v.font_weight">
@@ -187,6 +208,26 @@
             <div class="col-xl-2">
                 <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
                        v-model="v.text_y">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label class="col-xl-1 col-form-label">阴影颜色</label>
+            <div class="col-xl-2">
+                <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3" class="form-control"
+                       placeholder="可以参照默认的背景色和阴影颜色" v-model="v.shadowColor">
+            </div>
+
+            <label class="col-xl-1 col-form-label">阴影角度</label>
+            <div class="col-xl-2">
+                <input type="number" data-toggle="tooltip" title="范围 0 ~ 360 注意有些角度会导致线条不直" class="form-control"
+                       placeholder="范围 0 ~ 360" v-model="v.shadowAngle">
+            </div>
+
+            <label class="col-xl-1 col-form-label">阴影长度</label>
+            <div class="col-xl-2">
+                <input type="number" data-toggle="tooltip" title="0 则无阴影" class="form-control"
+                       placeholder="0 则无阴影" v-model="v.shadowLength">
             </div>
 
             <button class="offset-xl-1 col-xl-2 btn btn-outline-danger" @click="deleteText(vi)">
@@ -224,51 +265,108 @@
                 text_x: 148,
                 text_y: 160,
                 texts: [],
+                shadowColor: '#0b2968',
+                shadowAngle: 45,
+                shadowLength: '300',
                 fonts: {!! json_encode($font) !!}
             },
             methods: {
                 drawc: function () {
                     ctx = draw.getContext("2d");
-
                     ctx.clearRect(0, 0, 256, 256);
                     ctx.fillStyle = this.backgroundColor;
                     ctx.fillRect(0, 0, 256, 256);
 
                     ctx.font = this.font_weight + " " + this.font_size + "px " + this.font_family;
-
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "center";
+
+                    if (this.shadowLength.length > 0 && this.shadowLength !== '0') {
+                        ctx.globalCompositeOperation = "source-atop";
+                        c = parseInt(this.shadowAngle) * Math.PI / 180;
+                        rx = Math.cos(c);
+                        ry = Math.sin(c);
+                        ctx.fillStyle = this.shadowColor;
+                        for (i = parseInt(this.shadowLength), j = 0; i > j; i-=1) {
+                            x = Math.floor(i * rx);
+                            y = Math.floor(i * ry);
+                            ctx.fillText(this.text, parseInt(this.text_x) + x, parseInt(this.text_y) + y);
+                        }
+                        ctx.globalCompositeOperation = "source-over";
+                    }
 
                     if (this.textColor.length < 1) {
                         ctx.globalCompositeOperation = "destination-out";
                     } else {
                         ctx.fillStyle = this.textColor;
                     }
-
                     ctx.fillText(this.text, this.text_x, this.text_y);
-
                     if (this.textColor.length < 1) {
                         ctx.globalCompositeOperation = "source-over";
                     }
 
-                    ctxcopy = drawcopy.getContext("2d");
+                    for (i = 0, j = this.texts.length; i < j; i++) {
+                        obj = this.texts[i];
 
+                        ctx.font = obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
+                        ctx.textBaseline = "middle";
+                        ctx.textAlign = "center";
+
+                        if (obj.shadowLength.length > 0 && obj.shadowLength !== '0') {
+                            ctx.globalCompositeOperation = "source-atop";
+                            c = obj.shadowAngle * Math.PI / 180;
+                            rx = Math.cos(c);
+                            ry = Math.sin(c);
+                            ctx.fillStyle = obj.shadowColor;
+                            for (si = obj.shadowLength, sj = 0; si > sj; si-=1) {
+                                x = Math.round(si * rx);
+                                y = Math.round(si * ry);
+                                ctx.fillText(obj.text, obj.text_x + x, obj.text_y + y);
+                            }
+                            ctx.globalCompositeOperation = "source-over";
+                        }
+
+                        if (obj.textColor.length < 1) {
+                            ctx.globalCompositeOperation = "destination-out";
+                        } else {
+                            ctx.fillStyle = obj.textColor;
+                        }
+                        ctx.fillText(obj.text, obj.text_x, obj.text_y);
+                        if (obj.textColor.length < 1) {
+                            ctx.globalCompositeOperation = "source-over";
+                        }
+                    }
+                },
+                downloadclick() {
+                    ctxcopy = drawcopy.getContext("2d");
                     ctxcopy.clearRect(0, 0, 1024, 1024);
                     ctxcopy.fillStyle = this.backgroundColor;
                     ctxcopy.fillRect(0, 0, 1024, 1024);
+
+                    ctxcopy.font = this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
+                    ctxcopy.textBaseline = "middle";
+                    ctxcopy.textAlign = "center";
+
+                    if (this.shadowLength.length > 0 && this.shadowLength !== '0') {
+                        ctxcopy.globalCompositeOperation = "source-atop";
+                        c = parseInt(this.shadowAngle) * Math.PI / 180;
+                        rx = Math.cos(c);
+                        ry = Math.sin(c);
+                        ctxcopy.fillStyle = this.shadowColor;
+                        for (i = this.shadowLength * 4, j = 0; i > j; i-=1) {
+                            x = Math.round(i * rx);
+                            y = Math.round(i * ry);
+                            ctxcopy.fillText(this.text, this.text_x * 4 + x, this.text_y * 4 + y);
+                        }
+                        ctxcopy.globalCompositeOperation = "source-over";
+                    }
 
                     if (this.textColor.length < 1) {
                         ctxcopy.globalCompositeOperation = "destination-out";
                     } else {
                         ctxcopy.fillStyle = this.textColor;
                     }
-
-                    ctxcopy.font = this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
-
-                    ctxcopy.textBaseline = "middle";
-                    ctxcopy.textAlign = "center";
                     ctxcopy.fillText(this.text, this.text_x * 4, this.text_y * 4);
-
                     if (this.textColor.length < 1) {
                         ctxcopy.globalCompositeOperation = "source-over";
                     }
@@ -276,20 +374,22 @@
                     for (i = 0, j = this.texts.length; i < j; i++) {
                         obj = this.texts[i];
 
-                        if (obj.textColor.length < 1) {
-                            ctx.globalCompositeOperation = "destination-out";
-                        } else {
-                            ctx.fillStyle = obj.textColor;
-                        }
+                        ctxcopy.font = obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
+                        ctxcopy.textBaseline = "middle";
+                        ctxcopy.textAlign = "center";
 
-                        ctx.font = obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
-
-                        ctx.textBaseline = "middle";
-                        ctx.textAlign = "center";
-                        ctx.fillText(obj.text, obj.text_x, obj.text_y);
-
-                        if (obj.textColor.length < 1) {
-                            ctx.globalCompositeOperation = "source-over";
+                        if (obj.shadowLength.length > 0 && obj.shadowLength !== '0') {
+                            ctxcopy.globalCompositeOperation = "source-atop";
+                            c = obj.shadowAngle * Math.PI / 180;
+                            rx = Math.cos(c);
+                            ry = Math.sin(c);
+                            ctxcopy.fillStyle = obj.shadowColor;
+                            for (si = obj.shadowLength * 4, sj = 0; si > sj; si-=1) {
+                                x = Math.round(si * rx);
+                                y = Math.round(si * ry);
+                                ctxcopy.fillText(obj.text, obj.text_x * 4 + x, obj.text_y * 4 + y);
+                            }
+                            ctxcopy.globalCompositeOperation = "source-over";
                         }
 
                         if (obj.textColor.length < 1) {
@@ -297,13 +397,7 @@
                         } else {
                             ctxcopy.fillStyle = obj.textColor;
                         }
-
-                        ctxcopy.font = obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
-
-                        ctxcopy.textBaseline = "middle";
-                        ctxcopy.textAlign = "center";
                         ctxcopy.fillText(obj.text, obj.text_x * 4, obj.text_y * 4);
-
                         if (obj.textColor.length < 1) {
                             ctxcopy.globalCompositeOperation = "source-over";
                         }
@@ -321,6 +415,9 @@
                         textColor: this.textColor ? this.textColor : '#ffffffff',
                         text_x: this.text_x + (this.texts.length + 1) * 10,
                         text_y: this.text_y + (this.texts.length + 1) * 10,
+                        shadowColor: this.shadowColor ? this.shadowColor : '#000000',
+                        shadowAngle: this.shadowAngle ? this.shadowAngle : '45',
+                        shadowLength: this.shadowLength ? this.shadowLength : '300',
                     })
                 },
                 deleteText(idx) {
@@ -350,6 +447,15 @@
                     this.drawc();
                 },
                 text_y: function () {
+                    this.drawc();
+                },
+                shadowColor: function () {
+                    this.drawc();
+                },
+                shadowAngle: function () {
+                    this.drawc();
+                },
+                shadowLength: function () {
                     this.drawc();
                 },
                 texts: {

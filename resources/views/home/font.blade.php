@@ -34,7 +34,7 @@
                        target="_Blank">背景色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景 一些浏览器暂不支持透明度" id="backgroundColor"
+                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景 一些浏览器暂不支持透明度或使用 rgba(0,0,0,0.0)" id="backgroundColor"
                            class="form-control" placeholder="最后两位是透明度 一些浏览器暂不支持透明度"
                            v-model="backgroundColor">
                 </div>

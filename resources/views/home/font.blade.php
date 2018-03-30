@@ -34,7 +34,8 @@
                        target="_Blank">背景色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="可以再增加两位数字设置透明度 00 为透明背景 一些浏览器暂不支持或使用 rgba(0,0,0,0.0)" id="backgroundColor"
+                    <input type="text" data-toggle="tooltip"
+                           title="可以再增加两位数字设置透明度 00 为透明背景 一些浏览器暂不支持或使用 rgba(0,0,0,0.0)" id="backgroundColor"
                            class="form-control" placeholder="可以再增加两位数字设置透明度"
                            v-model="backgroundColor">
                 </div>
@@ -57,13 +58,9 @@
 
                 <label for="font_family" class="col-xl-2 col-form-label">字体</label>
                 <div class="col-xl-4">
-                    <select name="font_family" id="font_family" class="form-control" v-model="font_family">
-                        @foreach ($font as $item)
-                            <option value="{{ $item['font_family'] }}"
-                                    style="font-family: {{'"'. $item['font_family']. '"'}}">{{ $item['font'] }}</option>
-                        @endforeach
+                    <select name="font_family" id="font_family" class="form-control" v-model="font_family" v-cloak>
+                        <option v-bind:value="f.font_family" :style="f" v-for="f in fonts">@{{ f.font }}</option>
                     </select>
-                    {{--<input type="text" id="font_family" class="form-control" placeholder="字体" v-model="font_family">--}}
                 </div>
             </div>
 
@@ -91,7 +88,6 @@
                         <option value="800">800</option>
                         <option value="900">900</option>
                     </select>
-                    {{--<input type="text" id="font_weight" class="form-control" placeholder="字体粗细" v-model="font_weight">--}}
                 </div>
             </div>
 
@@ -112,13 +108,15 @@
             <div class="form-group row">
                 <label for="shadow-color" class="col-xl-2 col-form-label">阴影颜色</label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3" id="shadow-color" class="form-control"
+                    <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3"
+                           id="shadow-color" class="form-control"
                            placeholder="可以参照默认的背景色和阴影颜色" v-model="shadowColor">
                 </div>
 
                 <label for="shadow-angle" class="col-xl-2 col-form-label">阴影角度</label>
                 <div class="col-xl-4">
-                    <input type="number" data-toggle="tooltip" title="范围 0 ~ 360 注意有些角度会导致线条不直" id="shadow-angle" class="form-control"
+                    <input type="number" data-toggle="tooltip" title="范围 0 ~ 360 注意有些角度会导致线条不直" id="shadow-angle"
+                           class="form-control"
                            placeholder="范围 0 ~ 360" v-model="shadowAngle">
                 </div>
             </div>
@@ -128,6 +126,15 @@
                 <div class="col-xl-4">
                     <input type="number" data-toggle="tooltip" title="0 则无阴影" id="shadow-length" class="form-control"
                            placeholder="0 则无阴影" v-model="shadowLength">
+                </div>
+
+                <label for="font_style" class="col-xl-2 col-form-label">字体样式</label>
+                <div class="col-xl-4">
+                    <select name="font_style" id="font_style" class="form-control" v-model="font_style">
+                        <option value="normal">normal</option>
+                        <option value="italic">italic</option>
+                        <option value="oblique">oblique</option>
+                    </select>
                 </div>
             </div>
 
@@ -141,12 +148,28 @@
         </form>
     </div>
 
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-3 form-inline">
         <button class="btn btn-sm btn-outline-success mr-3" type="button" @click="addText"><i class="fa fa-plus"></i>
             增加文字
         </button>
-        <a class="btn btn-sm btn-outline-primary" href="https://tinypng.com/" target="_blank"><i class="fa fa-bolt"></i>
+        <a class="btn btn-sm btn-outline-primary mr-3" href="https://tinypng.com/" target="_blank"><i
+                    class="fa fa-bolt"></i>
             图片压缩</a>
+
+        <input type="text" data-toggle="tooltip" title="请填写字体链接地址，字体名字中有空格则用 + 号代替" id="g-font-url"
+               class="col-sm-12 col-md-3 col-xl-3 form-control mr-3"
+               placeholder="例子：https://fonts.googleapis.com/css?family=Dancing+Script"
+               value="https://fonts.googleapis.com/css?family=Dancing+Script">
+        <input type="text" data-toggle="tooltip" title="请填写字体英文名" id="g-font-name"
+               class="col-sm-6 col-md-2 col-xl-2 form-control mr-3"
+               placeholder="例子：Dancing Script" value="Dancing Script">
+        <button class="btn btn-sm btn-outline-danger mr-3" data-toggle="tooltip" title="如果字体加载完成后无效果，请在上面重新选择其他字体，再选回来"
+                type="button" @click="addFont">
+            <i class="fa fa-font"></i> 加载新字体
+        </button>
+        <a href="http://www.googlefonts.cn/" data-toggle="tooltip" data-placement="right"
+           title="点击查看提示"
+           target="_Blank">字体名？</a>
     </div>
 
     <div class="col-12 mb-3" v-for="(v, vi) in texts" v-cloak>
@@ -209,12 +232,22 @@
                 <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
                        v-model="v.text_y">
             </div>
+
+            <label class="col-xl-1 col-form-label">字体样式</label>
+            <div class="col-xl-2">
+                <select name="font_style" class="form-control" v-model="v.font_style">
+                    <option value="normal">normal</option>
+                    <option value="italic">italic</option>
+                    <option value="oblique">oblique</option>
+                </select>
+            </div>
         </div>
 
         <div class="form-row">
             <label class="col-xl-1 col-form-label">阴影颜色</label>
             <div class="col-xl-2">
-                <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3" class="form-control"
+                <input type="text" data-toggle="tooltip" title="不支持背景与阴影透明度混合.如果不知道填什么好,鄙人瞎算法：背景色的左数第1,3,5位数字至少减去3"
+                       class="form-control"
                        placeholder="可以参照默认的背景色和阴影颜色" v-model="v.shadowColor">
             </div>
 
@@ -259,6 +292,7 @@
                 text: 'f',
                 backgroundColor: '#3b5998',
                 font_size: 300,
+                font_style: 'normal',
                 font_family: 'Verdana',
                 font_weight: 'normal',
                 textColor: '#ffffff',
@@ -277,7 +311,7 @@
                     ctx.fillStyle = this.backgroundColor;
                     ctx.fillRect(0, 0, 256, 256);
 
-                    ctx.font = this.font_weight + " " + this.font_size + "px " + this.font_family;
+                    ctx.font = this.font_style + " " + this.font_weight + " " + this.font_size + "px " + this.font_family;
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "center";
 
@@ -287,7 +321,7 @@
                         rx = Math.cos(c);
                         ry = Math.sin(c);
                         ctx.fillStyle = this.shadowColor;
-                        for (i = parseInt(this.shadowLength), j = 0; i > j; i-=1) {
+                        for (i = parseInt(this.shadowLength), j = 0; i > j; i -= 1) {
                             x = Math.floor(i * rx);
                             y = Math.floor(i * ry);
                             ctx.fillText(this.text, parseInt(this.text_x) + x, parseInt(this.text_y) + y);
@@ -308,7 +342,7 @@
                     for (i = 0, j = this.texts.length; i < j; i++) {
                         obj = this.texts[i];
 
-                        ctx.font = obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
+                        ctx.font = obj.font_style + " " + obj.font_weight + " " + obj.font_size + "px " + obj.font_family;
                         ctx.textBaseline = "middle";
                         ctx.textAlign = "center";
 
@@ -318,7 +352,7 @@
                             rx = Math.cos(c);
                             ry = Math.sin(c);
                             ctx.fillStyle = obj.shadowColor;
-                            for (si = obj.shadowLength, sj = 0; si > sj; si-=1) {
+                            for (si = obj.shadowLength, sj = 0; si > sj; si -= 1) {
                                 x = Math.round(si * rx);
                                 y = Math.round(si * ry);
                                 ctx.fillText(obj.text, obj.text_x + x, obj.text_y + y);
@@ -343,7 +377,7 @@
                     ctxcopy.fillStyle = this.backgroundColor;
                     ctxcopy.fillRect(0, 0, 1024, 1024);
 
-                    ctxcopy.font = this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
+                    ctxcopy.font = this.font_style + " " + this.font_weight + " " + (this.font_size * 4) + "px " + this.font_family;
                     ctxcopy.textBaseline = "middle";
                     ctxcopy.textAlign = "center";
 
@@ -353,7 +387,7 @@
                         rx = Math.cos(c);
                         ry = Math.sin(c);
                         ctxcopy.fillStyle = this.shadowColor;
-                        for (i = this.shadowLength * 4, j = 0; i > j; i-=1) {
+                        for (i = this.shadowLength * 4, j = 0; i > j; i -= 1) {
                             x = Math.round(i * rx);
                             y = Math.round(i * ry);
                             ctxcopy.fillText(this.text, this.text_x * 4 + x, this.text_y * 4 + y);
@@ -374,7 +408,7 @@
                     for (i = 0, j = this.texts.length; i < j; i++) {
                         obj = this.texts[i];
 
-                        ctxcopy.font = obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
+                        ctxcopy.font = obj.font_style + " " + obj.font_weight + " " + (obj.font_size * 4) + "px " + obj.font_family;
                         ctxcopy.textBaseline = "middle";
                         ctxcopy.textAlign = "center";
 
@@ -384,7 +418,7 @@
                             rx = Math.cos(c);
                             ry = Math.sin(c);
                             ctxcopy.fillStyle = obj.shadowColor;
-                            for (si = obj.shadowLength * 4, sj = 0; si > sj; si-=1) {
+                            for (si = obj.shadowLength * 4, sj = 0; si > sj; si -= 1) {
                                 x = Math.round(si * rx);
                                 y = Math.round(si * ry);
                                 ctxcopy.fillText(obj.text, obj.text_x * 4 + x, obj.text_y * 4 + y);
@@ -409,6 +443,7 @@
                 addText() {
                     this.texts.push({
                         text: this.text ? this.text : 'f',
+                        font_style: this.font_style ? this.font_style : 'normal',
                         font_size: this.font_size ? this.font_size : 300,
                         font_family: this.font_family ? this.font_family : 'Verdana',
                         font_weight: this.font_weight ? this.font_weight : 'normal',
@@ -420,15 +455,55 @@
                         shadowLength: this.shadowLength ? this.shadowLength : '300',
                     })
                 },
+                addFont() {
+                    furl = document.getElementById('g-font-url').value;
+                    fname = document.getElementById('g-font-name').value;
+                    if (furl.length < 1) {
+                        $('#g-font-url').tooltip('show');
+                        return;
+                    }
+                    if (fname.length < 1) {
+                        $('#g-font-name').tooltip('show');
+                        return;
+                    }
+
+                    node = document.createElement("link");
+                    node.setAttribute("rel", "stylesheet");
+                    node.setAttribute("type", "text/css");
+                    node.setAttribute("href", furl);
+                    document.head.appendChild(node);
+                    self = this;
+                    this.styleOnload(node, function () {
+                        self.fonts.unshift({
+                            font: fname,
+                            font_family: fname
+                        });
+                        self.font_family = 'whatbug';
+                        self.font_family = fname;
+                    });
+                },
                 deleteText(idx) {
                     this.texts.splice(idx, 1);
-                }
+                },
+                styleOnload(node, callback) {
+                    if (node.attachEvent) {
+                        node.attachEvent('onload', callback);
+                    }
+                    else {
+                        setTimeout(function () {
+                            poll(node, callback);
+                        }, 0);
+                    }
+                },
             },
             watch: {
                 text: function () {
                     this.drawc();
                 },
                 backgroundColor: function () {
+                    this.drawc();
+                },
+                font_style: function () {
                     this.drawc();
                 },
                 font_size: function () {
@@ -466,5 +541,39 @@
                 },
             }
         });
+
+        function poll(node, callback) {
+            if (callback.isCalled) {
+                return;
+            }
+            isLoaded = false;
+
+            if (/webkit/i.test(navigator.userAgent)) {
+                if (node['sheet']) {
+                    isLoaded = true;
+                }
+            } else if (node['sheet']) {
+                try {
+                    if (node['sheet'].cssRules) {
+                        isLoaded = true;
+                    }
+                } catch (ex) {
+                    if (ex.code === 1000) {
+                        isLoaded = true;
+                    }
+                }
+            }
+
+            if (isLoaded) {
+                setTimeout(function () {
+                    callback();
+                }, 1);
+            }
+            else {
+                setTimeout(function () {
+                    poll(node, callback);
+                }, 1);
+            }
+        }
     </script>
 @endsection

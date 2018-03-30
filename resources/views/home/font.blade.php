@@ -198,13 +198,13 @@
                 </select>
             </div>
 
-            <label class="col-xl-1 col-form-label">中心-X</label>
+            <label class="col-xl-1 col-form-label">左右</label>
             <div class="col-xl-2">
                 <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
                        v-model="v.text_x">
             </div>
 
-            <label class="col-xl-1 col-form-label">中心-Y</label>
+            <label class="col-xl-1 col-form-label">上下</label>
             <div class="col-xl-2">
                 <input type="number" data-toggle="tooltip" title="128为居中" class="form-control" placeholder="128居中"
                        v-model="v.text_y">

@@ -34,8 +34,8 @@
                        target="_Blank">背景色</a>
                 </label>
                 <div class="col-xl-4">
-                    <input type="text" data-toggle="tooltip" title="最后两位是透明度 00 为透明背景 一些浏览器暂不支持透明度或使用 rgba(0,0,0,0.0)" id="backgroundColor"
-                           class="form-control" placeholder="最后两位是透明度 一些浏览器暂不支持透明度"
+                    <input type="text" data-toggle="tooltip" title="可以再增加两位数字设置透明度 00 为透明背景 一些浏览器暂不支持或使用 rgba(0,0,0,0.0)" id="backgroundColor"
+                           class="form-control" placeholder="可以再增加两位数字设置透明度"
                            v-model="backgroundColor">
                 </div>
 
@@ -96,13 +96,13 @@
             </div>
 
             <div class="form-group row">
-                <label for="text_x" class="col-xl-2 col-form-label">中心-X</label>
+                <label for="text_x" class="col-xl-2 col-form-label">左右</label>
                 <div class="col-xl-4">
                     <input type="number" data-toggle="tooltip" title="128为居中" id="text_x" class="form-control"
                            placeholder="128居中" v-model="text_x">
                 </div>
 
-                <label for="text_y" class="col-xl-2 col-form-label">中心-Y</label>
+                <label for="text_y" class="col-xl-2 col-form-label">上下</label>
                 <div class="col-xl-4">
                     <input type="number" data-toggle="tooltip" title="128为居中" id="text_y" class="form-control"
                            placeholder="128居中" v-model="text_y">
@@ -231,7 +231,7 @@
             </div>
 
             <button class="offset-xl-1 col-xl-2 btn btn-outline-danger" @click="deleteText(vi)">
-                <i class="fa fa-times"></i> 删除
+                <i class="fa fa-times"></i> 关闭
             </button>
         </div>
     </div>

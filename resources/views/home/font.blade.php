@@ -9,15 +9,6 @@
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="alert alert-info text-center alert-dismissible fade show" role="alert" id="sizealert">
-            预览图片大小 256*256 下载图片大小 1024*1024
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
             <canvas id="draw" width="256" height="256" data-toggle="tooltip" title="预览图片大小为 256*256 下载图片大小为 1024*1024"
@@ -160,7 +151,7 @@
                class="col-sm-12 col-md-3 col-xl-3 form-control mr-3"
                placeholder="例子：https://fonts.googleapis.com/css?family=Dancing+Script"
                value="https://fonts.googleapis.com/css?family=Dancing+Script">
-        <input type="text" data-toggle="tooltip" title="请填写字体英文名" id="g-font-name"
+        <input type="text" data-toggle="tooltip" title="请填写字体英文名，一些字体没有支持所有的粗细和样式，需将文字设置成支持的粗细和样式才有效果" id="g-font-name"
                class="col-sm-6 col-md-2 col-xl-2 form-control mr-3"
                placeholder="例子：Dancing Script" value="Dancing Script">
         <button class="btn btn-sm btn-outline-danger mr-3" data-toggle="tooltip" title="如果字体加载完成后无效果，请在上面重新选择其他字体，再选回来"
@@ -278,9 +269,6 @@
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
-            setTimeout(function () {
-                $("#sizealert").alert('close');
-            }, 3000);
         });
 
         new Vue({
@@ -448,8 +436,8 @@
                         font_family: this.font_family ? this.font_family : 'Verdana',
                         font_weight: this.font_weight ? this.font_weight : 'normal',
                         textColor: this.textColor ? this.textColor : '#ffffff',
-                        text_x: this.text_x + (this.texts.length + 1) * 10,
-                        text_y: this.text_y + (this.texts.length + 1) * 10,
+                        text_x: parseInt(this.text_x) + (this.texts.length + 1) * 10,
+                        text_y: parseInt(this.text_y) + (this.texts.length + 1) * 10,
                         shadowColor: this.shadowColor ? this.shadowColor : '#000000',
                         shadowAngle: this.shadowAngle ? this.shadowAngle : '45',
                         shadowLength: this.shadowLength ? this.shadowLength : '300',
@@ -472,15 +460,19 @@
                     node.setAttribute("type", "text/css");
                     node.setAttribute("href", furl);
                     document.head.appendChild(node);
+
+                    $('body').append("<p style=\"position: absolute;left: -9999px;font-family: '" + fname + "'\">xxx</p>");
                     self = this;
                     this.styleOnload(node, function () {
                         self.fonts.unshift({
                             font: fname,
                             font_family: fname
                         });
-                        self.font_family = 'whatbug';
-                        self.font_family = fname;
+                        setTimeout(function () {
+                            self.font_family = fname;
+                        }, 1000);
                     });
+
                 },
                 deleteText(idx) {
                     this.texts.splice(idx, 1);

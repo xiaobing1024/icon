@@ -9,6 +9,11 @@
                 <div class="col-12 col-sm-12 col-md-6 form-group">
                     <input type="file" name="img" id="dropify" class="dropify"
                            data-height="335" data-max-file-size="3M" onchange="fileChange()">
+
+                    <div class="form-inline mt-3">
+                        <label for="size">自定义大小：</label>
+                        <input type="number" class="form-control" name="size" id="size" oninput="sizeChange()" placeholder="输入大小，制作正方形图片">
+                    </div>
                 </div>
 
                 @foreach ($types as $item)
@@ -75,11 +80,15 @@
                 btn.css('border-color', '#17a2b8');
             }
 
-            $('#go').attr("disabled", !(this.checks.length > 0 && dropify.files.length > 0));
+            $('#go').attr("disabled", !((this.checks.length || $('#size').val().length) > 0 && dropify.files.length > 0));
+        }
+
+        function sizeChange() {
+            $('#go').attr("disabled", !((this.checks.length || $('#size').val().length) > 0 && dropify.files.length > 0));
         }
 
         function fileChange() {
-            $('#go').attr("disabled", !(this.checks.length > 0 && dropify.files.length > 0));
+            $('#go').attr("disabled", !((this.checks.length || $('#size').val().length) > 0 && dropify.files.length > 0));
         }
     </script>
 @endsection

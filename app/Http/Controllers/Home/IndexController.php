@@ -31,35 +31,75 @@ class IndexController extends Controller
             return back()->withErrors('文件上传失败');
         }
 
-        $types = $request->input('type', [2]);
+        $types = $request->input('type', []);
 
-        $icons = Icon::whereIn('type', $types)
-            ->with('type')
-            ->orderBy('type')
-            ->orderBy('order')
-            ->orderBy('id')
-            ->get();
 
         $random_path = time() . str_random(5);//制作后存储文件夹
 
         $img = $request->file('img');//上传的图片
-        foreach ($icons as $icon) {
-            $i_path = $random_path . '/file/' . $icon->path_info['dirname'];//图标所处文件夹
+
+        if (!empty($types)) {
+            $icons = Icon::whereIn('type', $types)
+                ->with('type')
+                ->orderBy('type')
+                ->orderBy('order')
+                ->orderBy('id')
+                ->get();
+
+            foreach ($icons as $icon) {
+                $i_path = $random_path . '/file/' . $icon->path_info['dirname'];//图标所处文件夹
+
+                if (!Storage::exists($i_path)) {//文件夹不存在先创建
+                    Storage::makeDirectory($i_path);
+                }
+
+                $i = Image::make($img->path())
+                    ->resize($icon->width, $icon->height);
+
+//            if ($icon->radius > 0) { todo 圆角处理
+//                $i->rad($icon->radius);
+//            }
+
+                $i->save(Storage::path($i_path) . '/' . $icon->path_info['basename']);
+            }
+        }
+
+        $size = $request->input('size', '');
+
+        if (!empty($size)) {
+            $i_path = $random_path . '/file/';//图标所处文件夹
 
             if (!Storage::exists($i_path)) {//文件夹不存在先创建
                 Storage::makeDirectory($i_path);
             }
 
             $i = Image::make($img->path())
-                ->resize($icon->width, $icon->height);
+                ->resize($size, $size);
 
 //            if ($icon->radius > 0) { todo 圆角处理
 //                $i->rad($icon->radius);
 //            }
 
-            $i->save(Storage::path($i_path) . '/' . $icon->path_info['basename']);
-        }
+            $basename = 'favicon' . $size . '.png';
+            $i->save(Storage::path($i_path) . '/' . $basename);
 
+
+            $i_path = $random_path . '/file/';//图标所处文件夹
+
+            if (!Storage::exists($i_path)) {//文件夹不存在先创建
+                Storage::makeDirectory($i_path);
+            }
+
+            $i = Image::make($img->path())
+                ->resize($size, $size);
+
+//            if ($icon->radius > 0) { todo 圆角处理
+//                $i->rad($icon->radius);
+//            }
+
+            $basename = 'favicon' . $size . '.ico';
+            $i->save(Storage::path($i_path) . '/' . $basename);
+        }
 
         $zip_path = 'zip/' . $random_path . '.zip';
 
@@ -97,7 +137,7 @@ class IndexController extends Controller
     public function font()
     {
         if (!cache()->has('font')) {
-            $font = Font::select('font','font_family')->get()->toArray();
+            $font = Font::select('font', 'font_family')->get()->toArray();
             cache()->forever('font', $font);
         }
         $font = cache('font');

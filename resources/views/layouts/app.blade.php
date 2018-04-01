@@ -45,6 +45,7 @@
     @yield('css')
 
     <script>{!! cache_map('baidu_code', '') !!}</script>
+    <meta name="baidu_union_verify" content="5fc2966fe5959ff0311cfd9fa7069400">
 </head>
 <body>
     <div id="app">

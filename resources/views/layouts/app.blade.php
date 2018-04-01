@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="baidu_union_verify" content="5fc2966fe5959ff0311cfd9fa7069400">
+	<meta name="baidu_union_verify" content="3592b83376b1d9d57488bec11f34ded9">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

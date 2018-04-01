@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<meta name="baidu_union_verify" content="5fc2966fe5959ff0311cfd9fa7069400">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -45,7 +45,6 @@
     @yield('css')
 
     <script>{!! cache_map('baidu_code', '') !!}</script>
-    <meta name="baidu_union_verify" content="5fc2966fe5959ff0311cfd9fa7069400">
 </head>
 <body>
     <div id="app">

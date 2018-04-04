@@ -343,7 +343,7 @@
                             for (si = obj.shadowLength, sj = 0; si > sj; si -= 1) {
                                 x = Math.round(si * rx);
                                 y = Math.round(si * ry);
-                                ctx.fillText(obj.text, obj.text_x + x, obj.text_y + y);
+                                ctx.fillText(obj.text, parseInt(obj.text_x) + x, parseInt(obj.text_y) + y);
                             }
                             ctx.globalCompositeOperation = "source-over";
                         }
@@ -378,7 +378,7 @@
                         for (i = this.shadowLength * 4, j = 0; i > j; i -= 1) {
                             x = Math.round(i * rx);
                             y = Math.round(i * ry);
-                            ctxcopy.fillText(this.text, this.text_x * 4 + x, this.text_y * 4 + y);
+                            ctxcopy.fillText(this.text, parseInt(this.text_x) * 4 + x, parseInt(this.text_y) * 4 + y);
                         }
                         ctxcopy.globalCompositeOperation = "source-over";
                     }
@@ -409,7 +409,7 @@
                             for (si = obj.shadowLength * 4, sj = 0; si > sj; si -= 1) {
                                 x = Math.round(si * rx);
                                 y = Math.round(si * ry);
-                                ctxcopy.fillText(obj.text, obj.text_x * 4 + x, obj.text_y * 4 + y);
+                                ctxcopy.fillText(obj.text, parseInt(obj.text_x) * 4 + x, parseInt(obj.text_y) * 4 + y);
                             }
                             ctxcopy.globalCompositeOperation = "source-over";
                         }

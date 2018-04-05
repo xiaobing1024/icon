@@ -15,9 +15,9 @@ class IconMakeRequest extends Request
         }
 
         if (empty($this->input('type', []))) {
-            $size = 'required|integer|min:1';
+            $size = '';
         } else {
-            $size = 'integer|min:1';
+            $size = '';
         }
 
         return [

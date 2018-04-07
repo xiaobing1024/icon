@@ -3,11 +3,11 @@
 @section('meta')
 <meta name="keywords" content="app图标制作,ico图标制作,图标在线制作">
 <meta name="description" content="最方便的app图标在线制作,可以制作iOS,Android,web,ico等等类型图标">
-@endsetion
+@endsection
 
 @section('title')
 <title>BingoIcon-在线制作图标_简单app图标在线制作</title>
-@endsetion
+@endsection
 @section('content')
 <h1 class="text-hide">图标裁剪</h1>
     <div class="col">

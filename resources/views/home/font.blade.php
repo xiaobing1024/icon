@@ -8,7 +8,16 @@
     </style>
 @endsection
 
+@section('meta')
+<meta name="keywords" content="文字图标制作,图标在线制作,图标在线预览">
+<meta name="description" content="在线预览生成图片,输入文字,字体,大小等等即可下载图片">
+@endsetion
+
+@section('title')
+<title>BingoIcon-在线制作图标_文字图标在线生成</title>
+@endsetion
 @section('content')
+<h1 class="text-hide">文字图标</h1>
     <div class="col-12 col-sm-12 col-md-6 form-group">
         <div class="text-center" width="256" height="256">
             <canvas id="draw" width="256" height="256" data-toggle="tooltip" title="预览图片大小为 256*256 下载图片大小为 1024*1024"

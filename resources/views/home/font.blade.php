@@ -11,11 +11,11 @@
 @section('meta')
 <meta name="keywords" content="文字图标制作,图标在线制作,图标在线预览">
 <meta name="description" content="在线预览生成图片,输入文字,字体,大小等等即可下载图片">
-@endsetion
+@endsection
 
 @section('title')
 <title>BingoIcon-在线制作图标_文字图标在线生成</title>
-@endsetion
+@endsection
 @section('content')
 <h1 class="text-hide">文字图标</h1>
     <div class="col-12 col-sm-12 col-md-6 form-group">

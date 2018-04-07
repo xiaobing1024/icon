@@ -7,17 +7,12 @@
 	<meta name="baidu_union_verify" content="3592b83376b1d9d57488bec11f34ded9">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <meta name="keywords" content="{{ cache_map('keyword', '')  }}">
-    <meta name="description" content="{{ cache_map('description', '') }}">
-    <meta name="author" content="{{ cache_map('author', '') }}">
+@yield('meta')
     @if (!empty(cache_map('baidu-site-verification', '')))
         <meta name="baidu-site-verification" content="{{ cache_map('baidu-site-verification', '') }}" />
     @endif
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
+@yield('title')
     <!-- Styles -->
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">

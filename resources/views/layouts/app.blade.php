@@ -47,7 +47,7 @@
             <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('image/favicon30.png') }}" width="20" height="20" class="d-inline-block align-center" alt="favicon" title="favicon">
-                Bingo 图标在线制作
+                BingoIcon 图标在线制作
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

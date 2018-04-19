@@ -3,6 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7993187458767611",
+    enable_page_level_ads: true
+  });
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="baidu_union_verify" content="3592b83376b1d9d57488bec11f34ded9">
     <!-- CSRF Token -->

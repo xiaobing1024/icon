@@ -79,6 +79,9 @@
                     <li class="nav-item {{ request()->is('*font') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('font') }}">文字图标</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://www.xintaikeji.cn/" target="_blank">鑫泰科技</a>
+                    </li>
                 </ul>
             </div>
             </div>

@@ -17,6 +17,15 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/d/{path}', 'IndexController@downloadFile');
     Route::post('/make_icon', 'IndexController@makeIcon');
     Route::get('/font', 'IndexController@font');
+
+
+    Route::group(['prefix' => 'ssq'], function () {
+        Route::get('/', 'IndexController@index');
+        Route::get('/all', 'IndexController@all');
+        Route::get('/new', 'IndexController@new');
+        Route::get('/search', 'IndexController@search');
+        Route::get('/random', 'IndexController@random');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

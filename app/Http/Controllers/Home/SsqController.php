@@ -21,48 +21,48 @@ class SsqController extends Controller
     public function all(Request $request)
     {
         //20页10秒
-        for ($idx = $request->s; $idx >= $request->e; $idx--) {
-            try {
-                DB::beginTransaction();
-                $response = Zttp::get('http://kaijiang.zhcw.com/zhcw/html/ssq/list_' . $idx . '.html');
-
-                $body = $response->body();
-
-                $crawler = new Crawler();
-
-                $crawler->addHtmlContent(trim($body));
-
-                $now = now()->toDateTimeString();
-
-                $data = $crawler->filterXPath('html/body/table/tr[position()>2 and position()<last()]')->each(function (Crawler $node, $i) use ($now) {
-                    $temp = [];
-
-                    $temp['day'] = $node->filterXPath('//td[1]')->text();
-                    $temp['no'] = $node->filterXPath('//td[2]')->text();
-
-                    $num = $node->filterXPath('//td[3]/em')->each(function (Crawler $node, $i) {
-                        return $node->text();
-                    });
-
-                    $temp += array_combine(['red1', 'red2', 'red3', 'red4', 'red5', 'red6', 'blue'], $num);
-
-                    $temp['number'] = implode('', $num);
-
-                    $temp['created_at'] = $now;
-                    $temp['updated_at'] = $now;
-
-                    return $temp;
-                });
-
-                ssq::insert(array_reverse($data));
-
-                DB::commit();
-                dump('ok' . $now . '--------' . $idx);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                dd('error' . $now . $e->getMessage() . '--------' . $idx);
-            }
-        }
+//        for ($idx = $request->s; $idx >= $request->e; $idx--) {
+//            try {
+//                DB::beginTransaction();
+//                $response = Zttp::get('http://kaijiang.zhcw.com/zhcw/html/ssq/list_' . $idx . '.html');
+//
+//                $body = $response->body();
+//
+//                $crawler = new Crawler();
+//
+//                $crawler->addHtmlContent(trim($body));
+//
+//                $now = now()->toDateTimeString();
+//
+//                $data = $crawler->filterXPath('html/body/table/tr[position()>2 and position()<last()]')->each(function (Crawler $node, $i) use ($now) {
+//                    $temp = [];
+//
+//                    $temp['day'] = $node->filterXPath('//td[1]')->text();
+//                    $temp['no'] = $node->filterXPath('//td[2]')->text();
+//
+//                    $num = $node->filterXPath('//td[3]/em')->each(function (Crawler $node, $i) {
+//                        return $node->text();
+//                    });
+//
+//                    $temp += array_combine(['red1', 'red2', 'red3', 'red4', 'red5', 'red6', 'blue'], $num);
+//
+//                    $temp['number'] = implode('', $num);
+//
+//                    $temp['created_at'] = $now;
+//                    $temp['updated_at'] = $now;
+//
+//                    return $temp;
+//                });
+//
+//                ssq::insert(array_reverse($data));
+//
+//                DB::commit();
+//                dump('ok' . $now . '--------' . $idx);
+//            } catch (\Exception $e) {
+//                DB::rollBack();
+//                dd('error' . $now . $e->getMessage() . '--------' . $idx);
+//            }
+//        }
     }
 
 

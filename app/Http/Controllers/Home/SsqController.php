@@ -18,10 +18,10 @@ class SsqController extends Controller
         return $this->json_ok($data);
     }
 
-    public function all()
+    public function all(Request $request)
     {
         //20页10秒
-        for ($idx = 117; $idx >= 107; $idx--) {
+        for ($idx = $request->s; $idx >= $request->e; $idx--) {
             try {
                 DB::beginTransaction();
                 $response = Zttp::get('http://kaijiang.zhcw.com/zhcw/html/ssq/list_' . $idx . '.html');

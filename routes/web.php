@@ -20,11 +20,11 @@ Route::group(['namespace' => 'Home'], function () {
 
 
     Route::group(['prefix' => 'ssq'], function () {
-        Route::get('/', 'IndexController@index');
-        Route::get('/all', 'IndexController@all');
-        Route::get('/new', 'IndexController@new');
-        Route::get('/search', 'IndexController@search');
-        Route::get('/random', 'IndexController@random');
+        Route::get('/', 'SsqController@index');
+        Route::get('/all', 'SsqController@all');
+        Route::get('/new', 'SsqController@new');
+        Route::get('/search', 'SsqController@search');
+        Route::get('/random', 'SsqController@random');
     });
 });
 

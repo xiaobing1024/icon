@@ -26,6 +26,14 @@ Route::group(['namespace' => 'Home'], function () {
         Route::get('/search', 'SsqController@search');
         Route::get('/random', 'SsqController@random');
     });
+
+    Route::group(['prefix' => 'dlt'], function () {
+        Route::get('/', 'DltController@index');
+        Route::get('/all', 'DltController@all');
+        Route::get('/new', 'DltController@new');
+        Route::get('/search', 'DltController@search');
+        Route::get('/random', 'DltController@random');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

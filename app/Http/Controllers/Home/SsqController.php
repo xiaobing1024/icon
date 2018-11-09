@@ -60,6 +60,7 @@ class SsqController extends Controller
 //                dump('ok' . $now . '--------' . $idx);
 //            } catch (\Exception $e) {
 //                DB::rollBack();
+//                $now = now()->toDateTimeString();
 //                dd('error' . $now . $e->getMessage() . '--------' . $idx);
 //            }
 //        }

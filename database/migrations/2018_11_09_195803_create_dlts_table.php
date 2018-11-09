@@ -15,7 +15,7 @@ class CreateDltsTable extends Migration
     {
         Schema::create('dlts', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('day')->unique();
+            $table->date('day');
             $table->string('no', 10)->unique();
             $table->unsignedTinyInteger('red1')->index();
             $table->unsignedTinyInteger('red2')->index();

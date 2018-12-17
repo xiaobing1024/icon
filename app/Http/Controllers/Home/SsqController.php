@@ -67,7 +67,7 @@ class SsqController extends Controller
     }
 
 
-    public function new()
+    public function new(Request $request)
     {
         try {
             DB::beginTransaction();
@@ -81,7 +81,7 @@ class SsqController extends Controller
 
             $now = now()->toDateTimeString();
 
-            $data = $crawler->filterXPath('html/body/table/tr[3]')->each(function (Crawler $node, $i) use ($now) {
+            $data = $crawler->filterXPath('html/body/table/tr[' . $request->input('id', 3) . ']')->each(function (Crawler $node, $i) use ($now) {
                 $temp = [];
 
                 $temp['day'] = $node->filterXPath('//td[1]')->text();
@@ -104,7 +104,7 @@ class SsqController extends Controller
             ssq::insert(array_reverse($data));
 
             DB::commit();
-            dd('ok' . $now);
+            dd('ok' . $now, $data);
         } catch (\Exception $e) {
             DB::rollBack();
             dd('error' . $now . $e->getMessage());

@@ -82,7 +82,7 @@ class DltController extends Controller
 
             $now = now()->toDateTimeString();
 
-            $data = $crawler->filterXPath('html/body/div[3]/div[2]/div[2]/table/tbody/tr[1]')->each(function (Crawler $node, $i) use ($now) {
+            $data = $crawler->filterXPath('html/body/div[3]/div[2]/div[2]/table/tbody/tr[' . $request->input('id', 1) . ']')->each(function (Crawler $node, $i) use ($now) {
                 $temp = [];
 
                 $temp['day'] = $node->filterXPath('//td[20]')->text();

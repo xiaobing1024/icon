@@ -114,11 +114,67 @@ class SsqController extends Controller
 
     public function search(Request $request)
     {
-        if (strlen($request->kw) == 12) {
-            $data = ssq::where('number', 'like', $request->kw . '%')->get() ?? [];
-        } else {
-            $data = ssq::where('number', $request->kw)->get() ?? [];
+        $arr = explode(',', $request->input('kw'));
+        
+        $old = array_combine(['red1', 'red2', 'red3', 'red4', 'red5', 'red6'], $arr);
+        
+        $data = [];
+        
+        $data['data1'] = Ssq::where($old)->first() ?? [];
+        
+        $temp = [];
+        
+        for ($i = 0; $i < 6; $i++) {
+            $key = 'red' . ($i + 1);
+        
+            $pre = (($i == 0 || $i == 5) ? $arr[$i] : $arr[$i - 1]) + 1;
+        
+            $aft = $i == 5 ? 34 : $arr[$i + 1];
+        
+            for ($j = $pre; $j < $aft; $j++) {
+                if ($j != $arr[$i]) {
+                    $temp[] = [$key => $j] + $old;
+                }
+            }
         }
+        
+        $data['data2'] = Ssq::where(function ($q) use ($temp) {
+            foreach ($temp as $item) {
+                $q->orWhere(function ($q) use ($item) {
+                    $q->where($item);
+                });
+            }
+        })->first() ?? [];
+
+        $temp = [];
+        
+        for ($i = 0; $i < 5; $i++) {
+            $key1 = 'red' . ($i + 1);
+            $key2 = 'red' . ($i + 2);
+
+            $pre = ($i == 0 ? $arr[$i] : $arr[$i - 1]) + 1;
+
+            $aft = $i == 4 ? 34 : $arr[$i + 2];
+
+            for ($j = $pre; $j < $aft - 1; $j++) {
+                if ($j != $arr[$i] && $j != $arr[$i + 1]) {
+                    for ($z = $j + 1; $z < $aft; $z++) {
+                        if ($z != $arr[$i + 1]) {
+                            $temp[] = [$key1 => $j, $key2 => $z] + $old;
+                        }
+                    }
+                }
+            }
+        }
+        
+        $data['data3'] = Ssq::where(function ($q) use ($temp) {
+            foreach ($temp as $item) {
+                $q->orWhere(function ($q) use ($item) {
+                    $q->where($item);
+                });
+            }
+        })->first() ?? [];
+        
         return $this->json_ok($data);
     }
 

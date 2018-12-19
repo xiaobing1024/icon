@@ -101,7 +101,7 @@ class SsqController extends Controller
                 return $temp;
             });
 
-            ssq::insert(array_reverse($data));
+            Ssq::insert(array_reverse($data));
 
             DB::commit();
             dd('ok' . $now, $data);
@@ -120,7 +120,7 @@ class SsqController extends Controller
         
         $data = [];
         
-        $data['data1'] = Ssq::where($old)->first() ?? [];
+        $data['data1'] = Ssq::where($old)->get() ?? [];
         
         $temp = [];
         
@@ -144,7 +144,7 @@ class SsqController extends Controller
                     $q->where($item);
                 });
             }
-        })->first() ?? [];
+        })->get();
 
         $temp = [];
         
@@ -173,7 +173,7 @@ class SsqController extends Controller
                     $q->where($item);
                 });
             }
-        })->first() ?? [];
+        })->get();
         
         return $this->json_ok($data);
     }

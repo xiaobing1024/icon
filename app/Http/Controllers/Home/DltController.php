@@ -116,11 +116,67 @@ class DltController extends Controller
 
     public function search(Request $request)
     {
-        if (strlen($request->kw) == 10) {
-            $data = Dlt::where('number', 'like', $request->kw . '%')->get() ?? [];
-        } else {
-            $data = Dlt::where('number', $request->kw)->get() ?? [];
+        $arr = explode(',', $request->input('kw'));
+        
+        $old = array_combine(['red1', 'red2', 'red3', 'red4', 'red5'], $arr);
+        
+        $data = [];
+        
+        $data['data1'] = Dlt::where($old)->get();
+        
+        $temp = [];
+        
+        for ($i = 0; $i < 5; $i++) {
+            $key = 'red' . ($i + 1);
+        
+            $pre = (($i == 0 || $i == 4) ? $arr[$i] : $arr[$i - 1]) + 1;
+        
+            $aft = $i == 4 ? 35 : $arr[$i + 1];
+        
+            for ($j = $pre; $j < $aft; $j++) {
+                if ($j != $arr[$i]) {
+                    $temp[] = [$key => $j] + $old;
+                }
+            }
         }
+        
+        $data['data2'] = Dlt::where(function ($q) use ($temp) {
+            foreach ($temp as $item) {
+                $q->orWhere(function ($q) use ($item) {
+                    $q->where($item);
+                });
+            }
+        })->get();
+
+        $temp = [];
+        
+        for ($i = 0; $i < 4; $i++) {
+            $key1 = 'red' . ($i + 1);
+            $key2 = 'red' . ($i + 2);
+
+            $pre = ($i == 0 ? $arr[$i] : $arr[$i - 1]) + 1;
+
+            $aft = $i == 3 ? 35 : $arr[$i + 2];
+
+            for ($j = $pre; $j < $aft - 1; $j++) {
+                if ($j != $arr[$i] && $j != $arr[$i + 1]) {
+                    for ($z = $j + 1; $z < $aft; $z++) {
+                        if ($z != $arr[$i + 1]) {
+                            $temp[] = [$key1 => $j, $key2 => $z] + $old;
+                        }
+                    }
+                }
+            }
+        }
+        
+        $data['data3'] = Dlt::where(function ($q) use ($temp) {
+            foreach ($temp as $item) {
+                $q->orWhere(function ($q) use ($item) {
+                    $q->where($item);
+                });
+            }
+        })->get();
+        
         return $this->json_ok($data);
     }
 

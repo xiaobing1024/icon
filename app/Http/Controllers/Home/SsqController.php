@@ -120,7 +120,7 @@ class SsqController extends Controller
         
         $data = [];
         
-        $data['data1'] = Ssq::where($old)->get() ?? [];
+        $data['data1'] = Ssq::where($old)->get();
         
         $temp = [];
         

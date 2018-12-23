@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Models\Dlt;
 use App\Http\Models\Ssq;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -11,10 +13,33 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class SsqController extends Controller
 {
+    public function wxIndex()
+    {
+        $ssq = Ssq::latest('no')->select('day', 'number', 'no')->first();
+        $dlt = Dlt::latest('no')->select('day', 'number', 'no')->first();
+
+        $w = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+        return $this->json_ok([
+            [
+                str_split($ssq->number, 2),
+                $ssq->day . ' ' . $w[Carbon::parse($ssq->day)->dayOfWeek],
+                $ssq->no
+            ],
+            [
+                str_split($dlt->number, 2),
+                $dlt->day . ' ' . $w[Carbon::parse($dlt->day)->dayOfWeek],
+                $dlt->no
+            ]
+        ]);
+    }
+
     public function index()
     {
-        $data = Ssq::latest('no')->simplePaginate(20);
-
+        $data = Ssq::latest('no')->select('day', 'no', 'number')->simplePaginate(20);
+        foreach ($data as $datum) {
+            $datum->append(['number_name', 'no_name']);
+        }
         return $this->json_ok($data);
     }
 
@@ -115,29 +140,29 @@ class SsqController extends Controller
     public function search(Request $request)
     {
         $arr = explode(',', $request->input('kw'));
-        
+
         $old = array_combine(['red1', 'red2', 'red3', 'red4', 'red5', 'red6'], $arr);
-        
+
         $data = [];
-        
+
         $data['data1'] = Ssq::where($old)->get();
-        
+
         $temp = [];
-        
+
         for ($i = 0; $i < 6; $i++) {
             $key = 'red' . ($i + 1);
-        
+
             $pre = (($i == 0 || $i == 5) ? $arr[$i] : $arr[$i - 1]) + 1;
-        
+
             $aft = $i == 5 ? 34 : $arr[$i + 1];
-        
+
             for ($j = $pre; $j < $aft; $j++) {
                 if ($j != $arr[$i]) {
                     $temp[] = [$key => $j] + $old;
                 }
             }
         }
-        
+
         $data['data2'] = Ssq::where(function ($q) use ($temp) {
             foreach ($temp as $item) {
                 $q->orWhere(function ($q) use ($item) {
@@ -147,7 +172,7 @@ class SsqController extends Controller
         })->get();
 
         $temp = [];
-        
+
         for ($i = 0; $i < 5; $i++) {
             $key1 = 'red' . ($i + 1);
             $key2 = 'red' . ($i + 2);
@@ -166,7 +191,7 @@ class SsqController extends Controller
                 }
             }
         }
-        
+
         $data['data3'] = Ssq::where(function ($q) use ($temp) {
             foreach ($temp as $item) {
                 $q->orWhere(function ($q) use ($item) {
@@ -174,7 +199,7 @@ class SsqController extends Controller
                 });
             }
         })->get();
-        
+
         return $this->json_ok($data);
     }
 

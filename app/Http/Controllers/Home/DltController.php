@@ -13,7 +13,11 @@ class DltController extends Controller
 {
     public function index()
     {
-        $data = Dlt::latest('no')->simplePaginate(20);
+        $data = Dlt::latest('no')->select('day', 'no', 'number')->simplePaginate(20);
+
+        foreach ($data as $datum) {
+            $datum->append(['number_name', 'no_name']);
+        }
 
         return $this->json_ok($data);
     }

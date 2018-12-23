@@ -17,23 +17,6 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/d/{path}', 'IndexController@downloadFile');
     Route::post('/make_icon', 'IndexController@makeIcon');
     Route::get('/font', 'IndexController@font');
-
-
-    Route::group(['prefix' => 'ssq'], function () {
-        Route::get('/', 'SsqController@index');
-        Route::get('/all', 'SsqController@all');
-        Route::get('/new', 'SsqController@new');
-        Route::get('/search', 'SsqController@search');
-        Route::get('/random', 'SsqController@random');
-    });
-
-    Route::group(['prefix' => 'dlt'], function () {
-        Route::get('/', 'DltController@index');
-        Route::get('/all', 'DltController@all');
-        Route::get('/new', 'DltController@new');
-        Route::get('/search', 'DltController@search');
-        Route::get('/random', 'DltController@random');
-    });
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

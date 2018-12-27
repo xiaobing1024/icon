@@ -124,7 +124,7 @@ class Kernel extends ConsoleKernel
         })->name('dlt_new')
             ->runInBackground()
             ->withoutOverlapping()
-            ->dailyAt('20:35');
+            ->dailyAt('20:40');
     }
 
     protected function commands()

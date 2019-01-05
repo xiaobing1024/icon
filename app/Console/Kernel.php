@@ -75,7 +75,7 @@ class Kernel extends ConsoleKernel
         })->name('ssq_new')
             ->runInBackground()
             ->withoutOverlapping()
-            ->dailyAt('21:25');
+            ->dailyAt('21:30');
 
         $schedule->call(function () {
             try {

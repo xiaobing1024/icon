@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dlt extends Model
 {
     protected $guarded = [];
-    
+
     public function getNumberNameAttribute()
     {
         return str_split($this->number, 2);

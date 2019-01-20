@@ -19,6 +19,10 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/font', 'IndexController@font');
 });
 
+Route::group(['namespace' => 'Mobile'], function () {
+    Route::get('cp', 'IndexController@index');
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['namespace' => 'Auth'], function () {
         Route::get('login', 'LoginController@showLoginForm')->name('login');

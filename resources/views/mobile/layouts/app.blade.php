@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery WeUI</title>
+    <title>lottery</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
@@ -51,9 +51,22 @@
     });
 </script>
 <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+<script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>
 <script src="https://cdn.bootcss.com/collect.js/4.4.0/collect.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
 <script>
+    var ssq_red = [
+        '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33'
+    ];
+
+    var ssq_blue = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16'];
+
+    var dlt_red = [
+        '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'
+    ];
+
+    var dlt_blue = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+
     function formatTime(date, fmt) {
         var o = {
             "M+": date.getMonth() + 1, //月份
@@ -86,6 +99,21 @@
             }
         }
         return fmt;
+    }
+
+    function random_num(type = 0, arr = []) {
+        var data = collect([]);
+        if (arr.length < 1) {
+            data = collect(type == 0 ? ssq_red : dlt_red).random(type == 0 ? 6 : 5).sort();
+
+            data = data.concat(collect(type == 0 ? ssq_blue : dlt_blue).random(type == 0 ? 1 : 2).sort());
+        } else {
+            arr.forEach(function(value, index, array) {
+                data = data.concat(collect(value[0]).random(value[1])).sort();
+            })
+        }
+
+        return data.toArray();
     }
 </script>
 @yield('js')

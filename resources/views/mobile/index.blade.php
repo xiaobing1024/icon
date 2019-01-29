@@ -113,29 +113,29 @@
                         <div class="weui-flex__item">
                             <div class="index-title">
                                 <span>双色球</span>
-                                <span class="index-subtitle">随缘一注</span>
+                                <span class="index-subtitle">{{ $ssq[2] }}</span>
                             </div>
                             <div class="weui-flex" style="margin-top: 5px;">
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][0] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][1] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][2] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][3] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][4] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $ssq[0][5] }}
                                 </div>
                                 <div class="ball blue-ball">
-                                    12
+                                    {{ $ssq[0][6] }}
                                 </div>
                             </div>
                         </div>
@@ -148,29 +148,29 @@
                         <div class="weui-flex__item">
                             <div class="index-title">
                                 <span>大乐透</span>
-                                <span class="index-subtitle">随缘一注</span>
+                                <span class="index-subtitle">{{ $dlt[2] }}</span>
                             </div>
                             <div class="weui-flex" style="margin-top: 5px;">
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][0] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][1] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][2] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][3] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][4] }}
                                 </div>
                                 <div class="ball">
-                                    12
+                                    {{ $dlt[0][5] }}
                                 </div>
                                 <div class="ball blue-ball">
-                                    12
+                                    {{ $dlt[0][6] }}
                                 </div>
                             </div>
                         </div>

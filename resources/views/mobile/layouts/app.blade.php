@@ -45,16 +45,15 @@
 
 <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
-<script>
-    $(function () {
-        FastClick.attach(document.body);
-    });
-</script>
 <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 <script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>
 <script src="https://cdn.bootcss.com/collect.js/4.4.0/collect.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
 <script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
     var ssq_red = [
         '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33'
     ];

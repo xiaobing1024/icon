@@ -41,4 +41,14 @@ class IndexController extends Controller
         // dd($data->toArray());
         return view('mobile.ssq', compact('data'));
     }
+
+    public function dlt()
+    {
+        $data = Dlt::latest('no')->select('day', 'no', 'number')->take(20)->get();
+        foreach ($data as $datum) {
+            $datum->append(['number_name', 'no_name']);
+        }
+        // dd($data->toArray());
+        return view('mobile.dlt', compact('data'));
+    }
 }

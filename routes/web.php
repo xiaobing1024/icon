@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Home'], function () {
 Route::group(['namespace' => 'Mobile', 'prefix' => 'cp'], function () {
     Route::get('/', 'IndexController@index');
     Route::get('ssq', 'IndexController@ssq');
+    Route::get('dlt', 'IndexController@dlt');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

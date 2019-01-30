@@ -147,6 +147,7 @@
                 </li>
 
                 <li class="kind-list__item">
+                    <a href="{{ url('cp/dlt') }}">
                     <div id="dlt" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
                         <div class="weui-flex__item">
                             <div class="index-title">
@@ -179,6 +180,7 @@
                         </div>
                         <div class="weui-cell__ft"></div>
                     </div>
+                    </a>
                 </li>
 
                 <li class="kind-list__item">

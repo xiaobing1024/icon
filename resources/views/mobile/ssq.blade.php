@@ -6,7 +6,10 @@
             <div class="weui-cells">
                 <div class="weui-cell" v-for="item in data" v-cloak>
                     <div class="weui-cell__bd">
-                        <p>@{{ item.no_name }}</p>
+                        <div class="weui-flex" style="justify-content:space-between;align-items:baseline">
+                            <p>@{{ item.no_name }}</p>
+                            <p style="color:#999;font-size: 14px">@{{ item.day }}</p>
+                        </div>
                         <div class="weui-flex" style="margin-top: 5px;">
                             <div class="ball">
                                 @{{ item.number_name[0] }}
@@ -31,7 +34,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="weui-cell__ft">@{{ item.day }}</div>
                 </div>
             </div>
             <div class="weui-loadmore" v-bind:style="{display: this.loading ? 'block' : 'none'}">
@@ -62,7 +64,7 @@
                     this.loading = true;
                     $.ajax({
                         url: "{{ url('api/ssq') }}",
-                        param: {page: this.page + 1},
+                        data: {page: this.page + 1},
                         success: function (result) {
                             that.page = result.data.current_page;
                             if (result.code === 1) {
@@ -74,7 +76,7 @@
                             }
                         },
                         error: function () {
-                            $.toast('加载失败');
+                            $.toast('加载失败', 'text');
                         },
                         complete: function () {
                             that.loading = false;

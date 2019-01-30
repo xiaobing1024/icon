@@ -22,6 +22,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            color: #fff
         }
 
         .index-subtitle {
@@ -109,11 +110,12 @@
                 </li>
 
                 <li class="kind-list__item">
+                    <a href="{{ url('cp/ssq') }}">
                     <div id="ssq" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
                         <div class="weui-flex__item">
                             <div class="index-title">
                                 <span>双色球</span>
-                                <span class="index-subtitle">{{ $ssq[2] }}</span>
+                                <span class="index-subtitle">{{ $ssq[1] }}</span>
                             </div>
                             <div class="weui-flex" style="margin-top: 5px;">
                                 <div class="ball">
@@ -141,6 +143,7 @@
                         </div>
                         <div class="weui-cell__ft"></div>
                     </div>
+                    </a>
                 </li>
 
                 <li class="kind-list__item">
@@ -148,7 +151,7 @@
                         <div class="weui-flex__item">
                             <div class="index-title">
                                 <span>大乐透</span>
-                                <span class="index-subtitle">{{ $dlt[2] }}</span>
+                                <span class="index-subtitle">{{ $dlt[1] }}</span>
                             </div>
                             <div class="weui-flex" style="margin-top: 5px;">
                                 <div class="ball">
@@ -251,7 +254,7 @@
                     return this.random.slice(0, this.type === 0 ? 6 : 5).join(' ') + ' + ' + this.random.slice(this.type === 0 ? 6 : 5, 7).join(' ');
                 }
             }
-        })
+        });
     </script>
 @endsection
 

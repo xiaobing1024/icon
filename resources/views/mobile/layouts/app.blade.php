@@ -30,8 +30,8 @@
             background-color: #29a3f6;
         }
 
-        [v-cloak]{
-            display:none
+        [v-cloak] {
+            display: none
         }
 
     </style>
@@ -59,8 +59,8 @@
     var dlt_red = [
         '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'
     ];
-    var dlt_blue = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];//
-    
+    var dlt_blue = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+
     $(function () {
         FastClick.attach(document.body);
     });
@@ -72,7 +72,7 @@
 
             data = data.concat(collect(type == 0 ? ssq_blue : dlt_blue).random(type == 0 ? 1 : 2).sort());
         } else {
-            arr.forEach(function(value, index, array) {
+            arr.forEach(function (value, index, array) {
                 data = data.concat(collect(value[0]).random(value[1])).sort();
             })
         }

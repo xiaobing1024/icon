@@ -40,9 +40,12 @@
                 <i class="weui-loading"></i>
                 <span class="weui-loadmore__tips">正在加载</span>
             </div>
-            <div class="weui-loadmore weui-loadmore_line" style="display:none" v-bind:style="{display: this.loading ? 'none' : 'block'}">
+            <div class="weui-loadmore weui-loadmore_line" style="display:none"
+                 v-bind:style="{display: this.loading ? 'none' : 'block'}">
                 <span class="weui-loadmore__tips">
-                    <button class="weui-btn weui-btn_mini weui-btn_primary" style="box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);height: 29px" v-on:click.self="loadmore">加载更多</button>
+                    <button class="weui-btn weui-btn_mini weui-btn_primary"
+                            style="box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);height: 29px"
+                            v-on:click.self="loadmore">加载更多</button>
                 </span>
             </div>
         </div>

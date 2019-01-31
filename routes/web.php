@@ -23,6 +23,7 @@ Route::group(['namespace' => 'Mobile', 'prefix' => 'cp'], function () {
     Route::get('/', 'IndexController@index');
     Route::get('ssq', 'IndexController@ssq');
     Route::get('dlt', 'IndexController@dlt');
+    Route::get('mnxh', 'IndexController@mnxh');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

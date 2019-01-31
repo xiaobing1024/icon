@@ -51,4 +51,9 @@ class IndexController extends Controller
         // dd($data->toArray());
         return view('mobile.dlt', compact('data'));
     }
+
+    public function mnxh()
+    {
+        return view('mobile.mnxh');
+    }
 }

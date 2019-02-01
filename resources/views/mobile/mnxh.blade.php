@@ -137,11 +137,11 @@
         </div>
 
         <div style="height:1px;background-color:#f0f0e8;margin-top:15px"></div>
-
+@{{ all }}
         <div class="weui-footer weui-footer_fixed-bottom">
             <div style='flex-grow:2;margin-left:15px;display: flex;'>
-                <span class="zhu" v-cloak>共 @{{ zhu }} 注</span>
-                <span class="yuan" v-cloak>@{{ zhu * 2 }} 元</span>
+                <span class="zhu" v-cloak>共 @{{ all.length }} 注</span>
+                <span class="yuan" v-cloak>@{{ all.length * 2 }} 元</span>
             </div>
             <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
                     style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"
@@ -185,6 +185,32 @@
             return num;
         }
 
+        function allzhu(arr, end = 6) {
+            var temp = [];
+            if (end === 1) {
+                for (var k in arr) {
+                    for (var a in arr[k]) {
+                        temp[a] = [arr[k][a]];
+                    }
+                }
+                return temp;
+            }
+            var c = 0;
+            for (var k in arr) {
+                c = arr[k].length;
+                if (c === end) {
+                    return arr;
+                }
+                for (var i = 0; i < c; i++) {
+                    var t = arr[k].concat();
+                    t.splice(i, 1);
+                    temp[t.sort().join(',')] = t.sort();
+                }
+            }
+
+            return allzhu(temp, end);
+        }
+
         new Vue({
             el: '.page',
             data: {
@@ -202,16 +228,55 @@
                     var blue_count = this.type ? 1 : 2;
 
                     if (this.reds_p.length >= red_count && this.blues_p.length >= blue_count) {
-                        var dan = [];
-                        var tuo = [];
+                        if (this.red_dans.length > (this.type ? 5 : 4)) {
+                            $.toast('红球胆只能选'+ (this.type ? 5 : 4) + '个', 'text');
+                            return [];
+                        }
 
-                        this.reds_p.sort().map(function (v) {
-                            // if () {
-                            //
-                            // } else {
-                            //
-                            // }
-                        })
+                        if (this.blue_dans.length > 1) {
+                            $.toast('蓝球胆只能选1个', 'text');
+                            return [];
+                        }
+
+                        var ky = JSON.parse(JSON.stringify(this.red_tuos())).join(',');
+                        var v = JSON.parse(JSON.stringify(this.red_tuos()));
+                        var all_red = collect(allzhu({ky:v}, (this.type ? 6 : 5) - this.red_dans().length)).values().toArray().reverse();
+
+                        var red_temp = [];
+                        if (this.red_dans().length > 0) {
+                            for (var a in all_red) {
+                                red_temp.push(all_red[a].concat(this.red_dans()).sort());
+                            }
+                        } else {
+                            red_temp = all_red;
+                        }
+
+                        var blue_temp = [];
+                        if (this.type) {
+                            for (var a in red_temp) {
+                                for (var b in this.blue_dans()) {
+                                    blue_temp.push(red_temp[a].concat([this.blue_tuos()[b]]));
+                                }
+                            }
+                        } else {
+                            var temp = [];
+                            if (this.blue_dans().length > 0) {
+                                for (var a in this.blue_tuos()) {
+                                    var b = [this.blue_tuos()[a]];
+                                    b.push(this.blue_dans()[0]);
+                                    b.sort();
+                                    temp[a] = b;
+                                }
+                            }
+
+                            for (var a in red_temp) {
+                                for (var b in temp) {
+                                    blue_temp.push([red_temp[a].concat(temp[b])]);
+                                }
+                            }
+                        }
+
+                        return blue_temp;
                     }
 
                     return [];
@@ -237,36 +302,49 @@
                 },
                 blue_line() {
                     return this.type ? [1, 2, 3] : [1, 2];
-                },
-                zhu() {
-                    // var red_len = this.reds_p.length;
-                    // var blue_len = this.blues_p.length;
-                    // var red_count = this.type ? 6 : 5;
-                    // var blue_count = this.type ? 1 : 2;
-                    //
-                    // if (red_len == red_count && blue_len == blue_count) {
-                    //     return 1;
-                    // } else if (red_len == red_count && blue_len >= blue_count) {
-                    //     if (this.type) {
-                    //         return blue_len;
-                    //     } else {
-                    //         return factorial(blue_len) / (factorial(blue_len - blue_count) * 2);
-                    //     }
-                    // } else if (red_len > red_count && blue_len == blue_count) {
-                    //     return factorial(red_len) / (factorial(red_len - red_count) * factorial(red_count));
-                    // } else if (red_len > red_count && blue_len > blue_count) {
-                    //     if (this.type) {
-                    //         return factorial(red_len) / (factorial(red_len - red_count) * factorial(red_count)) * blue_len;
-                    //     } else {
-                    //         return factorial(red_len) / (factorial(red_len - red_count) * factorial(red_count)) * (factorial(blue_len) / (factorial(blue_len - blue_count) * 2));
-                    //     }
-                    // }
-                    return 0;
                 }
             },
             methods: {
+                red_dans() {
+                    var red_dan = [];
+                    this.reds.map(function (v) {
+                        if (v.checked && v.count % 3 === 2) {
+                            red_dan.push(v.name);
+                        }
+                    });
+                    return red_dan;
+                },
+                red_tuos() {
+                    var red_tuo = [];
+                    this.reds.map(function (v) {
+                        if (v.checked && v.count % 3 === 1) {
+                            red_tuo.push(v.name);
+                        }
+                    });
+                    return red_tuo;
+                },
+                blue_dans() {
+                    var blue_dan = [];
+                    this.blues.map(function (v) {
+                        if (v.checked && v.count % 3 === 2) {
+                            blue_dan.push(v.name);
+                        }
+                    });
+                    return blue_dan;
+                },
+                blue_tuos() {
+                    var blue_tuo = [];
+                    this.blues.map(function (v) {
+                        if (v.checked && v.count % 3 === 1) {
+                            blue_tuo.push(v.name);
+                        }
+                    });
+                    return blue_tuo;
+                },
                 typeChange() {
                     this.type = !this.type;
+
+                    this.blues = nums(this.type ? 16 : 12, this.blues_p);
                 },
                 redChange(e) {
                     if (this.reds_p.length > 20) {

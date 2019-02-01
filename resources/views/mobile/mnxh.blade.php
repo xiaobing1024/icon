@@ -126,7 +126,7 @@
                          v-bind:class="blues[index * 7 + z].checked ? 'is_checked_blue' : ''">
                         <label class="checkbox"><input type="checkbox" hidden="false"
                                                        v-bind:value="blues[index * 7 + z].name" v-model="blues_p"
-                                                       @change="blueChange(index * 7 + z)"/>@{{ type ? (blues[index * 7 + z].name) : (blues[index * 7 + z].count % 3 === 2 ? '胆' : blues[index * 7 + z].name) }}</label>
+                                                       @change="blueChange(index * 7 + z)"/>@{{ type ? (blues[index * 7 + z].name) : (blues[index * 7 + z].count % 3 === 2 && blue_dans().indexOf(blues[index * 7 + z].name) !== -1 ? '胆' : blues[index * 7 + z].name) }}</label>
                     </div>
 
                     <div v-else class="item item-hidden">
@@ -137,7 +137,39 @@
         </div>
 
         <div style="height:1px;background-color:#f0f0e8;margin-top:15px"></div>
-@{{ all }}
+
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_access" v-for="item in all" v-cloak>
+                <div class="weui-cell__bd">
+                    <div class="weui-flex" style="margin-top: 5px;">
+                        <div class="ball">
+                            @{{ item[0] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[1] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[2] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[3] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[4] }}
+                        </div>
+                        <div class="ball" v-bind:class="type ? '' : 'blue-ball'">
+                            @{{ item[5] }}
+                        </div>
+                        <div class="ball blue-ball">
+                            @{{ item[6] }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-cell__ft"></div>
+            </div>
+        </div>
+
         <div class="weui-footer weui-footer_fixed-bottom">
             <div style='flex-grow:2;margin-left:15px;display: flex;'>
                 <span class="zhu" v-cloak>共 @{{ all.length }} 注</span>
@@ -168,11 +200,12 @@
             var arr = [];
             for (var i = 1; i <= c; i++) {
                 var t = i < 10 ? '0' + i : String(i);
+                var b = checked.indexOf(t) !== -1;
                 arr.push({
                     value: i,
-                    checked: checked.indexOf(t) !== -1,
+                    checked: b,
                     name: t,
-                    count: 0,
+                    count: b ? 1 : 0,
                 });
             }
             return arr;
@@ -228,24 +261,28 @@
                     var blue_count = this.type ? 1 : 2;
 
                     if (this.reds_p.length >= red_count && this.blues_p.length >= blue_count) {
-                        if (this.red_dans.length > (this.type ? 5 : 4)) {
+                        var red_dans = this.red_dans();
+                        var red_tuos = this.red_tuos();
+                        var blue_dans = this.blue_dans();
+                        var blue_tuos = this.blue_tuos();
+                        if (red_dans.length > (this.type ? 5 : 4)) {
                             $.toast('红球胆只能选'+ (this.type ? 5 : 4) + '个', 'text');
                             return [];
                         }
 
-                        if (this.blue_dans.length > 1) {
+                        if (blue_dans.length > 1) {
                             $.toast('蓝球胆只能选1个', 'text');
                             return [];
                         }
 
-                        var ky = JSON.parse(JSON.stringify(this.red_tuos())).join(',');
-                        var v = JSON.parse(JSON.stringify(this.red_tuos()));
-                        var all_red = collect(allzhu({ky:v}, (this.type ? 6 : 5) - this.red_dans().length)).values().toArray().reverse();
+                        var ky = JSON.parse(JSON.stringify(red_tuos)).join(',');
+                        var v = JSON.parse(JSON.stringify(red_tuos));
+                        var all_red = collect(allzhu({ky:v}, (this.type ? 6 : 5) - red_dans.length)).values().toArray().reverse();
 
                         var red_temp = [];
-                        if (this.red_dans().length > 0) {
+                        if (red_dans.length > 0) {
                             for (var a in all_red) {
-                                red_temp.push(all_red[a].concat(this.red_dans()).sort());
+                                red_temp.push(all_red[a].concat(red_dans).sort());
                             }
                         } else {
                             red_temp = all_red;
@@ -254,24 +291,34 @@
                         var blue_temp = [];
                         if (this.type) {
                             for (var a in red_temp) {
-                                for (var b in this.blue_dans()) {
-                                    blue_temp.push(red_temp[a].concat([this.blue_tuos()[b]]));
+                                for (var b in blue_tuos) {
+                                    blue_temp.push(red_temp[a].concat([blue_tuos[b]]));
                                 }
                             }
+
                         } else {
                             var temp = [];
-                            if (this.blue_dans().length > 0) {
-                                for (var a in this.blue_tuos()) {
-                                    var b = [this.blue_tuos()[a]];
-                                    b.push(this.blue_dans()[0]);
+                            if (blue_dans.length > 0) {
+                                for (var a in blue_tuos) {
+                                    var b = [blue_tuos[a]];
+                                    b.push(blue_dans[0]);
                                     b.sort();
-                                    temp[a] = b;
+                                    temp.push(b);
+                                }
+                            } else {
+                                if (blue_tuos.length < 3) {
+                                    temp = [blue_tuos];
+                                    console.log(temp);
+                                } else {
+                                    ky = JSON.parse(JSON.stringify(blue_tuos)).join(',');
+                                    v = JSON.parse(JSON.stringify(blue_tuos));
+                                    temp = collect(allzhu({ky:v}, 2)).values().toArray().reverse();
                                 }
                             }
 
                             for (var a in red_temp) {
                                 for (var b in temp) {
-                                    blue_temp.push([red_temp[a].concat(temp[b])]);
+                                    blue_temp.push(red_temp[a].concat(temp[b].sort()));
                                 }
                             }
                         }
@@ -282,8 +329,8 @@
                     return [];
                 },
                 copyText() {
-                    var red = this.reds_p.sort().join(' ');
-                    var blue = this.blues_p.sort().join(' ');
+                    var red = JSON.parse(JSON.stringify(this.reds_p)).sort().join(' ');
+                    var blue = JSON.parse(JSON.stringify(this.blues_p)).sort().join(' ');
                     if (blue.length < 1) {
                         return red;
                     }
@@ -307,38 +354,39 @@
             methods: {
                 red_dans() {
                     var red_dan = [];
-                    this.reds.map(function (v) {
-                        if (v.checked && v.count % 3 === 2) {
-                            red_dan.push(v.name);
+                    for (var a in this.reds) {
+                        if (this.reds[a].checked && this.reds[a].count % 3 === 2) {
+                            red_dan.push(this.reds[a].name);
                         }
-                    });
+                    }
                     return red_dan;
                 },
                 red_tuos() {
                     var red_tuo = [];
-                    this.reds.map(function (v) {
-                        if (v.checked && v.count % 3 === 1) {
-                            red_tuo.push(v.name);
+                    for (var a in this.reds) {
+                        if (this.reds[a].checked && this.reds[a].count % 3 === 1) {
+                            red_tuo.push(this.reds[a].name);
                         }
-                    });
+                    }
                     return red_tuo;
                 },
                 blue_dans() {
                     var blue_dan = [];
-                    this.blues.map(function (v) {
-                        if (v.checked && v.count % 3 === 2) {
-                            blue_dan.push(v.name);
+                    var bs = JSON.parse(JSON.stringify(this.blues));
+                    for (var a in bs) {
+                        if (bs[a].checked && bs[a].count % 3 === 2) {
+                            blue_dan.push(bs[a].name);
                         }
-                    });
+                    }
                     return blue_dan;
                 },
                 blue_tuos() {
                     var blue_tuo = [];
-                    this.blues.map(function (v) {
-                        if (v.checked && v.count % 3 === 1) {
-                            blue_tuo.push(v.name);
+                    for (var a in this.blues) {
+                        if (this.blues[a].checked && this.blues[a].count % 3 === 1) {
+                            blue_tuo.push(this.blues[a].name);
                         }
-                    });
+                    }
                     return blue_tuo;
                 },
                 typeChange() {
@@ -354,15 +402,20 @@
                     }
                     this.reds[e].count += 1;
 
-                    if (this.reds[e].count % 3 === 2) {
+                    if (this.reds[e].count % 3 === 2 && this.red_dans().length < (this.type ? 5 : 4)) {
                         this.reds_p.push(this.reds[e].name);
                     } else {
                         this.reds[e].checked = !this.reds[e].checked;
                     }
                 },
                 blueChange(e) {
+                    var danl = this.blue_dans().length;
                     this.blues[e].count += 1;
-                    if (!this.type && this.blues[e].count % 3 === 2) {
+                    if (danl > 0) {
+                        this.blues[e].checked = !this.blues[e].checked;
+                        return;
+                    }
+                    if (!this.type && this.blues[e].count % 3 === 2 && danl < 1) {
                         this.blues_p.push(this.blues[e].name);
                     } else {
                         this.blues[e].checked = !this.blues[e].checked;

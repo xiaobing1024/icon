@@ -109,7 +109,7 @@
                          v-bind:class="reds[index * 7 + z].checked ? 'is_checked' : ''">
                         <label class="checkbox"><input type="checkbox" hidden="false"
                                                        v-bind:value="reds[index * 7 + z].name" v-model="reds_p"
-                                                       @change="redChange(index * 7 + z)"/>@{{ reds[index * 7 + z].count % 3 === 2 ? '胆' : reds[index * 7 + z].name }}</label>
+                                                       @change="redChange(index * 7 + z)"/>@{{ reds[index * 7 + z].count % 3 === 2 && red_dans().indexOf(reds[index * 7 + z].name) !== -1 ? '胆' : reds[index * 7 + z].name }}</label>
                     </div>
 
                     <div v-else class="item item-hidden">
@@ -400,9 +400,18 @@
                         $.toast('只能选择20个红球', 'text');
                         return;
                     }
+                    var redl = this.red_dans().length;
+                    if (redl > (this.type ? 5 : 4)) {
+                        this.reds[e].count = this.reds[e].checked ? 0 : 1;
+                        this.reds[e].checked = !this.reds[e].checked;
+                        return;
+                    }
                     this.reds[e].count += 1;
+                    if (this.reds[e].count > 3) {
+                        this.reds[e].count = 0;
+                    }
 
-                    if (this.reds[e].count % 3 === 2 && this.red_dans().length < (this.type ? 5 : 4)) {
+                    if (this.reds[e].count % 3 === 2 && this.red_dans().length) {
                         this.reds_p.push(this.reds[e].name);
                     } else {
                         this.reds[e].checked = !this.reds[e].checked;
@@ -410,12 +419,16 @@
                 },
                 blueChange(e) {
                     var danl = this.blue_dans().length;
-                    this.blues[e].count += 1;
                     if (danl > 0) {
+                        this.blues[e].count = this.blues[e].checked ? 0 : 1;
                         this.blues[e].checked = !this.blues[e].checked;
                         return;
                     }
-                    if (!this.type && this.blues[e].count % 3 === 2 && danl < 1) {
+                    this.blues[e].count += 1;
+                    if (this.blues[e].count > 3) {
+                        this.blues[e].count = 0;
+                    }
+                    if (!this.type && this.blues[e].count % 3 === 2) {
                         this.blues_p.push(this.blues[e].name);
                     } else {
                         this.blues[e].checked = !this.blues[e].checked;

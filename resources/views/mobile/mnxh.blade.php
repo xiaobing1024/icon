@@ -89,7 +89,7 @@
 @endsection
 
 @section('content')
-    <div class="page">
+    <div class="page" style="padding-bottom: 60px">
         <div class="weui-flex fixhead" style="align-items:baseline">
             <button class="weui-btn weui-btn_mini weui-btn_primary"
                     style='margin-left:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
@@ -102,7 +102,7 @@
             </button>
         </div>
 
-        <div class="page__bd page__bd_spacing" style="padding-bottom: 60px">
+        <div class="page__bd page__bd_spacing">
             <div class="pick_ball" v-for="(i, index) in red_line">
                 <template v-for="(j, z) in line_count">
                     <div v-if="(index * 7 + z) < reds.length" class="item"

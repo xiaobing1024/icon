@@ -73,10 +73,6 @@
             align-items: baseline;
         }
 
-        button {
-            display: inline;
-        }
-
         .zhu {
             margin-right: 15px;
             color: #fff;

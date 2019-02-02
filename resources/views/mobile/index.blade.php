@@ -68,8 +68,7 @@
 
             <ul class="kind-list">
                 <li class="kind-list__item">
-                    <div id="today" class="weui-flex kind-list__item-hd weui-cell weui-cell_access"
-                         v-bind:data-clipboard-text="copyText">
+                    <div id="today" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
                         <div class="weui-flex__item">
                             <div class="index-title">
                                 <span>{{ now()->format('Y-m-d') . ' 星期' . ['日', '一', '二', '三', '四', '五', '六'][date('w')] }}</span>
@@ -206,15 +205,17 @@
                 </li>
 
                 <li class="kind-list__item">
-                    <div id="zxsj" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
-                        <div class="weui-flex__item">
-                            <div class="index-title">
-                                <span>自选随机</span>
+                    <a href="{{ url('cp/zxsj') }}">
+                        <div id="zxsj" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
+                            <div class="weui-flex__item">
+                                <div class="index-title">
+                                    <span>自选随机</span>
+                                </div>
+                                <div class="index-content">自定义随机范围</div>
                             </div>
-                            <div class="index-content">自定义随机范围</div>
+                            <div class="weui-cell__ft"></div>
                         </div>
-                        <div class="weui-cell__ft"></div>
-                    </div>
+                    </a>
                 </li>
             </ul>
 
@@ -259,15 +260,6 @@
         }
 
         $(function () {
-            var clipboard1 = new ClipboardJS('#today');
-            clipboard1.on('success', function (e) {
-                $.toast("复制成功");
-            });
-
-            clipboard1.on('error', function (e) {
-                $.toast("复制失败", "cancel");
-            });
-
             var clipboard = new ClipboardJS('#copy');
             clipboard.on('success', function (e) {
                 $.toast("复制成功");
@@ -296,7 +288,6 @@
             },
             computed: {
                 copyText: function () {
-                    document.getElementById('copy').click();
                     return this.random.slice(0, this.type === 0 ? 6 : 5).join(' ') + ' + ' + this.random.slice(this.type === 0 ? 6 : 5, 7).join(' ');
                 }
             }

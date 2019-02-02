@@ -24,6 +24,9 @@ Route::group(['namespace' => 'Mobile', 'prefix' => 'cp'], function () {
     Route::get('ssq', 'IndexController@ssq');
     Route::get('dlt', 'IndexController@dlt');
     Route::get('mnxh', 'IndexController@mnxh');
+    Route::get('zxsj', 'IndexController@zxsj');
+    Route::get('ssq_search', 'IndexController@ssqSearch');
+    Route::get('dlt_search', 'IndexController@dltSearch');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

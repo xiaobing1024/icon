@@ -121,7 +121,7 @@ class DltController extends Controller
     public function search(Request $request)
     {
         $arr = explode(',', $request->input('kw'));
-        
+        sort($arr);
         $old = array_combine(['red1', 'red2', 'red3', 'red4', 'red5'], $arr);
         
         $data = [];

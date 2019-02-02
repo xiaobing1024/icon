@@ -136,38 +136,35 @@
             </div>
         </div>
 
-        <div style="height:1px;background-color:#f0f0e8;margin-top:15px"></div>
-
-        <div class="weui-cells">
-            <div class="weui-cell weui-cell_access" v-for="item in all" v-cloak>
-                <div class="weui-cell__bd">
-                    <div class="weui-flex" style="margin-top: 5px;">
-                        <div class="ball">
-                            @{{ item[0] }}
-                        </div>
-                        <div class="ball">
-                            @{{ item[1] }}
-                        </div>
-                        <div class="ball">
-                            @{{ item[2] }}
-                        </div>
-                        <div class="ball">
-                            @{{ item[3] }}
-                        </div>
-                        <div class="ball">
-                            @{{ item[4] }}
-                        </div>
-                        <div class="ball" v-bind:class="type ? '' : 'blue-ball'">
-                            @{{ item[5] }}
-                        </div>
-                        <div class="ball blue-ball">
-                            @{{ item[6] }}
+        <div class="weui-cells" style="margin-bottom: 60px;margin-top: 15px">
+            <a class="weui-cell weui-cell_access" v-for="item in all" v-bind:href="'/cp/' + (type ? 'ssq_search':'dlt_search') + '?kw=' + item.slice(0 , type ? 6 : 5).join(',')" v-cloak>
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex" style="margin-top: 5px;">
+                            <div class="ball">
+                                @{{ item[0] }}
+                            </div>
+                            <div class="ball">
+                                @{{ item[1] }}
+                            </div>
+                            <div class="ball">
+                                @{{ item[2] }}
+                            </div>
+                            <div class="ball">
+                                @{{ item[3] }}
+                            </div>
+                            <div class="ball">
+                                @{{ item[4] }}
+                            </div>
+                            <div class="ball" v-bind:class="type ? '' : 'blue-ball'">
+                                @{{ item[5] }}
+                            </div>
+                            <div class="ball blue-ball">
+                                @{{ item[6] }}
+                            </div>
                         </div>
                     </div>
-                </div>
-
                 <div class="weui-cell__ft"></div>
-            </div>
+            </a>
         </div>
 
         <div class="weui-footer weui-footer_fixed-bottom">
@@ -189,6 +186,7 @@
             var clipboard = new ClipboardJS('#copy');
             clipboard.on('success', function (e) {
                 $.toast("复制成功");
+
             });
 
             clipboard.on('error', function (e) {
@@ -354,9 +352,10 @@
             methods: {
                 red_dans() {
                     var red_dan = [];
-                    for (var a in this.reds) {
-                        if (this.reds[a].checked && this.reds[a].count % 3 === 2) {
-                            red_dan.push(this.reds[a].name);
+                    var rs = JSON.parse(JSON.stringify(this.reds));
+                    for (var a in rs) {
+                        if (rs[a].checked && rs[a].count % 3 === 2) {
+                            red_dan.push(rs[a].name);
                         }
                     }
                     return red_dan;
@@ -401,17 +400,17 @@
                         return;
                     }
                     var redl = this.red_dans().length;
-                    if (redl > (this.type ? 5 : 4)) {
+                    if (redl > (this.type ? 4 : 3)) {
                         this.reds[e].count = this.reds[e].checked ? 0 : 1;
                         this.reds[e].checked = !this.reds[e].checked;
                         return;
                     }
                     this.reds[e].count += 1;
-                    if (this.reds[e].count > 3) {
+                    if (this.reds[e].count > 2) {
                         this.reds[e].count = 0;
                     }
 
-                    if (this.reds[e].count % 3 === 2 && this.red_dans().length) {
+                    if (this.reds[e].count % 3 === 2) {
                         this.reds_p.push(this.reds[e].name);
                     } else {
                         this.reds[e].checked = !this.reds[e].checked;
@@ -425,9 +424,10 @@
                         return;
                     }
                     this.blues[e].count += 1;
-                    if (this.blues[e].count > 3) {
+                    if (this.blues[e].count > 2) {
                         this.blues[e].count = 0;
                     }
+
                     if (!this.type && this.blues[e].count % 3 === 2) {
                         this.blues_p.push(this.blues[e].name);
                     } else {

@@ -4,6 +4,30 @@
     <div class="page" style="padding: 0 15px">
         <div class="page__bd page__bd_spacing">
             <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex" style="margin-top: 5px;">
+                            <div class="ball">
+                                {{ $kw[0] }}
+                            </div>
+                            <div class="ball">
+                                {{ $kw[1] }}
+                            </div>
+                            <div class="ball">
+                                {{ $kw[2] }}
+                            </div>
+                            <div class="ball">
+                                {{ $kw[3] }}
+                            </div>
+                            <div class="ball">
+                                {{ $kw[4] }}
+                            </div>
+                            <div class="ball">
+                                {{ $kw[5] }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="weui-cells__title" style="margin-top: .5em;margin-bottom: .5em">六个红球相等的历史开奖</div>
                 @forelse ($data1 as $item)
                     <div class="weui-cell">

@@ -102,7 +102,7 @@
             </button>
         </div>
 
-        <div class="page__bd page__bd_spacing">
+        <div class="page__bd page__bd_spacing" style="padding-bottom: 60px">
             <div class="pick_ball" v-for="(i, index) in red_line">
                 <template v-for="(j, z) in line_count">
                     <div v-if="(index * 7 + z) < reds.length" class="item"
@@ -136,7 +136,7 @@
             </div>
         </div>
 
-        <div class="weui-cells" style="margin-bottom: 60px;margin-top: 15px">
+        <div class="weui-cells" style="margin-top: 15px">
             <a class="weui-cell weui-cell_access" v-for="item in all" v-bind:href="'/cp/' + (type ? 'ssq_search':'dlt_search') + '?kw=' + item.slice(0 , type ? 6 : 5).join(',')" v-cloak>
                     <div class="weui-cell__bd">
                         <div class="weui-flex" style="margin-top: 5px;">

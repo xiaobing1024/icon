@@ -65,7 +65,7 @@
 
         .weui-footer {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             background-color: #252626;
             bottom: 0;
             padding-top: 10px;
@@ -105,9 +105,7 @@
             <div class="pick_ball" v-for="(i, index) in line">
                 <template v-for="(j, z) in line_count">
                     <div v-if="(index * 7 + z) < balls.length" class="item"
-                         v-bind:class="ball_type ? '' : 'item_blue'"
-                         v-bind:class="balls[index * 7 + z].checked ? (ball_type ? 'is_checked' : 'is_checked_blue') : ''"
-                         >
+                         v-bind:class="(ball_type ? '' : 'item_blue ') + (balls[index * 7 + z].checked ? (ball_type ? 'is_checked' : 'is_checked_blue') : '')">
                         <label class="checkbox">
                             <input type="checkbox" hidden="false" v-bind:value="balls[index * 7 + z].name" v-model="balls[index * 7 + z].checked"/>@{{ balls[index * 7 + z].name }}</label>
                     </div>
@@ -119,6 +117,17 @@
             </div>
 
             <div style="height:1px;background-color:#f0f0e8;margin-top:15px"></div>
+
+            <template v-for="(j, z) in line_count">
+                {{--<div v-if="(index * 7 + z) < balls.length" class="item"--}}
+                     {{--v-bind:class="(ball_type ? '' : 'item_blue ') + (balls[index * 7 + z].checked ? (ball_type ? 'is_checked' : 'is_checked_blue') : '')">--}}
+                    {{--<label class="checkbox">@{{ balls[index * 7 + z].name }}</label>--}}
+                {{--</div>--}}
+
+                {{--<div v-else class="item item-hidden">--}}
+                    {{--<label for="" class="checkbox checkbox-hidden">88</label>--}}
+                {{--</div>--}}
+            </template>
         </div>
 
         <div class="weui-footer weui-footer_fixed-bottom">
@@ -128,10 +137,13 @@
                         v-on:click="clean">清空
                 </button>
             </div>
+            <div>取 <input type="number" min="1" max="35" v-model="pick_count"/> 个</div>
+            <div>
             <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
                     style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"
-                    @click="clean">清空
+                    @click="gorandom">开始随机
             </button>
+            </div>
         </div>
     </div>
 @endsection
@@ -172,9 +184,11 @@
             data: {
                 type: true,
                 ball_type: true,
-                pick_ball: [],
+                pick_red: [],
+                pick_blue: [],
                 balls: nums(33),
                 line_count: [1, 2, 3, 4, 5, 6, 7],
+                pick_count: 1
             },
             computed: {
                 t() {
@@ -198,6 +212,9 @@
                     return {
                         'weui-btn_disabled': (this.pick_ball.length < 1)
                     };
+                },
+                pick_ball() {
+                    return this.pick_red.concat(this.pick_blue);
                 }
             },
             methods: {
@@ -212,7 +229,14 @@
                     this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12));
                 },
                 gorandom() {
-
+                    if (this.pick_count < 1) {
+                        $.toast('最少取一个');
+                        return;
+                    }
+                    var c = collect(JSON.parse(JSON.stringify(this.balls))).where('checked', true);
+                    var ct = Math.min(c.count(), this.pick_count);
+                    var a = c.random(ct);
+                    console.log(a);
                 },
                 clean() {
 

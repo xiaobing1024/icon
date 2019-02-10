@@ -47,7 +47,7 @@
 <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 <script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>
-<script src="https://cdn.bootcss.com/collect.js/4.4.0/collect.min.js"></script>
+<script src="https://cdn.bootcss.com/collect.js/4.6.1/collect.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
 
 <script>

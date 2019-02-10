@@ -118,16 +118,18 @@
 
             <div style="height:1px;background-color:#f0f0e8;margin-top:15px"></div>
 
-            <template v-for="(j, z) in line_count">
-                {{--<div v-if="(index * 7 + z) < balls.length" class="item"--}}
-                     {{--v-bind:class="(ball_type ? '' : 'item_blue ') + (balls[index * 7 + z].checked ? (ball_type ? 'is_checked' : 'is_checked_blue') : '')">--}}
-                    {{--<label class="checkbox">@{{ balls[index * 7 + z].name }}</label>--}}
-                {{--</div>--}}
+            <div class="pick_ball" v-for="(i, index) in pick_line">
+                <template v-for="(j, z) in line_count">
+                    <div v-if="(index * 7 + z) < pick_ball.length" class="item"
+                         v-bind:class="(pick_ball[index * 7 + z].type ? '' : 'item_blue ') + (pick_ball[index * 7 + z].type ? 'is_checked' : 'is_checked_blue')">
+                        <label class="checkbox" @click="deletepick(index * 7 + z)">@{{ pick_ball[index * 7 + z].name }}</label>
+                    </div>
 
-                {{--<div v-else class="item item-hidden">--}}
-                    {{--<label for="" class="checkbox checkbox-hidden">88</label>--}}
-                {{--</div>--}}
-            </template>
+                    <div v-else class="item item-hidden">
+                        <label for="" class="checkbox checkbox-hidden">88</label>
+                    </div>
+                </template>
+            </div>
         </div>
 
         <div class="weui-footer weui-footer_fixed-bottom">
@@ -135,6 +137,12 @@
                 <button class="weui-btn weui-btn_mini weui-btn_primary"
                         style='margin-left:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
                         v-on:click="clean">清空
+                </button>
+            </div>
+            <div>
+                <button class="weui-btn weui-btn_mini weui-btn_warn"
+                        style='margin-left:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
+                        v-on:click="pickall">全选
                 </button>
             </div>
             <div>取 <input type="number" min="1" max="35" v-model="pick_count"/> 个</div>
@@ -214,7 +222,27 @@
                     };
                 },
                 pick_ball() {
-                    return this.pick_red.concat(this.pick_blue);
+                    var arr = [];
+                    for (var a in this.pick_red) {
+                        arr.push({
+                            name:this.pick_red[a],
+                            type:true
+                        });
+                    }
+                    for (var a in this.pick_blue) {
+                        arr.push({
+                            name:this.pick_blue[a],
+                            type:false
+                        });
+                    }
+                    return arr;
+                },
+                pick_line() {
+                    var arr = [];
+                    for (var i = 0, j = this.pick_ball.length % 7 + 1; i < j; i++) {
+                        arr.push(i + 1);
+                    }
+                    return arr;
                 }
             },
             methods: {
@@ -234,12 +262,40 @@
                         return;
                     }
                     var c = collect(JSON.parse(JSON.stringify(this.balls))).where('checked', true);
+                    if (c.count() < 1) {
+                        $.toast('先选择需要随机的数字', 'text');
+                        return;
+                    }
                     var ct = Math.min(c.count(), this.pick_count);
-                    var a = c.random(ct);
-                    console.log(a);
+                    var a = c.random(ct).toArray();
+                    if (this.ball_type) {
+                        for (var b in a) {
+                            if (this.pick_red.indexOf(a[b].name) === -1) {
+                                this.pick_red.push(a[b].name);
+                            }
+                        }
+                    } else {
+                        for (var b in a) {
+                            if (this.pick_blue.indexOf(a[b].name) === -1) {
+                                this.pick_blue.push(a[b].name);
+                            }
+                        }
+                    }
+                },
+                deletepick(i) {
+                    if (this.pick_ball[i].type) {
+                        this.pick_red.splice(this.pick_red.indexOf(this.pick_ball[i].name), 1);
+                    } else {
+                        this.pick_blue.splice(this.pick_blue.indexOf(this.pick_ball[i].name), 1);
+                    }
                 },
                 clean() {
-
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12));
+                },
+                pickall() {
+                    for (var a in this.balls) {
+                        this.balls[a].checked = true;
+                    }
                 }
             }
         });

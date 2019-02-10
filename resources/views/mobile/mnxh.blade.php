@@ -133,7 +133,7 @@
         </div>
 
         <div class="weui-cells" style="margin-top: 15px">
-            <a class="weui-cell weui-cell_access" v-for="item in all" v-bind:href="'/cp/' + (type ? 'ssq_search':'dlt_search') + '?kw=' + item.slice(0 , type ? 6 : 5).join(',')" v-cloak>
+            <a class="weui-cell weui-cell_access" v-for="item in all" @click="savelocal" v-bind:href="'/cp/' + (type ? 'ssq_search':'dlt_search') + '?kw=' + item.slice(0 , type ? 6 : 5).join(',')" v-cloak>
                     <div class="weui-cell__bd">
                         <div class="weui-flex" style="margin-top: 5px;">
                             <div class="ball">
@@ -249,6 +249,23 @@
                 blues: nums(16),
                 blues_p: [],
             },
+            created: function () {
+                if (sessionStorage.mnxh_type) {
+                    this.type = JSON.parse(sessionStorage.mnxh_type);
+                }
+                if (sessionStorage.mnxh_reds_p) {
+                    this.reds_p = JSON.parse(sessionStorage.mnxh_reds_p);
+                }
+                if (sessionStorage.mnxh_blues_p) {
+                    this.blues_p = JSON.parse(sessionStorage.mnxh_blues_p);
+                }
+                if (sessionStorage.mnxh_reds) {
+                    this.reds = JSON.parse(sessionStorage.mnxh_reds);
+                }
+                if (sessionStorage.mnxh_blues) {
+                    this.blues = JSON.parse(sessionStorage.mnxh_blues);
+                }
+            },
             computed: {
                 all() {
                     var red_count = this.type ? 6 : 5;
@@ -346,6 +363,13 @@
                 }
             },
             methods: {
+                savelocal() {
+                    sessionStorage.mnxh_type=JSON.stringify(this.type);
+                    sessionStorage.mnxh_reds_p=JSON.stringify(this.reds_p);
+                    sessionStorage.mnxh_blues_p=JSON.stringify(this.blues_p);
+                    sessionStorage.mnxh_reds=JSON.stringify(this.reds);
+                    sessionStorage.mnxh_blues=JSON.stringify(this.blues);
+                },
                 red_dans() {
                     var red_dan = [];
                     var rs = JSON.parse(JSON.stringify(this.reds));
@@ -378,8 +402,14 @@
                 blue_tuos() {
                     var blue_tuo = [];
                     for (var a in this.blues) {
-                        if (this.blues[a].checked && this.blues[a].count % 3 === 1) {
-                            blue_tuo.push(this.blues[a].name);
+                        if (this.type) {
+                            if (this.blues[a].checked) {
+                                blue_tuo.push(this.blues[a].name);
+                            }
+                        } else {
+                            if (this.blues[a].checked && this.blues[a].count % 3 === 1) {
+                                blue_tuo.push(this.blues[a].name);
+                            }
                         }
                     }
                     return blue_tuo;

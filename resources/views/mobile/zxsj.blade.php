@@ -132,6 +132,37 @@
             </div>
         </div>
 
+        <div class="weui-cells" style="margin-top: 15px">
+            <a class="weui-cell weui-cell_access" v-for="item in all" @click="savelocal" v-bind:href="'/cp/' + (type ? 'ssq_search':'dlt_search') + '?kw=' + item.slice(0 , type ? 6 : 5).join(',')" v-cloak>
+                <div class="weui-cell__bd">
+                    <div class="weui-flex" style="margin-top: 5px;">
+                        <div class="ball">
+                            @{{ item[0] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[1] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[2] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[3] }}
+                        </div>
+                        <div class="ball">
+                            @{{ item[4] }}
+                        </div>
+                        <div class="ball" v-bind:class="type ? '' : 'blue-ball'">
+                            @{{ item[5] }}
+                        </div>
+                        <div class="ball blue-ball">
+                            @{{ item[6] }}
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+        </div>
+
         <div class="weui-footer weui-footer_fixed-bottom">
             <div>
                 <button class="weui-btn weui-btn_mini weui-btn_primary"
@@ -187,8 +218,42 @@
             return arr;
         }
 
+        function allzhu(arr, end = 6) {
+            var temp = [];
+            if (end === 1) {
+                for (var k in arr) {
+                    for (var a in arr[k]) {
+                        temp[a] = [arr[k][a]];
+                    }
+                }
+                return temp;
+            }
+            var c = 0;
+            for (var k in arr) {
+                c = arr[k].length;
+                if (c === end) {
+                    return arr;
+                }
+                for (var i = 0; i < c; i++) {
+                    var t = arr[k].concat();
+                    t.splice(i, 1);
+                    temp[t.sort().join(',')] = t.sort();
+                }
+            }
+
+            return allzhu(temp, end);
+        }
+
         new Vue({
             el: '.page',
+            created: function () {
+                if (sessionStorage.zxsj_pick_red) {
+                    this.pick_red = JSON.parse(sessionStorage.zxsj_pick_red);
+                }
+                if (sessionStorage.zxsj_pick_blue) {
+                    this.pick_blue = JSON.parse(sessionStorage.zxsj_pick_blue);
+                }
+            },
             data: {
                 type: true,
                 ball_type: true,
@@ -239,13 +304,55 @@
                 },
                 pick_line() {
                     var arr = [];
-                    for (var i = 0, j = this.pick_ball.length % 7 + 1; i < j; i++) {
+                    for (var i = 0, j = Math.floor(this.pick_ball.length / 7) + 1; i < j; i++) {
                         arr.push(i + 1);
                     }
                     return arr;
-                }
+                },
+                all() {
+                    var red_count = this.type ? 6 : 5;
+                    var blue_count = this.type ? 1 : 2;
+
+                    if (this.pick_red.length >= red_count && this.pick_blue.length >= blue_count) {
+                        var ky = JSON.parse(JSON.stringify(this.pick_red)).sort().join(',');
+                        var v = JSON.parse(JSON.stringify(this.pick_red)).sort();
+                        var red_temp = collect(allzhu({ky:v})).values().toArray().reverse();
+
+                        var blue_temp = [];
+                        if (this.type) {
+                            for (var a in red_temp) {
+                                for (var b in this.pick_blue) {
+                                    blue_temp.push(red_temp[a].concat([this.pick_blue[b]]));
+                                }
+                            }
+                        } else {
+                            var temp = [];
+                            v = JSON.parse(JSON.stringify(this.pick_blue)).sort();
+                            if (this.pick_blue.length < 3) {
+                                temp = [v];
+                            } else {
+                                ky = JSON.parse(JSON.stringify(this.pick_blue)).sort().join(',');
+                                temp = collect(allzhu({ky:v}, 2)).values().toArray().reverse();
+                            }
+
+                            for (var a in red_temp) {
+                                for (var b in temp) {
+                                    blue_temp.push(red_temp[a].concat(temp[b].sort()));
+                                }
+                            }
+                        }
+
+                        return blue_temp;
+                    }
+
+                    return [];
+                },
             },
             methods: {
+                savelocal() {
+                    sessionStorage.zxsj_pick_red=JSON.stringify(this.pick_red);
+                    sessionStorage.zxsj_pick_blue=JSON.stringify(this.pick_blue);
+                },
                 typeChange() {
                     this.type = !this.type;
 
@@ -258,7 +365,7 @@
                 },
                 gorandom() {
                     if (this.pick_count < 1) {
-                        $.toast('最少取一个');
+                        $.toast('最少取一个', 'text');
                         return;
                     }
                     var c = collect(JSON.parse(JSON.stringify(this.balls))).where('checked', true);

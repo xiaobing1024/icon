@@ -38,7 +38,6 @@ class IndexController extends Controller
         foreach ($data as $datum) {
             $datum->append(['number_name', 'no_name']);
         }
-        // dd($data->toArray());
         return view('mobile.ssq', compact('data'));
     }
 
@@ -48,7 +47,6 @@ class IndexController extends Controller
         foreach ($data as $datum) {
             $datum->append(['number_name', 'no_name']);
         }
-        // dd($data->toArray());
         return view('mobile.dlt', compact('data'));
     }
 
@@ -77,16 +75,15 @@ class IndexController extends Controller
 
         foreach ($temp as $t) {
             $where[] = array_combine(['red1', 'red2', 'red3', 'red4', 'red5'], $t);
-            foreach ($t as $k => $v) {
-                if ($k == 0) {
-                    $where[] = array_combine(['red1', 'red3', 'red4', 'red5', 'red6'], $t);
-                    $where[] = array_combine(['red2', 'red3', 'red4', 'red5', 'red6'], $t);
-                } else {
-                    $i = $k + 1;
-                    $where[] = array_combine(['red1', 'red2', 'red' . ($i < 3 ? 4 : 3), 'red' . ($i < 4 ? 5 : 4), 'red' . ($i < 5 ? 6 : 5)], $t);
-                    $where[] = array_combine(['red1', 'red' . ($i <= 2 ? 3 : 2), 'red' . ($i <= 3 ? 4 : 3), 'red' . ($i <= 4 ? 5 : 4), 'red' . ($i <= 5 ? 6 : 5)], $t);
-                }
-            }
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red4', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red5', 'red6'], $t);
         }
 
         $data['data2'] = Ssq::where(function ($q) use ($where) {
@@ -99,11 +96,16 @@ class IndexController extends Controller
 
         $temp = [];
         foreach ($data['data2'] as $datum) {
+            $add = true;
             foreach ($data['data1'] as $o) {
-                if ($o->no != $datum->no) {
-                    $datum->append(['number_name', 'no_name']);
-                    $temp[] = $datum;
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
                 }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
             }
         }
         $data['data2'] = $temp;
@@ -111,28 +113,25 @@ class IndexController extends Controller
         $where = [];
 
         $temp = combination($arr, 4);
-
         foreach ($temp as $t) {
             $where[] = array_combine(['red1', 'red2', 'red3', 'red4'], $t);
-            foreach ($t as $k => $v) {
-                $where[] = array_combine(['red1', 'red2', 'red3', 'red5'], $t);
-                $where[] = array_combine(['red1', 'red2', 'red3', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red6'], $t);
 
-                $where[] = array_combine(['red1', 'red2', 'red4', 'red5'], $t);
-                $where[] = array_combine(['red1', 'red2', 'red4', 'red6'], $t);
-                $where[] = array_combine(['red1', 'red2', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red5', 'red6'], $t);
 
-                $where[] = array_combine(['red1', 'red3', 'red4', 'red5'], $t);
-                $where[] = array_combine(['red1', 'red3', 'red4', 'red6'], $t);
-                $where[] = array_combine(['red1', 'red3', 'red5', 'red6'], $t);
-                $where[] = array_combine(['red1', 'red4', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red4', 'red5', 'red6'], $t);
 
-                $where[] = array_combine(['red2', 'red3', 'red4', 'red5'], $t);
-                $where[] = array_combine(['red2', 'red3', 'red4', 'red6'], $t);
-                $where[] = array_combine(['red2', 'red3', 'red5', 'red6'], $t);
-                $where[] = array_combine(['red2', 'red4', 'red5', 'red6'], $t);
-                $where[] = array_combine(['red3', 'red4', 'red5', 'red6'], $t);
-            }
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red2', 'red3', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red2', 'red4', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red3', 'red4', 'red5', 'red6'], $t);
         }
 
         $data['data3'] = Ssq::where(function ($q) use ($where) {
@@ -145,20 +144,31 @@ class IndexController extends Controller
 
         $temp = [];
         foreach ($data['data3'] as $datum) {
+            $add = true;
             foreach ($data['data1'] as $o) {
-                if ($o->no != $datum->no) {
-                    $temp[] = $datum;
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
                 }
             }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
         }
-        
+
         $data['data3'] = [];
         foreach ($temp as $datum) {
+            $add = true;
             foreach ($data['data2'] as $o) {
-                if ($o->no != $datum->no) {
-                    $datum->append(['number_name', 'no_name']);
-                    $data['data3'][] = $datum;
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
                 }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $data['data3'][] = $datum;
             }
         }
         return view('mobile.ssqfx', $data + ['kw' => $arr]);
@@ -178,65 +188,99 @@ class IndexController extends Controller
             $datum->append(['number_name', 'no_name']);
         }
 
-        $temp = [];
+        $where = [];
 
-        for ($i = 0; $i < 5; $i++) {
-            $key = 'red' . ($i + 1);
+        $temp = combination($arr, 4);
 
-            $pre = (($i == 0 || $i == 4) ? $arr[$i] : $arr[$i - 1]) + 1;
+        foreach ($temp as $t) {
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red4'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red5'], $t);
 
-            $aft = $i == 4 ? 35 : $arr[$i + 1];
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red5'], $t);
 
-            for ($j = $pre; $j < $aft; $j++) {
-                if ($j != $arr[$i]) {
-                    $temp[] = [$key => $j] + $old;
-                }
-            }
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red5'], $t);
+
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red5'], $t);
         }
 
-        $data['data2'] = Dlt::where(function ($q) use ($temp) {
-            foreach ($temp as $item) {
+        $data['data2'] = Dlt::where(function ($q) use ($where) {
+            foreach ($where as $item) {
                 $q->orWhere(function ($q) use ($item) {
                     $q->where($item);
                 });
             }
         })->get();
 
+        $temp = [];
         foreach ($data['data2'] as $datum) {
-            $datum->append(['number_name', 'no_name']);
-        }
-
-        $temp = [];
-
-        for ($i = 0; $i < 4; $i++) {
-            $key1 = 'red' . ($i + 1);
-            $key2 = 'red' . ($i + 2);
-
-            $pre = ($i == 0 ? $arr[$i] : $arr[$i - 1]) + 1;
-
-            $aft = $i == 3 ? 35 : $arr[$i + 2];
-
-            for ($j = $pre; $j < $aft - 1; $j++) {
-                if ($j != $arr[$i] && $j != $arr[$i + 1]) {
-                    for ($z = $j + 1; $z < $aft; $z++) {
-                        if ($z != $arr[$i + 1]) {
-                            $temp[] = [$key1 => $j, $key2 => $z] + $old;
-                        }
-                    }
+            $add = true;
+            foreach ($data['data1'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
                 }
             }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
+        }
+        $data['data2'] = $temp;
+
+        $where = [];
+
+        $temp = combination($arr, 3);
+        foreach ($temp as $t) {
+            $where[] = array_combine(['red1', 'red2', 'red3'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red4'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red5'], $t);
+
+            $where[] = array_combine(['red1', 'red3', 'red4'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red4', 'red5'], $t);
+
+            $where[] = array_combine(['red2', 'red3', 'red4'], $t);
+            $where[] = array_combine(['red2', 'red3', 'red5'], $t);
+            $where[] = array_combine(['red2', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red3', 'red4', 'red5'], $t);
         }
 
-        $data['data3'] = Dlt::where(function ($q) use ($temp) {
-            foreach ($temp as $item) {
+        $data['data3'] = Dlt::where(function ($q) use ($where) {
+            foreach ($where as $item) {
                 $q->orWhere(function ($q) use ($item) {
                     $q->where($item);
                 });
             }
         })->get();
 
+        $temp = [];
         foreach ($data['data3'] as $datum) {
-            $datum->append(['number_name', 'no_name']);
+            $add = true;
+            foreach ($data['data1'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
+                }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
+        }
+
+        $data['data3'] = [];
+        foreach ($temp as $datum) {
+            $add = true;
+            foreach ($data['data2'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
+                }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $data['data3'][] = $datum;
+            }
         }
 
         return view('mobile.dltfx', $data + ['kw' => $arr]);

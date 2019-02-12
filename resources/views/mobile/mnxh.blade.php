@@ -340,14 +340,42 @@
                     return [];
                 },
                 copyText() {
-                    var red = JSON.parse(JSON.stringify(this.reds_p)).sort().join(' ');
-                    var blue = JSON.parse(JSON.stringify(this.blues_p)).sort().join(' ');
+                    var red = '';
+                    var hasreddan = false;
+                    if (this.red_dans().length > 0) {
+                        hasreddan = true;
+                        red = '红胆 : ' + JSON.parse(JSON.stringify(this.red_dans())).sort().join(' ') + "\r\n" + '红拖 : ' + JSON.parse(JSON.stringify(this.red_tuos())).sort().join(' ') + "\r\n";
+                    } else {
+                        red = JSON.parse(JSON.stringify(this.reds_p)).sort().join(' ');
+                    }
+
+                    var blue = '';
+                    var hasbluedan = false;
+                    if (this.blue_dans().length > 0) {
+                        hasbluedan = true;
+                        blue = '蓝胆 : ' + JSON.parse(JSON.stringify(this.blue_dans())).sort().join(' ') + "\r\n" + '蓝拖 : ' + JSON.parse(JSON.stringify(this.blue_tuos())).sort().join(' ');
+                    } else {
+                        blue = JSON.parse(JSON.stringify(this.blues_p)).sort().join(' ');
+                    }
                     if (blue.length < 1) {
                         return red;
                     }
                     if (red.length < 1) {
                         return blue;
                     }
+
+                    if (hasreddan && !hasbluedan) {
+                        return red + '蓝球 : ' + blue;
+                    }
+
+                    if (!hasreddan && hasbluedan) {
+                        return '红球 : ' + red + "\r\n" + blue;
+                    }
+
+                    if (hasreddan && hasbluedan) {
+                        return red + blue;
+                    }
+
                     return red + ' + ' + blue;
                 },
                 cancopy() {

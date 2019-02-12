@@ -217,6 +217,20 @@
                         </div>
                     </a>
                 </li>
+
+                <li class="kind-list__item">
+                    <a href="{{ url('cp/xyc') }}">
+                        <div id="xyc" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
+                            <div class="weui-flex__item">
+                                <div class="index-title">
+                                    <span>许愿池</span>
+                                </div>
+                                <div class="index-content">一次就好</div>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </div>
+                    </a>
+                </li>
             </ul>
 
         </div>
@@ -229,7 +243,7 @@
             var o = {
                 "M+": date.getMonth() + 1, //月份
                 "d+": date.getDate(), //日
-                "h+": date.getHours() % 12 == 0 ? 12 : date.getHours() % 12, //小时
+                "h+": date.getHours() % 12 === 0 ? 12 : date.getHours() % 12, //小时
                 "H+": date.getHours(), //小时
                 "m+": date.getMinutes(), //分
                 "s+": date.getSeconds(), //秒

@@ -147,24 +147,25 @@ class SsqController extends Controller
 
         $data['data1'] = Ssq::where($old)->get();
 
-        $temp = [];
+        $where = [];
 
-        for ($i = 0; $i < 6; $i++) {
-            $key = 'red' . ($i + 1);
+        $temp = combination($arr, 5);
 
-            $pre = (($i == 0 || $i == 5) ? $arr[$i] : $arr[$i - 1]) + 1;
+        foreach ($temp as $t) {
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red4', 'red6'], $t);
 
-            $aft = $i == 5 ? 34 : $arr[$i + 1];
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red5', 'red6'], $t);
 
-            for ($j = $pre; $j < $aft; $j++) {
-                if ($j != $arr[$i]) {
-                    $temp[] = [$key => $j] + $old;
-                }
-            }
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red5', 'red6'], $t);
         }
 
-        $data['data2'] = Ssq::where(function ($q) use ($temp) {
-            foreach ($temp as $item) {
+        $data['data2'] = Ssq::where(function ($q) use ($where) {
+            foreach ($where as $item) {
                 $q->orWhere(function ($q) use ($item) {
                     $q->where($item);
                 });
@@ -172,33 +173,98 @@ class SsqController extends Controller
         })->get();
 
         $temp = [];
-
-        for ($i = 0; $i < 5; $i++) {
-            $key1 = 'red' . ($i + 1);
-            $key2 = 'red' . ($i + 2);
-
-            $pre = ($i == 0 ? $arr[$i] : $arr[$i - 1]) + 1;
-
-            $aft = $i == 4 ? 34 : $arr[$i + 2];
-
-            for ($j = $pre; $j < $aft - 1; $j++) {
-                if ($j != $arr[$i] && $j != $arr[$i + 1]) {
-                    for ($z = $j + 1; $z < $aft; $z++) {
-                        if ($z != $arr[$i + 1]) {
-                            $temp[] = [$key1 => $j, $key2 => $z] + $old;
-                        }
-                    }
+        foreach ($data['data2'] as $datum) {
+            $add = true;
+            foreach ($data['data1'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
                 }
             }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
+        }
+        $data['data2'] = $temp;
+
+        $temp = [];
+        foreach ($data['data2'] as $datum) {
+            $add = true;
+            foreach ($data['data1'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
+                }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
+        }
+        $data['data2'] = $temp;
+
+        $where = [];
+
+        $temp = combination($arr, 4);
+        foreach ($temp as $t) {
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red4'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red3', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red2', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red3', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red1', 'red4', 'red5', 'red6'], $t);
+
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red5'], $t);
+            $where[] = array_combine(['red2', 'red3', 'red4', 'red6'], $t);
+            $where[] = array_combine(['red2', 'red3', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red2', 'red4', 'red5', 'red6'], $t);
+            $where[] = array_combine(['red3', 'red4', 'red5', 'red6'], $t);
         }
 
-        $data['data3'] = Ssq::where(function ($q) use ($temp) {
-            foreach ($temp as $item) {
+        $data['data3'] = Ssq::where(function ($q) use ($where) {
+            foreach ($where as $item) {
                 $q->orWhere(function ($q) use ($item) {
                     $q->where($item);
                 });
             }
         })->get();
+
+        $temp = [];
+        foreach ($data['data3'] as $datum) {
+            $add = true;
+            foreach ($data['data1'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
+                }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $temp[] = $datum;
+            }
+        }
+
+        $data['data3'] = [];
+        foreach ($temp as $datum) {
+            $add = true;
+            foreach ($data['data2'] as $o) {
+                if ($o->no == $datum->no) {
+                    $add = false;
+                    break;
+                }
+            }
+            if ($add) {
+                $datum->append(['number_name', 'no_name']);
+                $data['data3'][] = $datum;
+            }
+        }
 
         return $this->json_ok($data);
     }

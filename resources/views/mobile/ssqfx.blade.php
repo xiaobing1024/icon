@@ -1,3 +1,5 @@
+@section('title', '双色球查询')
+
 @extends('mobile.layouts.app')
 
 @section('content')

@@ -1,3 +1,5 @@
+@section('title', '大乐透查询')
+
 @extends('mobile.layouts.app')
 
 @section('content')

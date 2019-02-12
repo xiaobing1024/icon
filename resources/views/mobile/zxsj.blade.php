@@ -1,3 +1,5 @@
+@section('title', '自选随机')
+
 @extends('mobile.layouts.app')
 
 @section('css')

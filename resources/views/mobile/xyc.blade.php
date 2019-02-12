@@ -1,3 +1,5 @@
+@section('title', '许愿池')
+
 @extends('mobile.layouts.app')
 
 @section('content')

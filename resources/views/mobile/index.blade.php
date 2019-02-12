@@ -55,6 +55,10 @@
             background-image: linear-gradient(135deg, #9f44d3 10%, #e2b0ff 100%);
         }
 
+        #xyc {
+            background-image: linear-gradient(135deg, #4e54c8 10%, #8f94fb 100%);
+        }
+
         .index-content {
             font-size: 15px;
             color: #fff
@@ -197,7 +201,7 @@
                                 <div class="index-title">
                                     <span>模拟选号</span>
                                 </div>
-                                <div class="index-content">计算购买成本</div>
+                                <div class="index-content">计算购买成本 查看所选号码的历史开奖情况</div>
                             </div>
                             <div class="weui-cell__ft"></div>
                         </div>
@@ -211,7 +215,7 @@
                                 <div class="index-title">
                                     <span>自选随机</span>
                                 </div>
-                                <div class="index-content">自定义随机范围</div>
+                                <div class="index-content">自定义随机范围 查看所选号码的历史开奖情况</div>
                             </div>
                             <div class="weui-cell__ft"></div>
                         </div>
@@ -225,7 +229,7 @@
                                 <div class="index-title">
                                     <span>许愿池</span>
                                 </div>
-                                <div class="index-content">一次就好</div>
+                                <div class="index-content">一次就好🙏</div>
                             </div>
                             <div class="weui-cell__ft"></div>
                         </div>

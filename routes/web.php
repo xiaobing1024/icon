@@ -25,6 +25,10 @@ Route::group(['namespace' => 'Mobile', 'prefix' => 'cp'], function () {
     Route::get('dlt', 'IndexController@dlt');
     Route::get('mnxh', 'IndexController@mnxh');
     Route::get('zxsj', 'IndexController@zxsj');
+    Route::get('xyc', 'IndexController@xyc');
+    Route::post('xyc', 'IndexController@xycCreate');
+    Route::get('xyc_list', 'IndexController@xycList');
+    Route::get('xyc_list_api', 'IndexController@xycListApi');
     Route::get('ssq_search', 'IndexController@ssqSearch');
     Route::get('dlt_search', 'IndexController@dltSearch');
 });

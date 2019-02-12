@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Dlt;
 use App\Http\Models\Ssq;
+use App\Http\Requests\Home\XycRequest;
+use App\Http\Models\Msg;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -289,5 +291,39 @@ class IndexController extends Controller
     public function zxsj()
     {
         return view('mobile.zxsj');
+    }
+
+    public function xyc()
+    {
+        return view('mobile.xyc');
+    }
+
+    public function xycCreate(XycRequest $request)
+    {
+        if (Msg::create($request->only(['name', 'msg']))) {
+            return redirect('cp/xyc_list');
+        }
+        return back()->withInput()->with('error', 1);
+    }
+
+    public function xycList()
+    {
+        $data = Msg::latest('updated_at')->take(21)->get();
+        return view('mobile.xyclist', compact('data'));
+    }
+
+    public function xycListApi()
+    {
+        $data = Msg::latest('updated_at')->simplePaginate(20);
+        return $this->json_ok($data);
+    }
+
+    public function json_ok($data)
+    {
+        return [
+            'code' => 1,
+            'msg' => '',
+            'data' => $data
+        ];
     }
 }

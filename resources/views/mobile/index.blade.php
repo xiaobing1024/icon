@@ -229,7 +229,7 @@
                                 <div class="index-title">
                                     <span>许愿池</span>
                                 </div>
-                                <div class="index-content">一次就好🙏</div>
+                                <div class="index-content">得偿所愿🙏一次就好</div>
                             </div>
                             <div class="weui-cell__ft"></div>
                         </div>

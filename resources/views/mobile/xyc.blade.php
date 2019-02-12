@@ -45,7 +45,7 @@
                         保存
                     </button>
                 </div>
-                <div style="text-align: center">
+                <div style="text-align: center;margin-bottom: 30px">
                     <a class="weui-btn weui-btn_mini weui-btn_warn" href="{{ url('cp/xyc_list') }}"
                        style='margin-top:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'>
                         所有愿望

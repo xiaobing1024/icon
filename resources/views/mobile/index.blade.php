@@ -70,7 +70,7 @@
     <div class="page" style="padding: 0 15px">
         <div class="page__bd page__bd_spacing">
 
-            <ul class="kind-list">
+            <ul class="kind-list" style="margin-bottom: 30px">
                 <li class="kind-list__item">
                     <div id="today" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
                         <div class="weui-flex__item">

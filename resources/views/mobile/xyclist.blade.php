@@ -8,7 +8,7 @@
                 <template  v-for="item in data" >
                     <div class="weui-cells__title">
                         @{{ item.name }}
-                        <span style="margin-left: 50px">@{{ item.updated_at }}</span>
+                        <span style="float:right;margin-left: 50px">@{{ item.updated_at }}</span>
                     </div>
 
                     {{--<div class="weui-cells">--}}

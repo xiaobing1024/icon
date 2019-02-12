@@ -65,7 +65,7 @@ class IndexController extends Controller
 
         $data = [];
 
-        $data['data1'] = Ssq::where($old)->get();
+        $data['data1'] = Ssq::where($old)->latest('no')->get();
 
         foreach ($data['data1'] as $datum) {
             $datum->append(['number_name', 'no_name']);
@@ -94,7 +94,7 @@ class IndexController extends Controller
                     $q->where($item);
                 });
             }
-        })->get();
+        })->latest('no')->get();
 
         $temp = [];
         foreach ($data['data2'] as $datum) {
@@ -142,7 +142,7 @@ class IndexController extends Controller
                     $q->where($item);
                 });
             }
-        })->get();
+        })->latest('no')->get();
 
         $temp = [];
         foreach ($data['data3'] as $datum) {
@@ -184,7 +184,7 @@ class IndexController extends Controller
 
         $data = [];
 
-        $data['data1'] = Dlt::where($old)->get();
+        $data['data1'] = Dlt::where($old)->latest('no')->get();
 
         foreach ($data['data1'] as $datum) {
             $datum->append(['number_name', 'no_name']);
@@ -211,7 +211,7 @@ class IndexController extends Controller
                     $q->where($item);
                 });
             }
-        })->get();
+        })->latest('no')->get();
 
         $temp = [];
         foreach ($data['data2'] as $datum) {
@@ -253,7 +253,7 @@ class IndexController extends Controller
                     $q->where($item);
                 });
             }
-        })->get();
+        })->latest('no')->get();
 
         $temp = [];
         foreach ($data['data3'] as $datum) {

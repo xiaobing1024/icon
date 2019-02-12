@@ -72,10 +72,7 @@ class Kernel extends ConsoleKernel
                 info('ssq------->' . $e->getMessage());
                 return false;
             }
-        })->name('ssq_new')
-            ->runInBackground()
-            ->withoutOverlapping()
-            ->dailyAt('21:35');
+        })->name('ssq_new')->dailyAt('21:35');
 
         $schedule->call(function () {
             try {
@@ -121,10 +118,7 @@ class Kernel extends ConsoleKernel
                 info('dlt------->' . $e->getMessage());
                 return false;
             }
-        })->name('dlt_new')
-            ->runInBackground()
-            ->withoutOverlapping()
-            ->dailyAt('20:55');
+        })->name('dlt_new')->dailyAt('20:55');
     }
 
     protected function commands()

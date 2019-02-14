@@ -281,7 +281,18 @@
                     return [1, 2, 3, 4, 5];
                 },
                 copyText() {
-                    return '';
+                    var r = JSON.parse(JSON.stringify(this.pick_red)).sort().join(' ');
+                    var b = JSON.parse(JSON.stringify(this.pick_blue)).sort().join(' ');
+
+                    if (b.length < 1) {
+                        return r;
+                    }
+
+                    if (r.length < 1) {
+                        return b;
+                    }
+
+                    return r + ' + ' + b;
                 },
                 cancopy() {
                     return {

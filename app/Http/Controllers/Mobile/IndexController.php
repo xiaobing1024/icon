@@ -31,7 +31,9 @@ class IndexController extends Controller
             $dlt->no
         ];
 
-        return view('mobile.index', compact('ssq', 'dlt'));
+        $msg = Msg::select('name', 'msg')->inRandomOrder()->take(20)->get();
+
+        return view('mobile.index', compact('ssq', 'dlt', 'msg'));
     }
 
     public function ssq()

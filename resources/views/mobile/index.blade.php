@@ -69,9 +69,13 @@
 @section('content')
     <div class="page" style="padding: 0 15px">
         <div class="page__bd page__bd_spacing">
-
-            <ul class="kind-list" style="margin-bottom: 30px">
-                <li class="kind-list__item">
+            <marquee>
+            @foreach($msg as $m)
+                <span style="font-size: 16px;margin-right: 150px">{{ $m->name.' : '.$m->msg }}</span>
+            @endforeach
+            </marquee>
+            <ul class="kind-list">
+                <li class="kind-list__item" style="margin:0">
                     <div id="today" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
                         <div class="weui-flex__item">
                             <div class="index-title">

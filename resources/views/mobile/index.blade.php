@@ -1,14 +1,14 @@
 @extends('mobile.layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css"/>
+    <link href="https://cdn.bootcss.com/Swiper/4.4.6/css/swiper.min.css" rel="stylesheet">
     <style>
         .swiper-container {
             height: 30px;  /*设置整个跑马灯高度*/
         }
-        .swiper-container div{
+        .swiper-container span{
             height: 100%;  /*与跑马灯高度保持一致*/
-            width: 600px;   /*防止尺寸变小时图片重叠*/
+            width: 100%;   /*防止尺寸变小时图片重叠*/
         }
         .kind-list__item {
             margin: 20px 0;
@@ -80,7 +80,7 @@
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     @foreach($msg as $m)
-                        <div class="swiper-slide" style="font-size: 16px;">{{ $m->name.' : '.$m->msg }}</div>
+                        <span class="swiper-slide" style="font-size: 16px;white-space: nowrap">{{ $m->name.' : '.$m->msg }}</span>
                     @endforeach
                 </div>
             </div>
@@ -331,7 +331,7 @@
         });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
+    <script src="https://cdn.bootcss.com/Swiper/4.4.6/js/swiper.min.js"></script>
     <script>
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,    //设置循环滚动
@@ -353,16 +353,16 @@
             //同时显示多少个图片
             slidesPerView: 1,
             loop : true,
-            spaceBetween: 30,   //两图片之间的空隙
+            spaceBetween: 200,   //两图片之间的空隙
             breakpoints: {   //设置浏览器不同尺寸时的显示方式
                 320: {
                     slidesPerView: 1,
-                    spaceBetween: 30
+                    spaceBetween: 200
                 },
                 //当宽度小于等于640
                 640: {
                     slidesPerView: 1,
-                    spaceBetween: 30
+                    spaceBetween: 200
                 }
             },
 

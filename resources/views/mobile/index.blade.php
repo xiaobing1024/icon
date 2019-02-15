@@ -1,7 +1,15 @@
 @extends('mobile.layouts.app')
 
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css"/>
     <style>
+        .swiper-container {
+            height: 30px;  /*设置整个跑马灯高度*/
+        }
+        .swiper-container div{
+            height: 100%;  /*与跑马灯高度保持一致*/
+            width: 100%;   /*防止尺寸变小时图片重叠*/
+        }
         .kind-list__item {
             margin: 20px 0;
             background-color: #fff;
@@ -69,11 +77,18 @@
 @section('content')
     <div class="page" style="padding: 0 15px">
         <div class="page__bd page__bd_spacing">
-            <marquee>
-            @foreach($msg as $m)
-                <span style="font-size: 16px;margin-right: 150px">{{ $m->name.' : '.$m->msg }}</span>
-            @endforeach
-            </marquee>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach($msg as $m)
+                        <div class="swiper-slide" style="font-size: 16px;">{{ $m->name.' : '.$m->msg }}</div>
+                    @endforeach
+                </div>
+            </div>
+            {{--<marquee>--}}
+            {{--@foreach($msg as $m)--}}
+                {{--<span style="font-size: 16px;margin-right: 150px">{{ $m->name.' : '.$m->msg }}</span>--}}
+            {{--@endforeach--}}
+            {{--</marquee>--}}
             <ul class="kind-list">
                 <li class="kind-list__item" style="margin:0">
                     <div id="today" class="weui-flex kind-list__item-hd weui-cell weui-cell_access">
@@ -314,6 +329,54 @@
                 }
             }
         });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
+    <script>
+        var mySwiper = new Swiper ('.swiper-container', {
+            loop: true,    //设置循环滚动
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            speed:2000,  //设置图片滚动速度
+
+            // 自动滚动，注意与上面的loop不一样，loop是指能否从最后位置滚动回第一的位置
+            autoplay:{
+                delay:1,   //每滚动一个图片后等待的时间，这里设置为1ms就是代表没有等待
+                //触摸后不会停止自动滚动
+                disableOnInteraction:false,
+            },
+
+
+            //同时显示多少个图片
+            slidesPerView: 2,
+            loop : true,
+            spaceBetween: 30,   //两图片之间的空隙
+            breakpoints: {   //设置浏览器不同尺寸时的显示方式
+                320: {
+                    slidesPerView: 2,
+                    spaceBetween: 10
+                },
+                //当宽度小于等于640
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                }
+            },
+
+        });
+        //因为这里需要用到mouseover事件，所以前面要引入jQuery库
+        $('.swiper-container').mouseover(function(){
+            mySwiper.autoplay.stop();   //鼠标悬停在跑马灯上时停止滚动
+        });
+        $('.swiper-container').mouseout(function(){
+            mySwiper.autoplay.start();
+        });
+        //swiper中设置了图片的滚动动画是ease-out，需要改成linear才有平稳滚动的效果
+        mySwiper.$wrapperEl.css({'-webkit-transition-timing-function': "linear","-moz-transition-timing-function": "linear","-ms-transition-timing-function": "linear","-o-transition-timing-function": "linear","transition-timing-function": "linear"});
+
     </script>
 @endsection
 

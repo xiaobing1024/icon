@@ -75,7 +75,7 @@
 @endsection
 
 @section('content')
-    <div class="page" style="padding: 0 15px">
+    <div class="page" style="padding-left:15px;padding-right:15px;padding-bottom:30px;">
         <div class="page__bd page__bd_spacing">
             <div class="swiper-container">
                 <div class="swiper-wrapper">

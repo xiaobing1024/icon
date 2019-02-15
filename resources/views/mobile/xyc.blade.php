@@ -3,7 +3,7 @@
 @extends('mobile.layouts.app')
 
 @section('content')
-    <div class="page" style="padding: 0 15px;margin-bottom: 30px;padding-bottom: 30px;">
+    <div class="page" style="padding-left:15px;padding-right:15px;padding-bottom:30px;">
         <div class="page__bd page__bd_spacing">
             <img src="https://s2.ax1x.com/2019/02/12/kdW1pT.jpg" style="width: 100%" alt="许愿池" title="许愿池" border="0"/>
 
@@ -51,7 +51,7 @@
                         查看所有愿望
                     </a>
                 </div>
-                <div style="text-align: center;margin-bottom: 30px">
+                <div style="text-align: center;">
                     <a class="weui-btn weui-btn_mini weui-btn_default" href="{{ url('cp') }}"
                        style='margin-top:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'>
                         回到首页

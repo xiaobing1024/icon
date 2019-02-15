@@ -200,7 +200,7 @@
                                     <div class="ball">
                                         {{ $dlt[0][4] }}
                                     </div>
-                                    <div class="ball">
+                                    <div class="ball blue-ball">
                                         {{ $dlt[0][5] }}
                                     </div>
                                     <div class="ball blue-ball">
@@ -340,7 +340,7 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            speed:5000,  //设置图片滚动速度
+            speed:10000,  //设置图片滚动速度
 
             // 自动滚动，注意与上面的loop不一样，loop是指能否从最后位置滚动回第一的位置
             autoplay:{

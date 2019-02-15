@@ -8,7 +8,7 @@
         }
         .swiper-container div{
             height: 100%;  /*与跑马灯高度保持一致*/
-            width: 100%;   /*防止尺寸变小时图片重叠*/
+            width: 600px;   /*防止尺寸变小时图片重叠*/
         }
         .kind-list__item {
             margin: 20px 0;
@@ -340,7 +340,7 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            speed:2000,  //设置图片滚动速度
+            speed:5000,  //设置图片滚动速度
 
             // 自动滚动，注意与上面的loop不一样，loop是指能否从最后位置滚动回第一的位置
             autoplay:{
@@ -351,18 +351,18 @@
 
 
             //同时显示多少个图片
-            slidesPerView: 2,
+            slidesPerView: 1,
             loop : true,
             spaceBetween: 30,   //两图片之间的空隙
             breakpoints: {   //设置浏览器不同尺寸时的显示方式
                 320: {
-                    slidesPerView: 2,
-                    spaceBetween: 10
+                    slidesPerView: 1,
+                    spaceBetween: 30
                 },
                 //当宽度小于等于640
                 640: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
+                    slidesPerView: 1,
+                    spaceBetween: 30
                 }
             },
 

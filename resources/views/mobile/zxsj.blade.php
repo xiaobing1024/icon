@@ -179,7 +179,7 @@
                 </button>
             </div>
             {{--<div>取 <input type="number" min="1" max="35" v-model="pick_count"/> 个</div>--}}
-            <div>取<select v-model="pick_count">
+            <div><select v-model="pick_count">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -189,7 +189,7 @@
                     <option value="7">7</option>
                     <option value="8">8</option>
                     <option value="9">9</option>
-                </select>个</div>
+                </select></div>
             <div>
             <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
                     style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"

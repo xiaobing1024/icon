@@ -189,7 +189,7 @@
                     <option value="7">7</option>
                     <option value="8">8</option>
                     <option value="9">9</option>
-                </select></div>
+                </select>个</div>
             <div>
             <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
                     style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"

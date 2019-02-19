@@ -174,12 +174,12 @@
             </div>
             <div>
                 <button class="weui-btn weui-btn_mini weui-btn_warn"
-                        style='margin-left:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
+                        style='color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
                         v-on:click="pickall">全选
                 </button>
             </div>
             {{--<div>取 <input type="number" min="1" max="35" v-model="pick_count"/> 个</div>--}}
-            <div><select v-model="pick_count">
+            <div>取<select v-model="pick_count">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

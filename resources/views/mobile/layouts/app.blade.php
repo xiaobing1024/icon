@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/cpall.css') }}">
+    {{--<link href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css" rel="stylesheet">--}}
+    {{--<link href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css" rel="stylesheet">--}}
     <style>
         body, html {
             height: 100%;
@@ -42,13 +44,13 @@
 <body ontouchstart>
 
 @yield('content')
-
-<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
-<script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>
-<script src="https://cdn.bootcss.com/collect.js/4.6.1/collect.min.js"></script>
-<script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
+<script src="{{ asset('js/cpall.js') }}"></script>
+{{--<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/collect.js/4.6.1/collect.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>--}}
 
 <script>
     var ssq_red = [

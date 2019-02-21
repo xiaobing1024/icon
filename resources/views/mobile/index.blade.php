@@ -1,7 +1,6 @@
 @extends('mobile.layouts.app')
 
 @section('css')
-    <link href="https://cdn.bootcss.com/Swiper/4.4.6/css/swiper.min.css" rel="stylesheet">
     <style>
         .swiper-container {
             height: 30px;  /*设置整个跑马灯高度*/
@@ -331,7 +330,6 @@
         });
     </script>
 
-    <script src="https://cdn.bootcss.com/Swiper/4.4.6/js/swiper.min.js"></script>
     <script>
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,    //设置循环滚动

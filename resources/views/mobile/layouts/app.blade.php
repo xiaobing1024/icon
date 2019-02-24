@@ -68,12 +68,12 @@
         // FastClick.attach(document.body);
     });
 
-    function random_num(type = 0, arr = []) {
+    function random_num(type,arr) {
         var data = collect([]);
         if (arr.length < 1) {
-            data = collect(type == 0 ? ssq_red : dlt_red).random(type == 0 ? 6 : 5).sort();
+            data = collect(type === 0 ? ssq_red : dlt_red).random(type === 0 ? 6 : 5).sort();
 
-            data = data.concat(collect(type == 0 ? ssq_blue : dlt_blue).random(type == 0 ? 1 : 2).sort());
+            data = data.concat(collect(type === 0 ? ssq_blue : dlt_blue).random(type === 0 ? 1 : 2).sort());
         } else {
             arr.forEach(function (value, index, array) {
                 data = data.concat(collect(value[0]).random(value[1])).sort();

@@ -94,9 +94,9 @@
                     v-on:click="typeChange">切换
             </button>
             <span style='color:#fff;line-height:29px;' v-cloak>@{{ t }}</span>
-            <button id="copy" class="weui-btn weui-btn_mini weui-btn_warn" v-bind:class="cancopy"
-                    style='margin-right:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
-                    v-bind:data-clipboard-text="copyText">复制
+            <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
+                    style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"
+                    @click="clean">清空
             </button>
         </div>
 
@@ -170,9 +170,9 @@
                 <span class="zhu" v-cloak>共 @{{ all.length }} 注</span>
                 <span class="yuan" v-cloak>@{{ all.length * 2 }} 元</span>
             </div>
-            <button id="copy" class="weui-btn weui-btn_mini weui-btn_default"
-                    style="margin-right:15px;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);"
-                    @click="clean">清空
+            <button id="copy" class="weui-btn weui-btn_mini weui-btn_warn" v-bind:class="cancopy"
+                    style='margin-right:15px;color:#fff;box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);'
+                    v-bind:data-clipboard-text="copyText">复制
             </button>
         </div>
     </div>
@@ -192,7 +192,7 @@
             });
         });
 
-        function nums(c, checked = []) {
+        function nums(c, checked) {
             var arr = [];
             for (var i = 1; i <= c; i++) {
                 var t = i < 10 ? '0' + i : String(i);
@@ -214,7 +214,7 @@
             return num;
         }
 
-        function allzhu(arr, end = 6) {
+        function allzhu(arr, end) {
             var temp = [];
             if (end === 1) {
                 for (var k in arr) {
@@ -244,11 +244,11 @@
             el: '.page',
             data: {
                 type: true,
-                reds: nums(33),
+                reds: nums(33,[]),
                 reds_p: [],
                 red_line: [1, 2, 3, 4, 5],
                 line_count: [1, 2, 3, 4, 5, 6, 7],
-                blues: nums(16),
+                blues: nums(16,[]),
                 blues_p: [],
             },
             created: function () {
@@ -269,7 +269,7 @@
                 }
             },
             computed: {
-                all() {
+                all:function() {
                     var red_count = this.type ? 6 : 5;
                     var blue_count = this.type ? 1 : 2;
 
@@ -341,7 +341,7 @@
 
                     return [];
                 },
-                copyText() {
+                copyText:function() {
                     var red = '';
                     var hasreddan = false;
                     if (this.red_dans().length > 0) {
@@ -380,27 +380,27 @@
 
                     return red + ' + ' + blue;
                 },
-                cancopy() {
+                cancopy:function() {
                     return {
                         'weui-btn_disabled': (this.reds_p.length < 1 && this.blues_p.length < 1)
                     };
                 },
-                t() {
+                t:function() {
                     return this.type ? '双色球' : '大乐透';
                 },
-                blue_line() {
+                blue_line:function() {
                     return this.type ? [1, 2, 3] : [1, 2];
                 }
             },
             methods: {
-                savelocal() {
+                savelocal:function() {
                     sessionStorage.mnxh_type=JSON.stringify(this.type);
                     sessionStorage.mnxh_reds_p=JSON.stringify(this.reds_p);
                     sessionStorage.mnxh_blues_p=JSON.stringify(this.blues_p);
                     sessionStorage.mnxh_reds=JSON.stringify(this.reds);
                     sessionStorage.mnxh_blues=JSON.stringify(this.blues);
                 },
-                red_dans() {
+                red_dans:function() {
                     var red_dan = [];
                     var rs = JSON.parse(JSON.stringify(this.reds));
                     for (var a in rs) {
@@ -410,7 +410,7 @@
                     }
                     return red_dan;
                 },
-                red_tuos() {
+                red_tuos:function() {
                     var red_tuo = [];
                     for (var a in this.reds) {
                         if (this.reds[a].checked && this.reds[a].count % 3 === 1) {
@@ -419,7 +419,7 @@
                     }
                     return red_tuo;
                 },
-                blue_dans() {
+                blue_dans:function() {
                     var blue_dan = [];
                     var bs = JSON.parse(JSON.stringify(this.blues));
                     for (var a in bs) {
@@ -429,7 +429,7 @@
                     }
                     return blue_dan;
                 },
-                blue_tuos() {
+                blue_tuos:function() {
                     var blue_tuo = [];
                     for (var a in this.blues) {
                         if (this.type) {
@@ -444,12 +444,12 @@
                     }
                     return blue_tuo;
                 },
-                typeChange() {
+                typeChange:function() {
                     this.type = !this.type;
 
                     this.blues = nums(this.type ? 16 : 12, this.blues_p);
                 },
-                redChange(e) {
+                redChange:function(e) {
                     if (this.reds_p.length > 20) {
                         this.reds_p.splice(2, 1);
                         $.toast('只能选择20个红球', 'text');
@@ -472,7 +472,7 @@
                         this.reds[e].checked = !this.reds[e].checked;
                     }
                 },
-                blueChange(e) {
+                blueChange:function(e) {
                     var danl = this.blue_dans().length;
                     if (danl > 0) {
                         this.blues[e].count = this.blues[e].checked ? 0 : 1;
@@ -490,11 +490,11 @@
                         this.blues[e].checked = !this.blues[e].checked;
                     }
                 },
-                clean() {
+                clean:function() {
                     this.reds_p = [];
                     this.blues_p = [];
-                    this.reds = nums(this.type ? 33 : 35);
-                    this.blues = nums(this.type ? 16 : 12);
+                    this.reds = nums(this.type ? 33 : 35,[]);
+                    this.blues = nums(this.type ? 16 : 12,[]);
                 }
             },
             watch: {

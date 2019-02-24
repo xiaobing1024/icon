@@ -27,7 +27,7 @@ let mix = require('laravel-mix');
 //     mix.version()
 // }
 
-mix.scripts([
+mix.babel([
         'public/js/jquery.min.js',
         'public/js/fastclick.min.js',
         'public/js/jquery-weui.min.js',

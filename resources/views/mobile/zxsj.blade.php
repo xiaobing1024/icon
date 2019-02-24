@@ -217,7 +217,7 @@
     </script>
 
     <script>
-        function nums(c, checked = []) {
+        function nums(c, checked) {
             var arr = [];
             for (var i = 1; i <= c; i++) {
                 var t = i < 10 ? '0' + i : String(i);
@@ -231,7 +231,7 @@
             return arr;
         }
 
-        function allzhu(arr, end = 6) {
+        function allzhu(arr, end) {
             var temp = [];
             if (end === 1) {
                 for (var k in arr) {
@@ -272,18 +272,18 @@
                 ball_type: true,
                 pick_red: [],
                 pick_blue: [],
-                balls: nums(33),
+                balls: nums(33,[]),
                 line_count: [1, 2, 3, 4, 5, 6, 7],
                 pick_count: 1
             },
             computed: {
-                t() {
+                t:function() {
                     return this.type ? '双色球' : '大乐透';
                 },
-                b() {
+                b:function() {
                     return this.ball_type ? '切蓝球' : '切红球';
                 },
-                line() {
+                line:function() {
                     if (!this.type && !this.ball_type) {
                         return [1, 2];
                     } else if (this.type && !this.ball_type) {
@@ -291,7 +291,7 @@
                     }
                     return [1, 2, 3, 4, 5];
                 },
-                copyText() {
+                copyText:function() {
                     var r = JSON.parse(JSON.stringify(this.pick_red)).sort().join(' ');
                     var b = JSON.parse(JSON.stringify(this.pick_blue)).sort().join(' ');
 
@@ -305,12 +305,12 @@
 
                     return r + ' + ' + b;
                 },
-                cancopy() {
+                cancopy:function() {
                     return {
                         'weui-btn_disabled': (this.pick_ball.length < 1)
                     };
                 },
-                pick_ball() {
+                pick_ball:function() {
                     var arr = [];
                     for (var a in this.pick_red) {
                         arr.push({
@@ -326,21 +326,21 @@
                     }
                     return arr;
                 },
-                pick_line() {
+                pick_line:function() {
                     var arr = [];
                     for (var i = 0, j = Math.floor(this.pick_ball.length / 7) + 1; i < j; i++) {
                         arr.push(i + 1);
                     }
                     return arr;
                 },
-                all() {
+                all:function() {
                     var red_count = this.type ? 6 : 5;
                     var blue_count = this.type ? 1 : 2;
 
                     if (this.pick_red.length >= red_count && this.pick_blue.length >= blue_count) {
                         var ky = JSON.parse(JSON.stringify(this.pick_red)).sort().join(',');
                         var v = JSON.parse(JSON.stringify(this.pick_red)).sort();
-                        var red_temp = collect(allzhu({ky:v})).values().toArray().reverse();
+                        var red_temp = collect(allzhu({ky:v},6)).values().toArray().reverse();
 
                         var blue_temp = [];
                         if (this.type) {
@@ -373,21 +373,21 @@
                 },
             },
             methods: {
-                savelocal() {
+                savelocal:function() {
                     sessionStorage.zxsj_pick_red=JSON.stringify(this.pick_red);
                     sessionStorage.zxsj_pick_blue=JSON.stringify(this.pick_blue);
                 },
-                typeChange() {
+                typeChange:function() {
                     this.type = !this.type;
 
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12));
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
                 },
-                changeBallType() {
+                changeBallType:function() {
                     this.ball_type = !this.ball_type;
 
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12));
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
                 },
-                gorandom() {
+                gorandom:function() {
                     if (this.pick_count < 1) {
                         $.toast('最少取一个', 'text');
                         return;
@@ -413,17 +413,17 @@
                         }
                     }
                 },
-                deletepick(i) {
+                deletepick:function(i) {
                     if (this.pick_ball[i].type) {
                         this.pick_red.splice(this.pick_red.indexOf(this.pick_ball[i].name), 1);
                     } else {
                         this.pick_blue.splice(this.pick_blue.indexOf(this.pick_ball[i].name), 1);
                     }
                 },
-                clean() {
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12));
+                clean:function() {
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
                 },
-                pickall() {
+                pickall:function() {
                     for (var a in this.balls) {
                         this.balls[a].checked = true;
                     }

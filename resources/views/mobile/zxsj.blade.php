@@ -380,12 +380,12 @@
                 typeChange:function() {
                     this.type = !this.type;
 
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12),[]);
                 },
                 changeBallType:function() {
                     this.ball_type = !this.ball_type;
 
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12),[]);
                 },
                 gorandom:function() {
                     if (this.pick_count < 1) {
@@ -421,7 +421,7 @@
                     }
                 },
                 clean:function() {
-                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16,[]) : (this.ball_type ? 35 : 12));
+                    this.balls = nums(this.type ? (this.ball_type ? 33 : 16) : (this.ball_type ? 35 : 12),[]);
                 },
                 pickall:function() {
                     for (var a in this.balls) {

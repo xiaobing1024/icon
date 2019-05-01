@@ -32,9 +32,9 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 @yield('title')
     <!-- Styles -->
-    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         html {
             position: relative;
@@ -79,15 +79,15 @@
                     <li class="nav-item {{ request()->is('*font') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('font') }}">文字图标</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="visibility: hidden">
                         <a class="nav-link" href="{{ url('cp') }}">caipiaozhushou</a>
                     </li>
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="http://www.xintaikeji.cn/" target="_blank">鑫泰科技</a>
-                    </li>
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="https://www.haoyangmaob.com/" target="_blank">薅羊毛吧</a>
-                    </li>
+                    {{--<li class="nav-item" style="visibility: hidden">--}}
+                        {{--<a class="nav-link" href="http://www.xintaikeji.cn/" target="_blank">鑫泰科技</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item" style="visibility: hidden">--}}
+                        {{--<a class="nav-link" href="https://www.haoyangmaob.com/" target="_blank">薅羊毛吧</a>--}}
+                    {{--</li>--}}
                 </ul>
             </div>
             </div>
@@ -119,11 +119,11 @@
         </footer>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.5.15/vue.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://lib.baomitu.com/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://lib.baomitu.com/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://lib.baomitu.com/vue/2.5.15/vue.min.js"></script>
 
     @yield('js')
 </body>

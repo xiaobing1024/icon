@@ -16,12 +16,12 @@ class IndexController extends Controller
     public function index()
     {
         $key = 'icon_type_list_json';
-        if (!cache()->has($key)) {
-            $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name')->get()->toArray();
+//        if (!cache()->has($key)) {
+            $types = Type::where('pid', 1)->orderBy('order')->select('id', 'name', 'icon')->get()->toArray();
             cache()->forever($key, $types);
-        } else {
-            $types = cache($key);
-        }
+//        } else {
+//            $types = cache($key);
+//        }
         return view('home.index', compact('types'));
     }
 

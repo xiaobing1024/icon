@@ -26,9 +26,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('meta')
-    @if (!empty(cache_map('baidu-site-verification', '')))
-        <meta name="baidu-site-verification" content="{{ cache_map('baidu-site-verification', '') }}" />
-    @endif
+{{--    @if (!empty(cache_map('baidu-site-verification', '')))--}}
+        <meta name="baidu-site-verification" content="oGsJxDX1Zh" />
+    {{--@endif--}}
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 @yield('title')
     <!-- Styles -->
@@ -57,7 +57,7 @@
     </style>
     @yield('css')
 
-    <script>{!! cache_map('baidu_code', '') !!}</script>
+    <script>var _hmt=_hmt || [];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?a532db83c8fe9adc4e6098715809c36c";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
 </head>
 <body>
     <div id="app">

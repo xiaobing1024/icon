@@ -14,6 +14,7 @@ class IndexController extends Controller
 {
     public function index()
     {
+        return abort(404);
         $ssq = Ssq::latest('no')->select('day', 'number', 'no')->first();
         $dlt = Dlt::latest('no')->select('day', 'number', 'no')->first();
 
@@ -56,6 +57,7 @@ class IndexController extends Controller
 
     public function mnxh()
     {
+        return abort(404);
         return view('mobile.mnxh');
     }
 

@@ -57,7 +57,7 @@ class IndexController extends Controller
 
     public function mnxh()
     {
-        return abort(404);
+        // return abort(404);
         return view('mobile.mnxh');
     }
 

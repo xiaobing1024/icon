@@ -25,51 +25,53 @@ class DltController extends Controller
 
     public function all(Request $request)
     {
+        dd(2);
         //20页10秒
-//        for ($idx = $request->s; $idx >= $request->e; $idx--) {
-//            try {
-//                DB::beginTransaction();
-//                $response = Zttp::get('http://www.lottery.gov.cn/historykj/history_' . $idx . '.jspx?_ltype=dlt');
-//
-//                $body = $response->body();
-//
-//                $crawler = new Crawler();
-//
-//                $crawler->addHtmlContent(trim($body));
-//
-//                $now = now()->toDateTimeString();
-//
-//                $data = $crawler->filterXPath('html/body/div[3]/div[2]/div[2]/table/tbody/tr')->each(function (Crawler $node, $i) use ($now) {
-//                    $temp = [];
-//
-//                    $temp['day'] = $node->filterXPath('//td[20]')->text();
-//                    $temp['no'] = $node->filterXPath('//td[1]')->text();
-//                    $temp['red1'] = $node->filterXPath('//td[2]')->text();
-//                    $temp['red2'] = $node->filterXPath('//td[3]')->text();
-//                    $temp['red3'] = $node->filterXPath('//td[4]')->text();
-//                    $temp['red4'] = $node->filterXPath('//td[5]')->text();
-//                    $temp['red5'] = $node->filterXPath('//td[6]')->text();
-//                    $temp['blue1'] = $node->filterXPath('//td[7]')->text();
-//                    $temp['blue2'] = $node->filterXPath('//td[8]')->text();
-//
-//                    $temp['number'] = $temp['red1'] . $temp['red2'] . $temp['red3'] . $temp['red4'] . $temp['red5'] . $temp['blue1'] . $temp['blue2'];
-//
-//                    $temp['created_at'] = $now;
-//                    $temp['updated_at'] = $now;
-//
-//                    return $temp;
-//                });
-//
-//                Dlt::insert(array_reverse($data));
-//
-//                DB::commit();
-//                dump('ok' . $now . '--------' . $idx);
-//            } catch (\Exception $e) {
-//                DB::rollBack();
-//                $now = now()->toDateTimeString();
-//                dd('error' . $now . $e->getMessage() . '--------' . $idx);
-//            }
-//        }
+        for ($idx = $request->s; $idx >= $request->e; $idx--) {
+            try {
+                DB::beginTransaction();
+                $response = Zttp::get('http://www.lottery.gov.cn/historykj/history_' . $idx . '.jspx?_ltype=dlt');
+
+                $body = $response->body();
+
+                $crawler = new Crawler();
+
+                $crawler->addHtmlContent(trim($body));
+
+                $now = now()->toDateTimeString();
+
+                $data = $crawler->filterXPath('html/body/div[3]/div[2]/div[2]/table/tbody/tr')->each(function (Crawler $node, $i) use ($now) {
+                    $temp = [];
+
+                    $temp['day'] = $node->filterXPath('//td[20]')->text();
+                    $temp['no'] = $node->filterXPath('//td[1]')->text();
+                    $temp['red1'] = $node->filterXPath('//td[2]')->text();
+                    $temp['red2'] = $node->filterXPath('//td[3]')->text();
+                    $temp['red3'] = $node->filterXPath('//td[4]')->text();
+                    $temp['red4'] = $node->filterXPath('//td[5]')->text();
+                    $temp['red5'] = $node->filterXPath('//td[6]')->text();
+                    $temp['blue1'] = $node->filterXPath('//td[7]')->text();
+                    $temp['blue2'] = $node->filterXPath('//td[8]')->text();
+
+                    $temp['number'] = $temp['red1'] . $temp['red2'] . $temp['red3'] . $temp['red4'] . $temp['red5'] . $temp['blue1'] . $temp['blue2'];
+
+                    $temp['created_at'] = $now;
+                    $temp['updated_at'] = $now;
+
+                    return $temp;
+                });
+
+                Dlt::insert(array_reverse($data));
+
+                DB::commit();
+                dump('ok' . $now . '--------' . $idx);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $now = now()->toDateTimeString();
+                dd('error' . $now . $e->getMessage() . '--------' . $idx);
+            }
+        }
+        dd(1);
     }
 
     public function new(Request $request)

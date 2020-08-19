@@ -13,12 +13,9 @@ class DltController extends Controller
 {
     public function index()
     {
-        $data = Dlt::latest('no')->select('day', 'no', 'number')->simplePaginate(20);
+        $data = Dlt::latest('no')->select('day', 'no', 'number', 'red1', 'red2', 'red3', 'red4', 'red5', 'blue1', 'blue2')->first();
 
-        foreach ($data as $datum) {
-            $datum->append(['number_name', 'no_name']);
-        }
-
+        dd("$data->day -- $data->red1,$data->red2,$data->red3,$data->red4,$data->red5,$data->blue1,$data->blue2");
         return $this->json_ok($data);
     }
 
@@ -228,6 +225,23 @@ class DltController extends Controller
                 $data['data3'][] = $datum;
             }
         }
+        foreach ($data as $k => $datum) {
+            $c = ['data1' => 5, 'data2' => 4, 'data3' => 3][$k];
+            $a = array_reverse(is_array($datum) ? $datum : $datum->toArray());
+            foreach ($a as $v) {
+                $t = [];
+                foreach ($old as $key => $vv) {
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($vv == $v["red$i"]) {
+                            $t[] = $vv;
+                        }
+                    }
+                }
+                $t = implode(',', $t);
+                dump($v['day'] . ' -- ' . $v['red1'] . ',' . $v['red2'] . ',' . $v['red3'] . ',' . $v['red4'] . ',' . $v['red5'] . ',' . $v['blue1'] . ',' . $v['blue2'] . ' -- ' . $t . ' -- ' . $c);
+            }
+        }
+        dd(1);
 
         return $this->json_ok($data);
     }
@@ -248,6 +262,7 @@ class DltController extends Controller
             }
         }
 
+        dd(implode(',', $data));
         return $this->json_ok($data);
     }
 
@@ -255,7 +270,7 @@ class DltController extends Controller
     {
         return [
             'code' => 1,
-            'msg'  => '',
+            'msg' => '',
             'data' => $data
         ];
     }

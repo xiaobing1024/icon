@@ -36,11 +36,12 @@ class SsqController extends Controller
 
     public function index()
     {
-        $data = Ssq::latest('no')->select('day', 'no', 'number')->simplePaginate(20);
-        foreach ($data as $datum) {
-            $datum->append(['number_name', 'no_name']);
-        }
-        return $this->json_ok($data);
+        $data = Ssq::latest('no')->select('day', 'no', 'number', 'red1', 'red2', 'red3', 'red4', 'red5', 'red6', 'blue')->first();
+        dd("$data->day -- $data->red1,$data->red2,$data->red3,$data->red4,$data->red5,$data->red6,$data->blue");
+//        foreach ($data as $datum) {
+//            $datum->append(['number_name', 'no_name']);
+//        }
+//        return $this->json_ok($data);
     }
 
     public function all(Request $request)
@@ -268,6 +269,23 @@ class SsqController extends Controller
                 $data['data3'][] = $datum;
             }
         }
+        foreach ($data as $k => $datum) {
+            $c = ['data1' => 6, 'data2' => 5, 'data3' => 4][$k];
+            $a = array_reverse(is_array($datum) ? $datum : $datum->toArray());
+            foreach ($a as $v) {
+                $t = [];
+                foreach ($old as $key => $vv) {
+                    for ($i = 1; $i <= 6; $i++) {
+                        if ($vv == $v->{"red$i"}) {
+                            $t[] = $vv;
+                        }
+                    }
+                }
+                $t = implode(',', $t);
+                dump("$v->day -- $v->red1,$v->red2,$v->red3,$v->red4,$v->red5,$v->red6,$v->blue -- $t -- $c");
+            }
+        }
+        dd(1);
 
         return $this->json_ok($data);
     }
@@ -288,6 +306,7 @@ class SsqController extends Controller
             }
         }
 
+        dd(implode(',', $data));
         return $this->json_ok($data);
     }
 
